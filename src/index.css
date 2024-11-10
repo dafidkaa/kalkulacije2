@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    @apply antialiased text-gray-900 text-base;
+  }
+
+  input[type="number"] {
+    @apply block w-full rounded-lg border-gray-300 shadow-sm
+           focus:border-blue-500 focus:ring-blue-500 font-normal;
+  }
+}
+
+@layer components {
+  .input-group {
+    @apply space-y-2;
+  }
+
+  .input-label {
+    @apply block text-base font-medium text-gray-700;
+  }
+}
