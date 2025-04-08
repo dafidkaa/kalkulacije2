@@ -1,9 +1,7 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { WebsiteSchema, OrganizationSchema } from '../components/SchemaMarkup';
-import { Preload } from '../components/Preload';
-import { LazyLoad } from '../components/LazyLoad';
 import {
   Calculator,
   Scale,
@@ -83,17 +81,8 @@ const calculators = [
 ];
 
 export function HomePage() {
-  // Preload important pages
-  const preloadModules = [
-    () => import('./SalaryCalculator').then(module => ({ default: module.SalaryCalculator })),
-    () => import('./AreaCalculator').then(module => ({ default: module.AreaCalculator })),
-    () => import('./TemperatureConverter').then(module => ({ default: module.TemperatureConverter })),
-    () => import('./DateCalculator').then(module => ({ default: module.DateCalculator }))
-  ];
-
   return (
     <div className="min-h-screen">
-      <Preload modules={preloadModules} />
       <Helmet>
         <title>Online Kalkulatori | Besplatni Kalkulatori za Svakodnevne Potrebe</title>
         <meta
@@ -221,53 +210,45 @@ export function HomePage() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <LazyLoad height="200px">
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Kalkulator Plaće</h3>
-                <p className="text-gray-600 mb-4">
-                  Precizno izračunajte neto plaću iz bruto iznosa ili obrnuto. Uključuje sve poreze, prireze i doprinose prema hrvatskim zakonima.
-                </p>
-                <Link to="/kalkulator-place" className="text-blue-600 hover:text-blue-800 font-medium">
-                  Izračunaj plaću &rarr;
-                </Link>
-              </div>
-            </LazyLoad>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Kalkulator Plaće</h3>
+              <p className="text-gray-600 mb-4">
+                Precizno izračunajte neto plaću iz bruto iznosa ili obrnuto. Uključuje sve poreze, prireze i doprinose prema hrvatskim zakonima.
+              </p>
+              <Link to="/kalkulator-place" className="text-blue-600 hover:text-blue-800 font-medium">
+                Izračunaj plaću &rarr;
+              </Link>
+            </div>
 
-            <LazyLoad height="200px">
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Kalkulator Površine</h3>
-                <p className="text-gray-600 mb-4">
-                  Izračunajte površinu različitih geometrijskih oblika, zemljišta, prostorija i krovova. Uključuje pretvarač jedinica površine.
-                </p>
-                <Link to="/kalkulator-povrsine" className="text-teal-600 hover:text-teal-800 font-medium">
-                  Izračunaj površinu &rarr;
-                </Link>
-              </div>
-            </LazyLoad>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Kalkulator Površine</h3>
+              <p className="text-gray-600 mb-4">
+                Izračunajte površinu različitih geometrijskih oblika, zemljišta, prostorija i krovova. Uključuje pretvarač jedinica površine.
+              </p>
+              <Link to="/kalkulator-povrsine" className="text-teal-600 hover:text-teal-800 font-medium">
+                Izračunaj površinu &rarr;
+              </Link>
+            </div>
 
-            <LazyLoad height="200px">
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Pretvarač Temperature</h3>
-                <p className="text-gray-600 mb-4">
-                  Pretvorite temperature između Celzija, Fahrenheita, Kelvina i drugih jedinica. Uključuje referentne točke i praktične alate.
-                </p>
-                <Link to="/pretvarac-temperature" className="text-pink-600 hover:text-pink-800 font-medium">
-                  Pretvori temperaturu &rarr;
-                </Link>
-              </div>
-            </LazyLoad>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Pretvarač Temperature</h3>
+              <p className="text-gray-600 mb-4">
+                Pretvorite temperature između Celzija, Fahrenheita, Kelvina i drugih jedinica. Uključuje referentne točke i praktične alate.
+              </p>
+              <Link to="/pretvarac-temperature" className="text-pink-600 hover:text-pink-800 font-medium">
+                Pretvori temperaturu &rarr;
+              </Link>
+            </div>
 
-            <LazyLoad height="200px">
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Kalkulator Datuma</h3>
-                <p className="text-gray-600 mb-4">
-                  Izračunajte razliku između datuma, dodajte ili oduzmite dane, izračunajte radne dane i stvorite odbrojavanja do važnih događaja.
-                </p>
-                <Link to="/kalkulator-datuma" className="text-purple-600 hover:text-purple-800 font-medium">
-                  Izračunaj datume &rarr;
-                </Link>
-              </div>
-            </LazyLoad>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Kalkulator Datuma</h3>
+              <p className="text-gray-600 mb-4">
+                Izračunajte razliku između datuma, dodajte ili oduzmite dane, izračunajte radne dane i stvorite odbrojavanja do važnih događaja.
+              </p>
+              <Link to="/kalkulator-datuma" className="text-purple-600 hover:text-purple-800 font-medium">
+                Izračunaj datume &rarr;
+              </Link>
+            </div>
           </div>
         </div>
       </section>

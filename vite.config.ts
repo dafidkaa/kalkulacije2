@@ -33,6 +33,7 @@ export default defineConfig({
             './src/utils/unitConverter.ts',
           ],
         },
+        assetFileNames: 'assets/[name].[hash].[ext]',
       },
     },
     // Minify output
@@ -43,6 +44,8 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
+    // Ensure public directory is copied to dist
+    copyPublicDir: true,
   },
   // Optimize dependencies
   optimizeDeps: {
