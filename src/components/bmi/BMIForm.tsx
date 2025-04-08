@@ -23,22 +23,29 @@ export function BMIForm() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
 
-    // Calculate BMI on every change
-    const newResult = calculateBMI({
+    // Create the updated form data
+    const updatedFormData = {
       ...formData,
-      [name]: value,
-    });
-    setResult(newResult);
+      [name]: name === 'height' || name === 'weight' || name === 'age'
+        ? Math.max(1, Number(value)) // Ensure positive values for numeric fields
+        : value
+    };
+
+    setFormData(updatedFormData);
+
+    // Calculate BMI with the complete updated data
+    try {
+      const newResult = calculateBMI(updatedFormData);
+      setResult(newResult);
+    } catch (error) {
+      console.error('Error calculating BMI:', error);
+    }
   };
 
   const inputClasses = `
-    block w-full rounded-lg 
-    border-2 border-gray-200 
+    block w-full rounded-lg
+    border-2 border-gray-200
     focus:border-[#f17273] focus:ring-[#f17273]
     shadow-sm hover:border-gray-300
     text-base py-3 px-4
@@ -46,7 +53,7 @@ export function BMIForm() {
   `;
 
   const selectClasses = `
-    block w-full rounded-lg 
+    block w-full rounded-lg
     border-2 border-gray-200
     focus:border-[#f17273] focus:ring-[#f17273]
     shadow-sm hover:border-gray-300

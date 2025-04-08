@@ -7,9 +7,25 @@ interface TimeIntervalInputProps {
 export function TimeIntervalInput({ onCalculate }: TimeIntervalInputProps) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  const validateDates = () => {
+    if (!startDate || !endDate) return false;
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (end < start) {
+      setError('Završni datum mora biti nakon početnog datuma');
+      return false;
+    }
+
+    setError(null);
+    return true;
+  };
 
   const handleSubmit = () => {
-    if (startDate && endDate) {
+    if (startDate && endDate && validateDates()) {
       onCalculate(startDate, endDate);
     }
   };
@@ -46,10 +62,14 @@ export function TimeIntervalInput({ onCalculate }: TimeIntervalInputProps) {
         />
       </div>
 
+      {error && (
+        <div className="text-red-500 text-sm">{error}</div>
+      )}
+
       <button
         onClick={handleSubmit}
         disabled={!startDate || !endDate}
-        className="w-full px-6 py-3 text-sm font-medium text-white 
+        className="w-full px-6 py-3 text-sm font-medium text-white
                  bg-indigo-600 rounded-lg hover:bg-indigo-700
                  disabled:opacity-50 disabled:cursor-not-allowed"
       >

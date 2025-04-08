@@ -32,9 +32,17 @@ const activityMultipliers = {
 };
 
 export function calculateBMI(input: BMIInput): BMIResult {
+  // Validate input
+  if (input.height <= 0) {
+    throw new Error('Height must be greater than zero');
+  }
+  if (input.weight <= 0) {
+    throw new Error('Weight must be greater than zero');
+  }
+
   // Convert height to meters
   const heightInMeters = input.height / 100;
-  
+
   // Calculate BMI
   const bmi = input.weight / (heightInMeters * heightInMeters);
 

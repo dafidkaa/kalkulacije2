@@ -27,8 +27,10 @@ export function UnitInput({
     onToUnitChange(tempUnit);
   };
 
-  const result = convert(parseFloat(value) || 0, fromUnit, toUnit);
-  
+  // Safely parse the input value, ensuring it's a valid number
+  const numericValue = value === '' || isNaN(parseFloat(value)) ? 0 : parseFloat(value);
+  const result = convert(numericValue, fromUnit, toUnit);
+
   const formatNumber = (num: number) => {
     const rounded = Number(num.toFixed(4));
     if (Math.floor(rounded) === rounded) {
@@ -41,8 +43,8 @@ export function UnitInput({
   };
 
   const inputClasses = `
-    col-span-2 block w-full rounded-lg 
-    border-2 border-gray-200 
+    col-span-2 block w-full rounded-lg
+    border-2 border-gray-200
     focus:border-green-500 focus:ring-green-500
     shadow-sm hover:border-gray-300
     text-base py-3 px-4
@@ -50,7 +52,7 @@ export function UnitInput({
   `;
 
   const selectClasses = `
-    block w-full rounded-lg 
+    block w-full rounded-lg
     border-2 border-gray-200
     focus:border-green-500 focus:ring-green-500
     shadow-sm hover:border-gray-300
@@ -69,7 +71,15 @@ export function UnitInput({
             <input
               type="number"
               value={value}
-              onChange={(e) => onValueChange(e.target.value)}
+              onChange={(e) => {
+                // Validate input to ensure it's a valid number
+                const newValue = e.target.value;
+                if (newValue === '' || !isNaN(parseFloat(newValue))) {
+                  onValueChange(newValue);
+                }
+              }}
+              min="0"
+              step="any"
               className={inputClasses}
               placeholder="0"
             />

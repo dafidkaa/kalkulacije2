@@ -59,10 +59,15 @@ export function SalaryInput({
         <input
           type="number"
           value={amount}
-          onChange={(e) => onAmountChange(Number(e.target.value))}
+          onChange={(e) => {
+            const value = Number(e.target.value);
+            if (value >= 0) {
+              onAmountChange(value);
+            }
+          }}
           min={0}
           step={100}
-          className="block w-full rounded-lg border-gray-300 pl-10 pr-4 
+          className="block w-full rounded-lg border-gray-300 pl-10 pr-4
                    focus:border-blue-500 focus:ring-blue-500
                    h-11 shadow-sm text-base text-gray-700"
         />

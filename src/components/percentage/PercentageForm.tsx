@@ -18,7 +18,7 @@ const DefaultTextHelp = () => (
     </ul>
     <div className="mt-6 p-4 bg-orange-50 rounded-lg">
       <p className="text-sm text-orange-800">
-        <strong>Pro Tip:</strong> Možete koristiti decimalne brojeve i različite 
+        <strong>Pro Tip:</strong> Možete koristiti decimalne brojeve i različite
         formulacije pitanja. Kalkulator će automatski prepoznati što želite izračunati.
       </p>
     </div>
@@ -60,9 +60,18 @@ export function PercentageForm() {
 
   const handleTextInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextInput(e.target.value);
+    // Only clear the result if the input is empty, but keep the help text visible
     if (!e.target.value.trim()) {
       setTextResult(null);
     }
+  };
+
+  const handleReset = () => {
+    setTextInput('');
+    setTextResult(null);
+    setValue1(100);
+    setValue2(20);
+    setResult(20);
   };
 
   const handleStandardCalculate = () => {
@@ -75,8 +84,8 @@ export function PercentageForm() {
   }, [calculationType, value1, value2]);
 
   const inputClasses = `
-    block w-full rounded-lg 
-    border-2 border-gray-200 
+    block w-full rounded-lg
+    border-2 border-gray-200
     focus:border-orange-500 focus:ring-orange-500
     shadow-sm hover:border-gray-300
     text-base py-3 px-4
@@ -205,27 +214,33 @@ export function PercentageForm() {
         </GradientCard>
 
         <GradientCard>
+          <div className="flex justify-between items-start mb-4">
+            <h2 className="text-2xl font-semibold text-gray-900">Rezultat</h2>
+            <button
+              onClick={handleReset}
+              className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm font-medium transition-colors duration-200"
+            >
+              Resetiraj
+            </button>
+          </div>
+
           {useText ? (
-            textInput.trim() ? (
-              textResult && (
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-semibold text-gray-900">Rezultat</h2>
-                  <p className="text-gray-600">{textResult.explanation}</p>
-                  <p className="text-3xl font-bold text-orange-500">
-                    {textResult.result.toLocaleString('hr-HR', {
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 2
-                    })}
-                    {textResult.explanation.includes('posto') ? '%' : ''}
-                  </p>
-                </div>
-              )
+            textResult ? (
+              <div className="space-y-4">
+                <p className="text-gray-600">{textResult.explanation}</p>
+                <p className="text-3xl font-bold text-orange-500">
+                  {textResult.result.toLocaleString('hr-HR', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                  })}
+                  {textResult.explanation.includes('posto') ? '%' : ''}
+                </p>
+              </div>
             ) : (
               <DefaultTextHelp />
             )
           ) : (
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-gray-900">Rezultat</h2>
               <p className="text-3xl font-bold text-orange-500">
                 {result.toLocaleString('hr-HR', {
                   minimumFractionDigits: 0,

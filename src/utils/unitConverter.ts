@@ -235,29 +235,49 @@ export const categories: Category[] = [
   },
 ];
 
+// Temperature conversion functions
+function celsiusToFahrenheit(celsius: number): number {
+  return (celsius * 9/5) + 32;
+}
+
+function fahrenheitToCelsius(fahrenheit: number): number {
+  return (fahrenheit - 32) * 5/9;
+}
+
+function celsiusToKelvin(celsius: number): number {
+  return celsius + 273.15;
+}
+
+function kelvinToCelsius(kelvin: number): number {
+  return kelvin - 273.15;
+}
+
+function fahrenheitToKelvin(fahrenheit: number): number {
+  return celsiusToKelvin(fahrenheitToCelsius(fahrenheit));
+}
+
+function kelvinToFahrenheit(kelvin: number): number {
+  return celsiusToFahrenheit(kelvinToCelsius(kelvin));
+}
+
 export function convert(value: number, from: UnitType, to: UnitType): number {
   if (from.id === to.id) return value;
-  
-  // Special case for temperature
-  if (from.id === 'c' && to.id === 'f') {
-    return (value * 9/5) + 32;
+
+  // Handle temperature conversions
+  const temperatureConversions = {
+    'c_to_f': celsiusToFahrenheit,
+    'f_to_c': fahrenheitToCelsius,
+    'c_to_k': celsiusToKelvin,
+    'k_to_c': kelvinToCelsius,
+    'f_to_k': fahrenheitToKelvin,
+    'k_to_f': kelvinToFahrenheit
+  };
+
+  const conversionKey = `${from.id}_to_${to.id}`;
+  if (temperatureConversions[conversionKey]) {
+    return temperatureConversions[conversionKey](value);
   }
-  if (from.id === 'f' && to.id === 'c') {
-    return (value - 32) * 5/9;
-  }
-  if (from.id === 'c' && to.id === 'k') {
-    return value + 273.15;
-  }
-  if (from.id === 'k' && to.id === 'c') {
-    return value - 273.15;
-  }
-  if (from.id === 'f' && to.id === 'k') {
-    return (value - 32) * 5/9 + 273.15;
-  }
-  if (from.id === 'k' && to.id === 'f') {
-    return (value - 273.15) * 9/5 + 32;
-  }
-  
+
   // For all other units, convert through base unit
   const baseValue = from.toBase(value);
   return to.fromBase(baseValue);

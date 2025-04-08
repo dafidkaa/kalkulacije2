@@ -18,35 +18,35 @@ const HOURS_PER_YEAR = HOURS_PER_MONTH * MONTHS_PER_YEAR; // ~2,085.6 hours per 
 // Conversion factors for different time units to monthly values
 const TIME_MULTIPLIERS = {
   hour: {
-    month: HOURS_PER_MONTH,
-    toMonthly: (amount: number) => amount * HOURS_PER_MONTH,
+    month: 1 / HOURS_PER_MONTH, // Convert monthly to hourly
+    toMonthly: (amount: number) => amount * HOURS_PER_MONTH, // Convert hourly to monthly
   },
   day: {
-    month: DAYS_PER_WEEK * WEEKS_PER_MONTH,
-    toMonthly: (amount: number) => amount * DAYS_PER_WEEK * WEEKS_PER_MONTH,
+    month: 1 / (DAYS_PER_WEEK * WEEKS_PER_MONTH), // Convert monthly to daily
+    toMonthly: (amount: number) => amount * DAYS_PER_WEEK * WEEKS_PER_MONTH, // Convert daily to monthly
   },
   week: {
-    month: WEEKS_PER_MONTH,
-    toMonthly: (amount: number) => amount * WEEKS_PER_MONTH,
+    month: 1 / WEEKS_PER_MONTH, // Convert monthly to weekly
+    toMonthly: (amount: number) => amount * WEEKS_PER_MONTH, // Convert weekly to monthly
   },
   month: {
-    month: 1,
-    toMonthly: (amount: number) => amount,
+    month: 1, // Monthly stays the same
+    toMonthly: (amount: number) => amount, // Monthly stays the same
   },
   year: {
-    month: 1 / MONTHS_PER_YEAR,
-    toMonthly: (amount: number) => amount / MONTHS_PER_YEAR,
+    month: MONTHS_PER_YEAR, // Convert monthly to yearly
+    toMonthly: (amount: number) => amount / MONTHS_PER_YEAR, // Convert yearly to monthly
   },
 };
 
 export function calculateTax(input: TaxInput): TaxBreakdown {
   // Convert input amount to monthly
   const monthlyAmount = TIME_MULTIPLIERS[input.timeUnit].toMonthly(input.amount);
-  
+
   // If input is net, estimate gross, otherwise use the monthly amount
-  const monthlyGross = input.calculationType === 'gross' 
-    ? monthlyAmount 
-    : estimateGross(monthlyAmount);
+  const monthlyGross = input.calculationType === 'gross'
+    ? monthlyAmount
+    : estimateGross(monthlyAmount, input);
 
   // Calculate monthly contributions
   const pensionPillar1 = monthlyGross * 0.15; // 15% first pillar
@@ -72,8 +72,20 @@ export function calculateTax(input: TaxInput): TaxBreakdown {
   const monthlyNet = monthlyGross - pensionPillar1 - pensionPillar2 - healthInsurance - monthlyIncomeTax;
 
   // Convert all values back to the original time unit
-  const multiplier = TIME_MULTIPLIERS[input.timeUnit].month;
-  
+  // For example, if input is yearly, we need to multiply monthly values by 12
+  let multiplier;
+  if (input.timeUnit === 'hour') {
+    multiplier = 1 / HOURS_PER_MONTH; // Convert monthly to hourly
+  } else if (input.timeUnit === 'day') {
+    multiplier = 1 / (DAYS_PER_WEEK * WEEKS_PER_MONTH); // Convert monthly to daily
+  } else if (input.timeUnit === 'week') {
+    multiplier = 1 / WEEKS_PER_MONTH; // Convert monthly to weekly
+  } else if (input.timeUnit === 'year') {
+    multiplier = MONTHS_PER_YEAR; // Convert monthly to yearly
+  } else {
+    multiplier = 1; // Monthly stays the same
+  }
+
   return {
     gross: roundToTwoDecimals(monthlyGross * multiplier),
     pensionPillar1: roundToTwoDecimals(pensionPillar1 * multiplier),
@@ -92,14 +104,14 @@ export function calculateTimeBreakdown(amount: number, fromUnit: TimeUnit, isGro
   // Then calculate all other periods
   return {
     hourly: roundToTwoDecimals(monthlyAmount / HOURS_PER_MONTH),
-    daily: roundToTwoDecimals(monthlyAmount / (DAYS_PER_WEEK * WEEKS_PER_MONTH)),
-    weekly: roundToTwoDecimals(monthlyAmount / WEEKS_PER_MONTH),
+    daily: roundToTwoDecimals((monthlyAmount / HOURS_PER_MONTH) * HOURS_PER_DAY), // Daily is 8 hours
+    weekly: roundToTwoDecimals((monthlyAmount / HOURS_PER_MONTH) * HOURS_PER_DAY * DAYS_PER_WEEK), // Weekly is 5 days
     monthly: roundToTwoDecimals(monthlyAmount),
     yearly: roundToTwoDecimals(monthlyAmount * MONTHS_PER_YEAR),
   };
 }
 
-function estimateGross(targetMonthlyNet: number): number {
+function estimateGross(targetMonthlyNet: number, input?: Partial<TaxInput>): number {
   let monthlyGross = targetMonthlyNet * 1.5; // Initial estimate
   const tolerance = 0.001; // Increased precision
   const maxIterations = 100; // Increased max iterations
@@ -110,11 +122,11 @@ function estimateGross(targetMonthlyNet: number): number {
       amount: monthlyGross,
       timeUnit: 'month',
       calculationType: 'gross',
-      employmentType: 'employee',
-      residence: 'Zagreb',
-      dependents: 0,
-      hasDisability: false,
-      additionalIncome: 0,
+      employmentType: input?.employmentType || 'employee',
+      residence: input?.residence || 'Zagreb',
+      dependents: input?.dependents || 0,
+      hasDisability: input?.hasDisability || false,
+      additionalIncome: input?.additionalIncome || 0,
     });
 
     const currentNet = result.net;
@@ -133,5 +145,5 @@ function estimateGross(targetMonthlyNet: number): number {
 }
 
 function roundToTwoDecimals(num: number): number {
-  return Math.round(num * 100) / 100;
+  return Math.floor(num * 100) / 100; // Use floor instead of round to avoid rounding up
 }

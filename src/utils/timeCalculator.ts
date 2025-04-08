@@ -24,7 +24,7 @@ const croatianUnits: Record<string, string> = {
 
 function formatTimeResult(hours: number, minutes: number, seconds: number, sign: string = ''): string {
   const parts: string[] = [];
-  
+
   if (hours > 0) {
     parts.push(`${hours} ${hours === 1 ? 'sat' : hours < 5 ? 'sata' : 'sati'}`);
   }
@@ -96,7 +96,15 @@ function calculateTimeArithmetic(inputs: TimeInput[]): TimeResult {
 function calculateTimeInterval(input: { startDate: string; endDate: string }): TimeResult {
   const start = new Date(input.startDate);
   const end = new Date(input.endDate);
-  const diffInSeconds = Math.abs(end.getTime() - start.getTime()) / 1000;
+
+  // Ensure end date is after start date
+  if (end < start) {
+    return {
+      mainResult: 'Greška: Završni datum mora biti nakon početnog datuma'
+    };
+  }
+
+  const diffInSeconds = (end.getTime() - start.getTime()) / 1000;
 
   const days = Math.floor(diffInSeconds / (24 * 3600));
   const hours = Math.floor((diffInSeconds % (24 * 3600)) / 3600);
@@ -104,9 +112,22 @@ function calculateTimeInterval(input: { startDate: string; endDate: string }): T
   const seconds = Math.floor(diffInSeconds % 60);
 
   const mainResult = formatTimeResult(hours, minutes, seconds);
+
+  // Calculate detailed breakdown for longer intervals
+  const totalDays = diffInSeconds / (24 * 3600);
+  const totalWeeks = totalDays / 7;
+  const totalMonths = totalDays / 30.44; // Average month length
+  const totalYears = totalDays / 365.25; // Account for leap years
+
   if (days > 0) {
     return {
-      mainResult: `${days} ${days === 1 ? 'dan' : 'dana'}, ${mainResult}`
+      mainResult: `${days} ${days === 1 ? 'dan' : 'dana'}, ${mainResult}`,
+      breakdown: {
+        'Godine': `${totalYears.toLocaleString('hr-HR', { maximumFractionDigits: 2 })} godina`,
+        'Mjeseci': `${totalMonths.toLocaleString('hr-HR', { maximumFractionDigits: 2 })} mjeseci`,
+        'Tjedni': `${totalWeeks.toLocaleString('hr-HR', { maximumFractionDigits: 2 })} tjedana`,
+        'Dani': `${totalDays.toLocaleString('hr-HR', { maximumFractionDigits: 2 })} dana`,
+      }
     };
   }
 

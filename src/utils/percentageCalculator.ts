@@ -14,6 +14,10 @@ export function calculatePercentage(
     case 'basic':
       return (value1 * value2) / 100;
     case 'whatPercent':
+      // Prevent division by zero
+      if (value2 === 0) {
+        throw new Error('Nije moguće izračunati postotak od nule');
+      }
       return (value1 / value2) * 100;
     case 'increase':
       return value1 * (1 + value2 / 100);
@@ -62,9 +66,9 @@ export function parseTextInput(text: string): TextCalculationResult {
     };
   }
 
-  // Pattern for "Increase from X to Y" or "Povećanje sa X na Y"
-  if (normalizedText.match(/(?:povećanje|porast|increase) (?:sa|od|from) (\d+(?:\.\d+)?) (?:na|do|to) (\d+(?:\.\d+)?)/)) {
-    const [_, initial, final] = normalizedText.match(/(?:povećanje|porast|increase) (?:sa|od|from) (\d+(?:\.\d+)?) (?:na|do|to) (\d+(?:\.\d+)?)/);
+  // Pattern for "Increase from X to Y" or "Povećanje sa X na Y" or "Koliki je rast sa X na Y"
+  if (normalizedText.match(/(?:povećanje|porast|increase|koliki je rast) (?:sa|od|from) (\d+(?:\.\d+)?) (?:na|do|to) (\d+(?:\.\d+)?)/)) {
+    const [_, initial, final] = normalizedText.match(/(?:povećanje|porast|increase|koliki je rast) (?:sa|od|from) (\d+(?:\.\d+)?) (?:na|do|to) (\d+(?:\.\d+)?)/);
     const initialNum = parseFloat(initial);
     const finalNum = parseFloat(final);
     const result = ((finalNum - initialNum) / initialNum) * 100;
@@ -84,5 +88,21 @@ export function parseTextInput(text: string): TextCalculationResult {
     };
   }
 
-  throw new Error('Nismo uspjeli prepoznati vaš upit. Pokušajte s drugačijom formulacijom.');
+  // Pattern for "koliki je rast sa 1.5 na 1.7" specifically
+  if (normalizedText.match(/koliki je rast (?:sa|od) (\d+(?:\.\d+)?) (?:na|do) (\d+(?:\.\d+)?)/)) {
+    const [_, initial, final] = normalizedText.match(/koliki je rast (?:sa|od) (\d+(?:\.\d+)?) (?:na|do) (\d+(?:\.\d+)?)/);
+    const initialNum = parseFloat(initial);
+    const finalNum = parseFloat(final);
+    const result = ((finalNum - initialNum) / initialNum) * 100;
+    return {
+      result,
+      explanation: `Rast sa ${initialNum.toLocaleString('hr-HR')} na ${finalNum.toLocaleString('hr-HR')} iznosi:`,
+    };
+  }
+
+  // If no pattern matched, return a friendly error message instead of throwing
+  return {
+    result: 0,
+    explanation: 'Nismo uspjeli prepoznati vaš upit. Pokušajte s drugačijom formulacijom, npr. "Koliko je 20% od 150?"'
+  };
 }

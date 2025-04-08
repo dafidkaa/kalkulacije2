@@ -4,7 +4,7 @@ import { Calculator } from 'lucide-react';
 
 export function Header() {
   const location = useLocation();
-  
+
   const getTitle = () => {
     switch (location.pathname) {
       case '/':
@@ -17,6 +17,14 @@ export function Header() {
         return 'Kalkulator BMI';
       case '/kalkulator-postotaka':
         return 'Kalkulator Postotaka';
+      case '/kalkulator-vremena':
+        return 'Kalkulator Vremena';
+      case '/kalkulator-povrsine':
+        return 'Kalkulator Površine';
+      case '/pretvarac-temperature':
+        return 'Pretvarač Temperature';
+      case '/kalkulator-datuma':
+        return 'Kalkulator Datuma';
       default:
         return 'Kalkulacije.com';
     }
