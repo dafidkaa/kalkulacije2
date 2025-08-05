@@ -1,18 +1,31 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { ToolSchema } from '../components/SchemaMarkup';
 import { Converter } from '../components/converter/Converter';
 import { UnitFeatures } from '../components/unit/UnitFeatures';
 import { UnitBenefits } from '../components/unit/UnitBenefits';
 import { UnitFAQ } from '../components/unit/UnitFAQ';
+import { RelatedCalculators } from '../components/RelatedCalculators';
 
 export function UnitConverter() {
   return (
     <>
       <Helmet>
-        <title>Pretvarač Jedinica | Kalkulacije.com</title>
-        <meta name="description" content="Besplatni online pretvarač jedinica za duljinu, masu, volumen, temperaturu i površinu. Jednostavan za korištenje, precizan i brz." />
-        <meta name="keywords" content="pretvarač jedinica, konverter jedinica, pretvaranje mjernih jedinica, kalkulator jedinica, metrički sustav, imperijalne jedinice" />
+        <title>Pretvarač Jedinica | Konverter Mjernih Jedinica | Kalkulacije.com</title>
+        <meta name="description" content="📏 Besplatni pretvarač mjernih jedinica. Pretvorite duljinu, masu, volumen, površinu i temperaturu. Metrički i imperijalni sustav. Brz i precizan konverter." />
+        <meta name="keywords" content="pretvarač jedinica, konverter jedinica, pretvaranje mjernih jedinica, kalkulator jedinica, metrički sustav, imperijalne jedinice, pretvorba cm u inče" />
+        <link rel="canonical" href="https://kalkulacije.com/pretvaranje-jedinica" />
       </Helmet>
+
+      <ToolSchema
+        name="Pretvarač Jedinica"
+        description="Sveobuhvatni pretvarač mjernih jedinica za duljinu, masu, volumen, površinu i temperaturu. Podržava metrički i imperijalni sustav."
+        url="https://kalkulacije.com/pretvaranje-jedinica"
+        keywords={[
+          'pretvarač jedinica', 'konverter jedinica', 'pretvaranje mjernih jedinica',
+          'metrički sustav', 'imperijalne jedinice', 'pretvorba cm u inče'
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="pt-16 pb-8 text-center">
@@ -37,6 +50,7 @@ export function UnitConverter() {
       <UnitFeatures />
       <UnitBenefits />
       <UnitFAQ />
+      <RelatedCalculators />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/Header';
+import { Breadcrumb } from './components/Breadcrumb';
 import { Footer } from './components/Footer';
 
 // Import page components directly for now to fix deployment issues
@@ -19,6 +20,7 @@ export function App() {
     <Router>
       <div className="min-h-screen bg-white">
         <Header />
+        <Breadcrumb />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Routes>
             <Route path="/" element={<HomePage />} />

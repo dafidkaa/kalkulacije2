@@ -1,24 +1,37 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { ToolSchema } from '../components/SchemaMarkup';
 import { TimeForm } from '../components/time/TimeForm';
 import { TimeFeatures } from '../components/time/TimeFeatures';
 import { TimeBenefits } from '../components/time/TimeBenefits';
 import { TimeFAQ } from '../components/time/TimeFAQ';
+import { RelatedCalculators } from '../components/RelatedCalculators';
 
 export function TimeCalculator() {
   return (
     <>
       <Helmet>
-        <title>Kalkulator vremena | Kalkulacije.com</title>
-        <meta 
-          name="description" 
-          content="Jednostavan i precizan kalkulator vremena na hrvatskom jeziku. Zbrajajte i oduzimajte vrijeme, računajte vremenske intervale i pretvarajte vremenske jedinice." 
+        <title>Kalkulator Vremena | Zbrajanje i Oduzimanje Vremena | Kalkulacije.com</title>
+        <meta
+          name="description"
+          content="⏰ Besplatni kalkulator vremena na hrvatskom. Zbrajajte i oduzimajte vrijeme, računajte radne sate, vremenske intervale i pretvarajte vremenske jedinice."
         />
-        <meta 
-          name="keywords" 
-          content="kalkulator vremena, zbrajanje vremena, oduzimanje vremena, vremenski interval, pretvaranje vremena" 
+        <meta
+          name="keywords"
+          content="kalkulator vremena, zbrajanje vremena, oduzimanje vremena, vremenski interval, pretvaranje vremena, radni sati, kalkulator sati"
         />
+        <link rel="canonical" href="https://kalkulacije.com/kalkulator-vremena" />
       </Helmet>
+
+      <ToolSchema
+        name="Kalkulator Vremena"
+        description="Besplatni kalkulator za zbrajanje i oduzimanje vremena, izračun radnih sati i pretvaranje vremenskih jedinica."
+        url="https://kalkulacije.com/kalkulator-vremena"
+        keywords={[
+          'kalkulator vremena', 'zbrajanje vremena', 'oduzimanje vremena',
+          'radni sati', 'vremenski interval', 'kalkulator sati'
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="pt-16 pb-8 text-center">
@@ -43,6 +56,7 @@ export function TimeCalculator() {
       <TimeFeatures />
       <TimeBenefits />
       <TimeFAQ />
+      <RelatedCalculators />
     </>
   );
 }

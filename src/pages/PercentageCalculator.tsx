@@ -1,24 +1,37 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { ToolSchema } from '../components/SchemaMarkup';
 import { PercentageForm } from '../components/percentage/PercentageForm';
 import { PercentageFeatures } from '../components/percentage/PercentageFeatures';
 import { PercentageBenefits } from '../components/percentage/PercentageBenefits';
 import { PercentageFAQ } from '../components/percentage/PercentageFAQ';
+import { RelatedCalculators } from '../components/RelatedCalculators';
 
 export function PercentageCalculator() {
   return (
     <>
       <Helmet>
-        <title>Kalkulator Postotaka | Kalkulacije.com</title>
-        <meta 
-          name="description" 
-          content="Kalkulator postotaka na hrvatskom jeziku za sve vaše potrebe. Brzo izračunajte postotak, povećanje, smanjenje i više. Prikladan i jednostavan za upotrebu." 
+        <title>Kalkulator Postotaka | Izračun Postotka, Povećanja i Smanjenja | Kalkulacije.com</title>
+        <meta
+          name="description"
+          content="📊 Besplatni kalkulator postotaka na hrvatskom. Izračunajte postotak od broja, povećanje, smanjenje, razliku u postocima. Jednostavan i brz postotni kalkulator."
         />
-        <meta 
-          name="keywords" 
-          content="izračun postotka, kalkulator postotka, postotni proračun, povećanje i smanjenje postotka, postotak od broja" 
+        <meta
+          name="keywords"
+          content="izračun postotka, kalkulator postotka, postotni proračun, povećanje i smanjenje postotka, postotak od broja, razlika u postocima, PDV kalkulator"
         />
+        <link rel="canonical" href="https://kalkulacije.com/kalkulator-postotaka" />
       </Helmet>
+
+      <ToolSchema
+        name="Kalkulator Postotaka"
+        description="Besplatni kalkulator za izračun postotaka, povećanja, smanjenja i razlike u postocima. Idealan za financijske i poslovne izračune."
+        url="https://kalkulacije.com/kalkulator-postotaka"
+        keywords={[
+          'kalkulator postotaka', 'izračun postotka', 'povećanje postotka',
+          'smanjenje postotka', 'postotak od broja', 'PDV kalkulator'
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="pt-16 pb-8 text-center">
@@ -43,6 +56,7 @@ export function PercentageCalculator() {
       <PercentageFeatures />
       <PercentageBenefits />
       <PercentageFAQ />
+      <RelatedCalculators />
     </>
   );
 }

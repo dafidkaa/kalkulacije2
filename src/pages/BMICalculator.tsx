@@ -1,24 +1,37 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { ToolSchema } from '../components/SchemaMarkup';
 import { BMIForm } from '../components/bmi/BMIForm';
 import { BMIFeatures } from '../components/bmi/BMIFeatures';
 import { BMIBenefits } from '../components/bmi/BMIBenefits';
 import { BMIFAQ } from '../components/bmi/BMIFAQ';
+import { RelatedCalculators } from '../components/RelatedCalculators';
 
 export function BMICalculator() {
   return (
     <>
       <Helmet>
-        <title>Kalkulator BMI | Kalkulacije.com</title>
-        <meta 
-          name="description" 
-          content="Izračunajte svoj BMI (indeks tjelesne mase) pomoću našeg besplatnog online kalkulatora. Saznajte svoju idealnu težinu i dobijte personalizirane zdravstvene preporuke." 
+        <title>BMI Kalkulator | Izračun Indeksa Tjelesne Mase | Kalkulacije.com</title>
+        <meta
+          name="description"
+          content="💪 Besplatni BMI kalkulator na hrvatskom. Izračunajte indeks tjelesne mase, idealnu težinu i dobijte zdravstvene preporuke. Jednostavan i precizan BMI izračun."
         />
-        <meta 
-          name="keywords" 
-          content="bmi kalkulator, indeks tjelesne mase, izračun idealne težine, kalkulator težine, zdravstveni kalkulator" 
+        <meta
+          name="keywords"
+          content="bmi kalkulator, indeks tjelesne mase, izračun idealne težine, kalkulator težine, zdravstveni kalkulator, BMI tablica, normalna težina"
         />
+        <link rel="canonical" href="https://kalkulacije.com/kalkulator-bmi" />
       </Helmet>
+
+      <ToolSchema
+        name="BMI Kalkulator"
+        description="Besplatni kalkulator za izračun indeksa tjelesne mase (BMI) s preporukama za idealnu težinu i zdravstvenim savjetima."
+        url="https://kalkulacije.com/kalkulator-bmi"
+        keywords={[
+          'bmi kalkulator', 'indeks tjelesne mase', 'izračun idealne težine',
+          'kalkulator težine', 'zdravstveni kalkulator', 'BMI tablica'
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="pt-16 pb-8 text-center">
@@ -43,6 +56,7 @@ export function BMICalculator() {
       <BMIFeatures />
       <BMIBenefits />
       <BMIFAQ />
+      <RelatedCalculators />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FAQSchema } from '../SchemaMarkup';
 
 const faqs = [
   {
@@ -25,7 +26,9 @@ const faqs = [
 
 export function BMIFAQ() {
   return (
-    <section className="py-16 bg-white">
+    <>
+      <FAQSchema questions={faqs} />
+      <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
           Često Postavljana Pitanja
@@ -59,5 +62,6 @@ export function BMIFAQ() {
         </div>
       </div>
     </section>
+    </>
   );
 }
