@@ -8,12 +8,23 @@ import { TimeConversionInput } from './TimeConversionInput';
 
 type CalculationType = 'arithmetic' | 'interval' | 'conversion';
 
-export function TimeForm() {
-  const [calculationType, setCalculationType] = useState<CalculationType>('arithmetic');
+interface TimeFormProps {
+  calculationType?: CalculationType;
+  onCalculationTypeChange?: (type: CalculationType) => void;
+}
+
+export function TimeForm({ calculationType: externalCalculationType, onCalculationTypeChange }: TimeFormProps) {
+  const [internalCalculationType, setInternalCalculationType] = useState<CalculationType>('arithmetic');
+
+  const calculationType = externalCalculationType || internalCalculationType;
   const [result, setResult] = useState<{ mainResult: string; breakdown?: Record<string, string> } | null>(null);
 
   const handleCalculationTypeChange = (type: CalculationType) => {
-    setCalculationType(type);
+    if (onCalculationTypeChange) {
+      onCalculationTypeChange(type);
+    } else {
+      setInternalCalculationType(type);
+    }
     setResult(null); // Reset result when switching calculator type
   };
 

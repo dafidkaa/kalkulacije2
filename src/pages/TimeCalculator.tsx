@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ToolSchema } from '../components/SchemaMarkup';
 import { TimeForm } from '../components/time/TimeForm';
@@ -7,7 +7,22 @@ import { TimeBenefits } from '../components/time/TimeBenefits';
 import { TimeFAQ } from '../components/time/TimeFAQ';
 import { RelatedCalculators } from '../components/RelatedCalculators';
 
+type CalculationType = 'arithmetic' | 'interval' | 'conversion';
+
 export function TimeCalculator() {
+  const [calculationType, setCalculationType] = useState<CalculationType>('arithmetic');
+  const calculatorRef = useRef<HTMLElement>(null);
+
+  const handleFeatureClick = (type: CalculationType) => {
+    setCalculationType(type);
+    // Smooth scroll to calculator section
+    if (calculatorRef.current) {
+      calculatorRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
   return (
     <>
       <Helmet>
@@ -47,13 +62,16 @@ export function TimeCalculator() {
       </section>
 
       {/* Calculator Section */}
-      <section className="py-12">
+      <section ref={calculatorRef} className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
-          <TimeForm />
+          <TimeForm
+            calculationType={calculationType}
+            onCalculationTypeChange={setCalculationType}
+          />
         </div>
       </section>
 
-      <TimeFeatures />
+      <TimeFeatures onFeatureClick={handleFeatureClick} />
       <TimeBenefits />
       <TimeFAQ />
       <RelatedCalculators />
