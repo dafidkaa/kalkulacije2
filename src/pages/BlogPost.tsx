@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Calendar, Clock, Tag, ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
-import { BlogPost as BlogPostType, BlogIndex, RelatedCalculator } from '../types/blog';
-import { blogFileSystem } from '../utils/blogFileSystem';
-import ReadingProgressBar from '../components/blog/ReadingProgressBar';
-import TableOfContents from '../components/blog/TableOfContents';
+import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, Clock, Calendar, User, Tag, Share2, BookOpen } from 'lucide-react';
+import { BlogPostType, BlogIndex, RelatedCalculator } from '../types/blog';
 import { parseMarkdown } from '../utils/markdownParser';
-import { blogAnalytics, conversionAnalytics } from '../utils/analytics';
+import { TableOfContents } from '../components/blog/TableOfContents';
+import { RelatedPosts } from '../components/blog/RelatedPosts';
+import { BlogSEO } from '../components/blog/BlogSEO';
+import { blogAnalytics } from '../utils/analytics';
 
-interface BlogPostProps {
-  slug: string;
-}
-
-const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
+export function BlogPost() {
+  const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPostType | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogIndex[]>([]);
   const [relatedCalculators, setRelatedCalculators] = useState<RelatedCalculator[]>([]);
@@ -91,6 +88,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
     try {
       setLoading(true);
       setError(null);
+      // Force cache refresh
 
       // Load blog index to find the post
       const indexResponse = await fetch('/blog-index.json');
@@ -106,7 +104,28 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
         return;
       }
 
-      // Load the actual markdown content
+      // Create fallback content first
+      const fallbackContent: BlogPostType = {
+        ...postIndex,
+        htmlContent: `
+          <h1>${postIndex.title}</h1>
+          <p><strong>Opis:</strong> ${postIndex.description}</p>
+          <p>Ovaj članak je dio kategorije <strong>${postIndex.category}</strong> i pokriva teme vezane uz ${postIndex.tags.join(', ')}.</p>
+          <p>Sadržaj članka će biti dostupan uskoro s detaljnim objašnjenjima, primjerima i korak-po-korak uputama.</p>
+          <h2>Povezani kalkulatori</h2>
+          <p>Za brže izračune, koristite naše kalkulatore:</p>
+        `,
+        toc: [
+          { id: 'section-1', title: 'Povezani kalkulatori', level: 2 }
+        ],
+        faq: [],
+        canonical: `https://kalkulacije.com/blog/${slug}`,
+        updatedAt: postIndex.date
+      };
+
+      // Try to load markdown content, fallback if it fails
+      let finalPostData = fallbackContent;
+
       try {
         const contentResponse = await fetch(`/content/blog/${slug}.md`);
         if (contentResponse.ok) {
@@ -115,7 +134,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
           // Parse markdown using our improved parser
           const { htmlContent, toc, frontMatter } = parseMarkdown(markdownContent);
 
-          const postData: BlogPostType = {
+          finalPostData = {
             ...postIndex,
             htmlContent,
             toc,
@@ -123,37 +142,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
             canonical: frontMatter.canonical || `https://kalkulacije.com/blog/${slug}`,
             updatedAt: frontMatter.updatedAt || postIndex.date
           };
-
-          setPost(postData);
-        } else {
-          throw new Error('Content not found');
         }
       } catch (contentError) {
         console.warn('Could not load markdown content, using fallback');
-
-        // Fallback to basic content
-        const postData: BlogPostType = {
-          ...postIndex,
-          htmlContent: `
-            <h1>${postIndex.title}</h1>
-            <p><strong>Opis:</strong> ${postIndex.description}</p>
-            <p>Ovaj članak je dio kategorije <strong>${postIndex.category}</strong> i pokriva teme vezane uz ${postIndex.tags.join(', ')}.</p>
-            <p>Sadržaj članka će biti dostupan uskoro s detaljnim objašnjenjima, primjerima i korak-po-korak uputama.</p>
-            <h2>Povezani kalkulatori</h2>
-            <p>Za brže izračune, koristite naše kalkulatore:</p>
-          `,
-          toc: [
-            { id: 'section-1', title: 'Povezani kalkulatori', level: 2 }
-          ],
-          faq: [],
-          canonical: `https://kalkulacije.com/blog/${slug}`,
-          updatedAt: postIndex.date
-        };
-
-        setPost(postData);
       }
 
-      setPost(postData);
+      setPost(finalPostData);
 
       // Track blog post view
       if (!hasTrackedViewRef.current) {

@@ -17,12 +17,11 @@ import { TemperatureConverter } from './pages/TemperatureConverter';
 import { DateCalculator } from './pages/DateCalculator';
 import { Calculator } from './pages/Calculator';
 import BlogIndex from './pages/BlogIndex';
-import BlogPost from './pages/BlogPost';
+import { BlogPost } from './pages/BlogPost';
 
 // Wrapper component to extract slug from URL params
 function BlogPostWrapper() {
-  const { slug } = useParams<{ slug: string }>();
-  return <BlogPost slug={slug || ''} />;
+  return <BlogPost />;
 }
 
 export function App() {
