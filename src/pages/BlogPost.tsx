@@ -5,6 +5,7 @@ import { BlogPost as BlogPostType, BlogIndex, RelatedCalculator } from '../types
 import { blogFileSystem } from '../utils/blogFileSystem';
 import ReadingProgressBar from '../components/blog/ReadingProgressBar';
 import TableOfContents from '../components/blog/TableOfContents';
+import { parseMarkdown } from '../utils/markdownParser';
 
 interface BlogPostProps {
   slug: string;
@@ -64,18 +65,52 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
         return;
       }
 
-      // Create a mock post with the available data
-      const postData: BlogPostType = {
-        ...postIndex,
-        htmlContent: `<p>Sadržaj članka "${postIndex.title}" će biti dostupan uskoro.</p>
-                     <p>Ovaj članak pokriva: ${postIndex.description}</p>
-                     <p>Kategorija: ${postIndex.category}</p>
-                     <p>Oznake: ${postIndex.tags.join(', ')}</p>`,
-        toc: [],
-        faq: [],
-        canonical: `https://kalkulacije.com/blog/${slug}`,
-        updatedAt: postIndex.date
-      };
+      // Load the actual markdown content
+      try {
+        const contentResponse = await fetch(`/content/blog/${slug}.md`);
+        if (contentResponse.ok) {
+          const markdownContent = await contentResponse.text();
+
+          // Parse markdown using our improved parser
+          const { htmlContent, toc, frontMatter } = parseMarkdown(markdownContent);
+
+          const postData: BlogPostType = {
+            ...postIndex,
+            htmlContent,
+            toc,
+            faq: frontMatter.faq || [],
+            canonical: frontMatter.canonical || `https://kalkulacije.com/blog/${slug}`,
+            updatedAt: frontMatter.updatedAt || postIndex.date
+          };
+
+          setPost(postData);
+        } else {
+          throw new Error('Content not found');
+        }
+      } catch (contentError) {
+        console.warn('Could not load markdown content, using fallback');
+
+        // Fallback to basic content
+        const postData: BlogPostType = {
+          ...postIndex,
+          htmlContent: `
+            <h1>${postIndex.title}</h1>
+            <p><strong>Opis:</strong> ${postIndex.description}</p>
+            <p>Ovaj članak je dio kategorije <strong>${postIndex.category}</strong> i pokriva teme vezane uz ${postIndex.tags.join(', ')}.</p>
+            <p>Sadržaj članka će biti dostupan uskoro s detaljnim objašnjenjima, primjerima i korak-po-korak uputama.</p>
+            <h2>Povezani kalkulatori</h2>
+            <p>Za brže izračune, koristite naše kalkulatore:</p>
+          `,
+          toc: [
+            { id: 'section-1', title: 'Povezani kalkulatori', level: 2 }
+          ],
+          faq: [],
+          canonical: `https://kalkulacije.com/blog/${slug}`,
+          updatedAt: postIndex.date
+        };
+
+        setPost(postData);
+      }
 
       setPost(postData);
 

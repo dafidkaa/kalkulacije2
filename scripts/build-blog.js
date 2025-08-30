@@ -16,6 +16,7 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.dirname(__dirname);
 const CONTENT_DIR = path.join(projectRoot, 'content/blog');
 const PUBLIC_DIR = path.join(projectRoot, 'public');
+const PUBLIC_CONTENT_DIR = path.join(PUBLIC_DIR, 'content/blog');
 const BLOG_INDEX_FILE = path.join(PUBLIC_DIR, 'blog-index.json');
 const SEARCH_INDEX_FILE = path.join(PUBLIC_DIR, 'blog', 'search-index.json');
 const RSS_FILE = path.join(PUBLIC_DIR, 'blog', 'rss.xml');
@@ -265,6 +266,32 @@ ${urlEntries}
 }
 
 /**
+ * Copy markdown files to public directory
+ */
+async function copyMarkdownFiles() {
+  try {
+    // Ensure public content directory exists
+    await fs.mkdir(PUBLIC_CONTENT_DIR, { recursive: true });
+
+    // Get all markdown files
+    const files = await fs.readdir(CONTENT_DIR);
+    const markdownFiles = files.filter(file => file.endsWith('.md'));
+
+    // Copy each markdown file
+    for (const file of markdownFiles) {
+      const sourcePath = path.join(CONTENT_DIR, file);
+      const destPath = path.join(PUBLIC_CONTENT_DIR, file);
+      await fs.copyFile(sourcePath, destPath);
+    }
+
+    console.log(`Copied ${markdownFiles.length} markdown files to public directory`);
+  } catch (error) {
+    console.error('Failed to copy markdown files:', error);
+    throw error;
+  }
+}
+
+/**
  * Main build function
  */
 async function buildBlog() {
@@ -273,6 +300,9 @@ async function buildBlog() {
   try {
     // Ensure public directory exists
     await fs.mkdir(PUBLIC_DIR, { recursive: true });
+
+    // Copy markdown files to public directory
+    await copyMarkdownFiles();
 
     // Load all blog posts
     const posts = await loadBlogPosts();
