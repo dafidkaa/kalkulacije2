@@ -232,6 +232,49 @@ function handleScientificOperations(expression: string): string {
   return result;
 }
 
+// Function to handle complex word problems
+function handleWordProblems(input: string): ParseResult | null {
+  const text = input.toLowerCase();
+
+  // Fuel consumption pattern: "auto sa X l goriva i prešao Y km"
+  const fuelPattern = /(?:auto|vozilo|automobil).*?(\d+(?:\.\d+)?)\s*(?:l|litar|litr).*?(?:goriva|benzina|nafta).*?(?:prešao|prošao|vozio).*?(\d+(?:\.\d+)?)\s*(?:km|kilometer).*?(?:troši|potrošnja|potroši)/i;
+  const fuelMatch = text.match(fuelPattern);
+
+  if (fuelMatch) {
+    const liters = parseFloat(fuelMatch[1]);
+    const kilometers = parseFloat(fuelMatch[2]);
+
+    if (liters > 0 && kilometers > 0) {
+      const consumptionPer100km = (liters / kilometers) * 100;
+      return {
+        success: true,
+        result: consumptionPer100km,
+        expression: `(${liters} / ${kilometers}) * 100`
+      };
+    }
+  }
+
+  // Speed calculation pattern: "prešao X km za Y sati"
+  const speedPattern = /(?:prešao|prošao|vozio).*?(\d+(?:\.\d+)?)\s*(?:km|kilometer).*?(?:za|u|tijekom).*?(\d+(?:\.\d+)?)\s*(?:h|sat|sati|sata).*?(?:brzina|brzo)/i;
+  const speedMatch = text.match(speedPattern);
+
+  if (speedMatch) {
+    const distance = parseFloat(speedMatch[1]);
+    const time = parseFloat(speedMatch[2]);
+
+    if (distance > 0 && time > 0) {
+      const speed = distance / time;
+      return {
+        success: true,
+        result: speed,
+        expression: `${distance} / ${time}`
+      };
+    }
+  }
+
+  return null;
+}
+
 // Main parsing function
 export function parseNaturalLanguageMath(input: string): ParseResult {
   try {
@@ -239,6 +282,12 @@ export function parseNaturalLanguageMath(input: string): ParseResult {
 
     if (!expression) {
       return { success: false, error: 'Prazan unos' };
+    }
+
+    // First, try to handle complex word problems
+    const wordProblemResult = handleWordProblems(expression);
+    if (wordProblemResult) {
+      return wordProblemResult;
     }
 
     // Handle common question patterns first

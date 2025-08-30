@@ -224,14 +224,14 @@ export function formatExpressionForAI(expression: string): string {
 
   // Handle specific practical calculation patterns
 
-  // Fuel consumption pattern: "X liters for Y km, consumption per 100km"
-  const fuelConsumptionRegex = /(?:filled|napunio|natočio).*?(\d+(?:\.\d+)?)\s*(?:l|liter|litr).*?(?:crossed|prešao|prošao).*?(\d+(?:\.\d+)?)\s*(?:km|kilometer).*?(?:per|na|po)\s*100\s*km/gi;
+  // Fuel consumption pattern: "auto sa X l goriva i prešao Y km"
+  const fuelConsumptionRegex = /(?:auto|car|vehicle|vozilo|automobil).*?(\d+(?:\.\d+)?)\s*(?:l|liter|litr).*?(?:goriva|fuel|benzina|nafta).*?(?:prešao|prošao|traveled|crossed|vozio).*?(\d+(?:\.\d+)?)\s*(?:km|kilometer).*?(?:troši|consumption|potrošnja|potroši)/gi;
   if (fuelConsumptionRegex.test(formatted)) {
     const match = formatted.match(/(\d+(?:\.\d+)?)\s*(?:l|liter|litr).*?(\d+(?:\.\d+)?)\s*(?:km|kilometer)/i);
     if (match) {
       const liters = match[1];
       const kilometers = match[2];
-      formatted = `fuel consumption: ${liters} liters per ${kilometers} km, calculate consumption per 100 km`;
+      formatted = `fuel consumption calculation: car used ${liters} liters for ${kilometers} km, calculate consumption per 100 km using formula (${liters} / ${kilometers}) * 100`;
     }
   }
 
