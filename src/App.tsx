@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Breadcrumb } from './components/Breadcrumb';
 import { Footer } from './components/Footer';
@@ -15,6 +15,14 @@ import { AreaCalculator } from './pages/AreaCalculator';
 import { TemperatureConverter } from './pages/TemperatureConverter';
 import { DateCalculator } from './pages/DateCalculator';
 import { Calculator } from './pages/Calculator';
+import BlogIndex from './pages/BlogIndex';
+import BlogPost from './pages/BlogPost';
+
+// Wrapper component to extract slug from URL params
+function BlogPostWrapper() {
+  const { slug } = useParams<{ slug: string }>();
+  return <BlogPost slug={slug || ''} />;
+}
 
 export function App() {
   return (
@@ -34,6 +42,14 @@ export function App() {
             <Route path="/pretvarac-temperature" element={<TemperatureConverter />} />
             <Route path="/kalkulator-datuma" element={<DateCalculator />} />
             <Route path="/kalkulator" element={<Calculator />} />
+
+            {/* Blog Routes */}
+            <Route path="/blog" element={<BlogIndex />} />
+            <Route path="/blog/page/:page" element={<BlogIndex />} />
+            <Route path="/blog/tag/:tag" element={<BlogIndex />} />
+            <Route path="/blog/category/:category" element={<BlogIndex />} />
+            <Route path="/blog/:slug" element={<BlogPostWrapper />} />
+
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

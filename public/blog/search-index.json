@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "kako-izracunati-razliku-izmedu-datuma",
+    "title": "Kako izračunati razliku između datuma (uz primjere)",
+    "description": "Jednostavan vodič za izračun razlike između datuma, uključujući radne dane i blagdane.",
+    "tags": [
+      "datumi",
+      "radni dani",
+      "računanje"
+    ],
+    "content": "\n## Sažetak\nKratki uvod u problem i rješenje. Jasno navedite što čitatelj dobiva.\n\n## Sadržaj\n- [Što je razlika datuma](#sto-je-razlika-datuma)\n- [Kako izračunati razliku](#kako-izracunati-razliku)\n- [Primjeri](#primjeri)\n- [ČPP](#cpp)\n\n## Što je razlika datuma\nObjasnite jednostavnim jezikom što predstavlja razlika između dva datuma i zašto je to korisno znati.\n\nRazlika datuma je broj dana, tjedana, mjeseci ili godina između dva specifična datuma. Ova informacija je korisna u mnogim situacijama:\n\n- **Planiranje projekata** - koliko dana imate do roka\n- **Osobni događaji** - koliko dana do rođendana ili godišnjice\n- **Poslovni izračuni** - trajanje ugovora ili radnog odnosa\n- **Financijski planovi** - razdoblje štednje ili otplate kredita\n\n## Kako izračunati razliku\nKoraci 1–2–3. Ubacite formule, tablice ili kratke primjere.\n\n### Osnovni postupak:\n\n1. **Odaberite početni datum** - datum od kojeg počinjete računati\n2. **Odaberite završni datum** - datum do kojeg računate\n3. **Definirajte"
+  }
+]

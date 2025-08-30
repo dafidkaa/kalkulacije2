@@ -1,0 +1,79 @@
+{
+  "Datumi i dani": [
+    {
+      "title": "Kalkulator Datuma",
+      "href": "/kalkulator-datuma",
+      "description": "Izračunajte razliku između datuma, dodajte dane i računajte radne dane"
+    },
+    {
+      "title": "Kalkulator Vremena", 
+      "href": "/kalkulator-vremena",
+      "description": "Izračunajte razliku između vremena i dodajte sate"
+    }
+  ],
+  "Postotak i PDV": [
+    {
+      "title": "Kalkulator Postotka",
+      "href": "/kalkulator-postotaka", 
+      "description": "Izračunajte postotke, povećanja, smanjenja i PDV"
+    },
+    {
+      "title": "Kalkulator Plaće",
+      "href": "/kalkulator-place",
+      "description": "Bruto-neto kalkulator plaće s porezima i doprinosima"
+    }
+  ],
+  "Plaće i financije": [
+    {
+      "title": "Kalkulator Plaće",
+      "href": "/kalkulator-place",
+      "description": "Bruto-neto kalkulator plaće s porezima i doprinosima"
+    },
+    {
+      "title": "Kalkulator Postotka",
+      "href": "/kalkulator-postotaka",
+      "description": "Izračunajte postotke za povećanja plaće i bonuse"
+    }
+  ],
+  "Pretvaranje i mjere": [
+    {
+      "title": "Pretvarač Jedinica",
+      "href": "/pretvaranje-jedinica",
+      "description": "Pretvarajte između različitih mjernih jedinica"
+    },
+    {
+      "title": "Pretvarač Temperature",
+      "href": "/pretvarac-temperature", 
+      "description": "Pretvarajte između Celzijusa, Fahrenheita i Kelvina"
+    },
+    {
+      "title": "Kalkulator Površine",
+      "href": "/kalkulator-povrsine",
+      "description": "Izračunajte površinu različitih geometrijskih oblika"
+    }
+  ],
+  "Zdravlje i fitness": [
+    {
+      "title": "BMI Kalkulator",
+      "href": "/kalkulator-bmi",
+      "description": "Izračunajte indeks tjelesne mase i idealnu težinu"
+    },
+    {
+      "title": "Kalkulator Postotka",
+      "href": "/kalkulator-postotaka",
+      "description": "Izračunajte postotke za fitness ciljeve"
+    }
+  ],
+  "Općenito": [
+    {
+      "title": "AI Kalkulator",
+      "href": "/kalkulator",
+      "description": "Napredni kalkulator s glasovnim unosom i AI podrškom"
+    },
+    {
+      "title": "Kalkulator Postotka",
+      "href": "/kalkulator-postotaka",
+      "description": "Izračunajte postotke, povećanja i smanjenja"
+    }
+  ]
+}
