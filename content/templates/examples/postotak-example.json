@@ -31,7 +31,7 @@
     {
       "title": "Praktični primjer s popustom",
       "steps": [
-        "Proizvod košta 200 kn, popust je 30 kn",
+        "Proizvod košta 200 €, popust je 30 €",
         "Postotak popusta = (30 ÷ 200) × 100 = 15%",
         "Rezultat: Popust iznosi 15%"
       ]

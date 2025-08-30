@@ -1,0 +1,83 @@
+{
+  "slug": "koliko-radnih-dana-izmedu-dva-datuma-hrvatska",
+  "category": "Datumi i dani", 
+  "main_keyword": "koliko radnih dana između dva datuma",
+  "calculator": {
+    "title": "Kalkulator Datuma",
+    "href": "/kalkulator-datuma"
+  },
+  "secondary_calculators": [
+    { "title": "Kalkulator Plaće", "href": "/kalkulator-place" },
+    { "title": "Kalkulator Vremena", "href": "/kalkulator-vremena" },
+    { "title": "Kalkulator Postotka", "href": "/kalkulator-postotka" }
+  ],
+  "query_variants": ["radni dani između datuma", "poslovni dani", "radni dani hrvatska", "broj radnih dana"],
+  "date": "2025-08-30",
+  "hero_image": "/images/blog/koliko-radnih-dana-izmedu-dva-datuma/hero.jpg",
+  "quick_answer": "Radni dani se računaju kao ukupni dani minus vikendi (subote i nedjelje) minus državni blagdani. Hrvatska ima 13 državnih blagdana godišnje.",
+  "manual_formula": {
+    "heading": "Formula za radne dane u Hrvatskoj",
+    "prose": "**Radni dani = Ukupni dani - Vikendi - Državni blagdani**\n\n**Vikendi:** Subote i nedjelje\n**Državni blagdani:** 13 blagdana godišnje u Hrvatskoj",
+    "latex": "Radni dani = Ukupni dani - (Subote + Nedjelje) - Blagdani\nGodišnje: ≈ 365 - 104 - 13 = 248 radnih dana"
+  },
+  "examples": [
+    {
+      "title": "Tjedni radni period",
+      "steps": [
+        "**Period:** 6. siječnja (ponedjeljak) do 10. siječnja (petak) 2025.",
+        "**Ukupno dana:** 5 dana",
+        "**Vikendi:** 0 (nema vikenda u ovom periodu)",
+        "**Blagdani:** 1 (6. siječnja - Bogojavljenje)",
+        "**Radni dani:** 5 - 0 - 1 = **4 radna dana**"
+      ]
+    },
+    {
+      "title": "Mjesečni period s blagdanima",
+      "steps": [
+        "**Period:** 1. svibnja do 31. svibnja 2025.",
+        "**Ukupno dana:** 31 dan",
+        "**Vikendi:** 8 dana (4 vikenda)",
+        "**Blagdani:** 2 (1. svibnja - Praznik rada, 30. svibnja - Dan državnosti)",
+        "**Radni dani:** 31 - 8 - 2 = **21 radni dan**"
+      ]
+    },
+    {
+      "title": "Godišnji pregled (2025)",
+      "steps": [
+        "**Ukupno dana u godini:** 365 dana",
+        "**Vikendi:** 104 dana (52 vikenda)",
+        "**Državni blagdani:** 13 dana",
+        "**Radni dani u 2025.:** 365 - 104 - 13 = **248 radnih dana**"
+      ]
+    }
+  ],
+  "common_mistakes": [
+    "**Zaboravljanje pokretnih blagdana** - Uskrs, Uskrsni ponedjeljak i Tijelovo mijenjaju datum svake godine",
+    "**Računanje blagdana koji padaju na vikend** - Ako blagdan padne na vikend, ne oduzima se dvaput",
+    "**Miješanje radnih i poslovnih dana** - Poslovni dani mogu uključivati dodatne neradne dane (godišnji odmor)",
+    "**Zanemarivanje lokalnih specifičnosti** - Neki poslodavci imaju dodatne neradne dane",
+    "**Pogrešno računanje prestupnih godina** - Utječe na ukupan broj dana u godini"
+  ],
+  "faq": [
+    {
+      "q": "Koliko radnih dana ima godina u Hrvatskoj?",
+      "a": "Standardna godina ima približno 248-250 radnih dana. Točan broj ovisi o tome kako padaju blagdani (na radne dane ili vikende). Za 2025. godinu je 248 radnih dana."
+    },
+    {
+      "q": "Što ako blagdan padne na vikend?",
+      "a": "Ako državni blagdan padne na subotu ili nedjelju, ne oduzima se dodatno jer se taj dan ionako ne računa kao radni dan. Blagdan se ne prebacuje na ponedjeljak u Hrvatskoj."
+    },
+    {
+      "q": "Računaju li se praznici tvrtke kao neradni dani?",
+      "a": "Ne, interni praznici tvrtke nisu državni blagdani. Za službene izračune koriste se samo državni blagdani. Tvrtka može imati dodatne neradne dane, ali to nije standardno."
+    },
+    {
+      "q": "Kako se računaju radni dani za plaću?",
+      "a": "Za obračun plaće koristi se broj radnih dana u mjesecu. Ako radite punu satnicu, plaća se dijeli s brojem radnih dana u tom mjesecu. Koristite naš Kalkulator Plaće za precizne izračune."
+    },
+    {
+      "q": "Postoji li razlika između radnih i poslovnih dana?",
+      "a": "Radni dani su službeno definirani (pon-pet minus blagdani). Poslovni dani mogu uključivati dodatne neradne dane specifične za industriju ili tvrtku (npr. kolektivni godišnji)."
+    }
+  ]
+}

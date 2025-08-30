@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     question: 'Kako izračunati PDV iz iznosa s PDV-om?',
-    answer: 'Za izračun PDV-a iz ukupnog iznosa koristite formulu: PDV = ukupni iznos × (stopa PDV / (100 + stopa PDV)). Primjer: iz 125 kn s 25% PDV = 125 × (25/125) = 25 kn.'
+    answer: 'Za izračun PDV-a iz ukupnog iznosa koristite formulu: PDV = ukupni iznos × (stopa PDV / (100 + stopa PDV)). Primjer: iz 125 € s 25% PDV = 125 × (25/125) = 25 €.'
   },
   {
     question: 'Kako izračunati postotak od broja?',

@@ -1,0 +1,68 @@
+{
+  "slug": "kako-izracunati-neto-placu",
+  "category": "Plaća",
+  "main_keyword": "kako izračunati neto plaću",
+  "calculator": {
+    "title": "Kalkulator Plaće",
+    "href": "/kalkulator-place"
+  },
+  "secondary_calculators": [
+    { "title": "Kalkulator Postotka", "href": "/kalkulator-postotka" },
+    { "title": "Kalkulator Kredita", "href": "/kalkulator-kredita" }
+  ],
+  "query_variants": ["bruto neto plaća", "obračun plaće", "porez na plaću", "doprinosi plaća"],
+  "date": "2025-08-30",
+  "hero_image": "/images/blog/kako-izracunati-neto-placu/hero.jpg",
+  "quick_answer": "Neto plaća se izračunava oduzimanjem poreza i doprinosa od bruto plaće. Formula: Neto = Bruto - Porez - Doprinosi.",
+  "manual_formula": {
+    "heading": "Formula za neto plaću",
+    "prose": "Neto plaća = Bruto plaća - Porez na dohodak - Doprinosi (20%)",
+    "latex": "Neto = Bruto - (Bruto × 0.20) - Porez"
+  },
+  "examples": [
+    {
+      "title": "Standardna plaća",
+      "steps": [
+        "Bruto plaća: 8.000 €",
+        "Doprinosi (20%): 8.000 × 0.20 = 1.600 €",
+        "Porezna osnovica: 8.000 - 1.600 = 6.400 €",
+        "Porez (20% na iznos preko 4.000 €): (6.400 - 4.000) × 0.20 = 480 €",
+        "Neto plaća: 8.000 - 1.600 - 480 = 5.920 €"
+      ]
+    },
+    {
+      "title": "Minimalna plaća",
+      "steps": [
+        "Bruto plaća: 4.500 €",
+        "Doprinosi (20%): 4.500 × 0.20 = 900 €",
+        "Porezna osnovica: 4.500 - 900 = 3.600 €",
+        "Porez: 0 € (ispod osobnog odbitka)",
+        "Neto plaća: 4.500 - 900 = 3.600 €"
+      ]
+    }
+  ],
+  "common_mistakes": [
+    "Zaboravljanje osobnog odbitka od 4.000 €",
+    "Pogrešan izračun doprinosa (20%)",
+    "Miješanje bruto 1 i bruto 2 plaće",
+    "Zanemarivanje prireza u određenim gradovima"
+  ],
+  "faq": [
+    {
+      "q": "Koliki je osobni odbitak u Hrvatskoj?",
+      "a": "Osobni odbitak iznosi 4.000 € mjesečno za 2025. godinu, što znači da se porez ne plaća na prvih 4.000 € porezne osnovice."
+    },
+    {
+      "q": "Koliki su doprinosi na plaću?",
+      "a": "Ukupni doprinosi iznose 20% bruto plaće (15% za mirovinsko osiguranje + 5% za zdravstveno osiguranje)."
+    },
+    {
+      "q": "Što je razlika između bruto 1 i bruto 2?",
+      "a": "Bruto 1 je plaća bez doprinosa poslodavca, bruto 2 uključuje i doprinose poslodavca (dodatnih 17.2%)."
+    },
+    {
+      "q": "Kada se plaća prirez?",
+      "a": "Prirez se plaća ovisno o mjestu prebivališta. Zagreb ima prirez od 18%, Split 10%, a mnogi gradovi nemaju prirez."
+    }
+  ]
+}

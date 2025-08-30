@@ -1,0 +1,81 @@
+{
+  "slug": "kako-izracunati-koliko-imam-godina-tocno",
+  "category": "Datumi i dani",
+  "main_keyword": "kako izračunati koliko imam godina",
+  "calculator": {
+    "title": "Kalkulator Datuma",
+    "href": "/kalkulator-datuma"
+  },
+  "secondary_calculators": [
+    { "title": "Kalkulator Vremena", "href": "/kalkulator-vremena" },
+    { "title": "BMI Kalkulator", "href": "/kalkulator-bmi" },
+    { "title": "Kalkulator Postotka", "href": "/kalkulator-postotka" }
+  ],
+  "query_variants": ["izračun dobi", "koliko imam godina", "točna dob", "godine mjeseci dani"],
+  "date": "2025-08-30",
+  "hero_image": "/images/blog/kako-izracunati-koliko-imam-godina/hero.jpg",
+  "quick_answer": "Dob se izračunava oduzimanjem datuma rođenja od današnjeg datuma. Rezultat se prikazuje u godinama, mjesecima i danima za potpunu preciznost.",
+  "manual_formula": {
+    "heading": "Formula za izračun točne dobi",
+    "prose": "**Osnovna formula:** Današnji datum - Datum rođenja = Dob\n\n**Detaljno:** Godine + Mjeseci + Dani\n**Napomena:** Pazite na prestupne godine i različit broj dana u mjesecima",
+    "latex": "Dob = Danas - Rođenje\nGodine = floor((Danas - Rođenje) / 365.25)\nMjeseci = ostatak / 30.44\nDani = ostatak"
+  },
+  "examples": [
+    {
+      "title": "Osnovni izračun dobi",
+      "steps": [
+        "**Datum rođenja:** 15. ožujka 1990.",
+        "**Današnji datum:** 30. kolovoza 2025.",
+        "**Izračun:** 2025 - 1990 = 35 godina",
+        "**Precizno:** 35 godina, 5 mjeseci i 15 dana"
+      ]
+    },
+    {
+      "title": "Dob s prestupnim godinama",
+      "steps": [
+        "**Datum rođenja:** 29. veljače 1992. (prestupna godina)",
+        "**Današnji datum:** 30. kolovoza 2025.",
+        "**Osnovni izračun:** 2025 - 1992 = 33 godine",
+        "**Točno:** 33 godine, 6 mjeseci i 1 dan"
+      ]
+    },
+    {
+      "title": "Dob u danima (za precizne potrebe)",
+      "steps": [
+        "**Datum rođenja:** 1. siječnja 2000.",
+        "**Današnji datum:** 30. kolovoza 2025.",
+        "**Ukupno dana:** 9.372 dana",
+        "**To je:** 25 godina, 7 mjeseci i 29 dana"
+      ]
+    }
+  ],
+  "common_mistakes": [
+    "**Zaboravljanje prestupnih godina** - Utječe na točnost izračuna za duže periode",
+    "**Jednostavno oduzimanje godina** - Ne uzima u obzir mjesece i dane",
+    "**Pogrešno računanje mjeseci** - Mjeseci imaju različit broj dana (28-31)",
+    "**Zanemarivanje vremenske zone** - Može utjecati na točan datum",
+    "**Miješanje formata datuma** - DD.MM.YYYY vs MM.DD.YYYY može dovesti do grešaka"
+  ],
+  "faq": [
+    {
+      "q": "Zašto je važno znati točnu dob u godinama, mjesecima i danima?",
+      "a": "Točna dob je potrebna za medicinske potrebe (dječja dob), pravne dokumente, osiguranje, mirovinu i druge službene svrhe gdje je preciznost bitna."
+    },
+    {
+      "q": "Kako se računa dob ako je netko rođen 29. veljače?",
+      "a": "Osobe rođene 29. veljače slave rođendan 28. veljače u neprestupnim godinama. Za izračun dobi, 29. veljača se tretira kao 28. veljača + 1 dan."
+    },
+    {
+      "q": "Postoji li razlika između kronološke i biološke dobi?",
+      "a": "Da. Kronološka dob je vrijeme od rođenja (ovo računamo). Biološka dob ovisi o zdravlju, genetici i načinu života. Naš kalkulator računa kronološku dob."
+    },
+    {
+      "q": "Kako izračunati dob na određeni datum u prošlosti?",
+      "a": "Umjesto današnjeg datuma, koristite željeni datum iz prošlosti. Formula ostaje ista: Željeni datum - Datum rođenja = Dob na taj datum."
+    },
+    {
+      "q": "Zašto se koristi 365.25 dana za godinu?",
+      "a": "365.25 uzima u obzir prestupne godine (svaka 4. godina ima 366 dana). To daje precizniji prosjek: (365×3 + 366×1) ÷ 4 = 365.25 dana."
+    }
+  ]
+}

@@ -58,7 +58,7 @@ P = (d / c) × 100
 > Brže: [Kalkulator Postotka](/kalkulator-postotka)
 
 ### Praktični primjer s popustom
-1. Proizvod košta 200 kn, popust je 30 kn
+1. Proizvod košta 200 €, popust je 30 €
 2. Postotak popusta = (30 ÷ 200) × 100 = 15%
 3. Rezultat: Popust iznosi 15%
 

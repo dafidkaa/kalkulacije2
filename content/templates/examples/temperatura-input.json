@@ -1,0 +1,66 @@
+{
+  "slug": "kako-pretvoriti-temperature",
+  "category": "Pretvarači",
+  "main_keyword": "kako pretvoriti temperature",
+  "calculator": {
+    "title": "Pretvarač Temperature",
+    "href": "/pretvarac-temperature"
+  },
+  "secondary_calculators": [
+    { "title": "Pretvarač Jedinica", "href": "/pretvarac-jedinica" },
+    { "title": "Kalkulator Površine", "href": "/kalkulator-povrsine" }
+  ],
+  "query_variants": ["celsius fahrenheit", "°C u °F", "kelvin pretvaranje", "temperatura formula"],
+  "date": "2025-08-30",
+  "hero_image": "/images/blog/kako-pretvoriti-temperature/hero.jpg",
+  "quick_answer": "Temperature se pretvaraju formulama: °F = (°C × 9/5) + 32, °C = (°F - 32) × 5/9, K = °C + 273.15.",
+  "manual_formula": {
+    "heading": "Formule za pretvaranje temperature",
+    "prose": "Celsius u Fahrenheit: °F = (°C × 9/5) + 32\nFahrenheit u Celsius: °C = (°F - 32) × 5/9\nCelsius u Kelvin: K = °C + 273.15",
+    "latex": "°F = (°C × 9/5) + 32\n°C = (°F - 32) × 5/9\nK = °C + 273.15"
+  },
+  "examples": [
+    {
+      "title": "Celsius u Fahrenheit",
+      "steps": [
+        "Temperatura: 25°C",
+        "Formula: °F = (°C × 9/5) + 32",
+        "Izračun: °F = (25 × 9/5) + 32 = 45 + 32 = 77°F",
+        "Rezultat: 25°C = 77°F"
+      ]
+    },
+    {
+      "title": "Fahrenheit u Celsius",
+      "steps": [
+        "Temperatura: 100°F",
+        "Formula: °C = (°F - 32) × 5/9",
+        "Izračun: °C = (100 - 32) × 5/9 = 68 × 5/9 = 37.8°C",
+        "Rezultat: 100°F = 37.8°C"
+      ]
+    }
+  ],
+  "common_mistakes": [
+    "Zaboravljanje dodavanja 32 pri pretvaranju u Fahrenheit",
+    "Miješanje redoslijeda operacija (množenje prije zbrajanja)",
+    "Korištenje krive formule za pretvaranje",
+    "Pogrešno zaokruživanje rezultata"
+  ],
+  "faq": [
+    {
+      "q": "Zašto se dodaje 273.15 za Kelvin?",
+      "a": "273.15 je apsolutna nula u Celsiusima. Kelvin skala počinje od apsolutne nule, pa se dodaje ta vrijednost."
+    },
+    {
+      "q": "Koja je najčešća temperatura u svakodnevnom životu?",
+      "a": "Sobna temperatura je oko 20-22°C (68-72°F), tjelesna temperatura 37°C (98.6°F), voda vrije na 100°C (212°F)."
+    },
+    {
+      "q": "Kada koristiti Kelvin skalu?",
+      "a": "Kelvin se koristi u znanstvenim izračunima, fizici i kemiji jer je apsolutna temperaturna skala."
+    },
+    {
+      "q": "Postoji li brža metoda za približno pretvaranje?",
+      "a": "Za brzu procjenu: °C × 2 + 30 ≈ °F (nije precizno, ali korisno za procjenu)."
+    }
+  ]
+}

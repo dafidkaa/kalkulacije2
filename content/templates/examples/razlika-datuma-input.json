@@ -1,0 +1,82 @@
+{
+  "slug": "kako-izracunati-razliku-izmedu-datuma",
+  "category": "Datumi i dani",
+  "main_keyword": "kako izračunati razliku između datuma",
+  "calculator": {
+    "title": "Kalkulator Datuma",
+    "href": "/kalkulator-datuma"
+  },
+  "secondary_calculators": [
+    { "title": "Kalkulator Vremena", "href": "/kalkulator-vremena" },
+    { "title": "Kalkulator Postotka", "href": "/kalkulator-postotka" },
+    { "title": "Kalkulator Plaće", "href": "/kalkulator-place" }
+  ],
+  "query_variants": ["izračun dana između datuma", "koliko dana između datuma", "razlika datuma", "odbrojavanje dana"],
+  "date": "2025-08-30",
+  "hero_image": "/images/blog/kako-izracunati-razliku-izmedu-datuma/hero.jpg",
+  "quick_answer": "Razlika između datuma se izračunava oduzimanjem ranijeg datuma od kasnijeg. Formula: Kasniji datum - Raniji datum = Broj dana.",
+  "manual_formula": {
+    "heading": "Formula za razliku između datuma",
+    "prose": "**Osnovna formula:** Kasniji datum - Raniji datum = Broj dana\n\n**Za radne dane:** Ukupni dani - Vikendi - Blagdani = Radni dani",
+    "latex": "Razlika = Datum₂ - Datum₁\nRadni dani = Ukupni dani - (Subote + Nedjelje + Blagdani)"
+  },
+  "examples": [
+    {
+      "title": "Osnovni primjer - Razlika u danima",
+      "steps": [
+        "**Početni datum:** 1. siječnja 2025.",
+        "**Završni datum:** 15. siječnja 2025.",
+        "**Izračun:** 15 - 1 = 14 dana",
+        "**Rezultat:** Između 1.1. i 15.1. je **14 dana**"
+      ]
+    },
+    {
+      "title": "Radni dani (bez vikenda)",
+      "steps": [
+        "**Početni datum:** 6. siječnja 2025. (ponedjeljak)",
+        "**Završni datum:** 17. siječnja 2025. (petak)",
+        "**Ukupno dana:** 11 dana",
+        "**Vikendi:** 2 vikenda (4 dana)",
+        "**Radni dani:** 11 - 4 = **7 radnih dana**"
+      ]
+    },
+    {
+      "title": "Dugoročno planiranje",
+      "steps": [
+        "**Početni datum:** 1. ožujka 2025.",
+        "**Završni datum:** 1. lipnja 2025.",
+        "**Izračun:** 92 dana (3 mjeseca)",
+        "**Radni dani:** Približno **66 radnih dana** (bez vikenda i blagdana)"
+      ]
+    }
+  ],
+  "common_mistakes": [
+    "**Zaboravljanje uključiti/isključiti početni ili završni datum** - Pazite na to računate li 'od-do' ili 'od-uključujući'",
+    "**Miješanje formata datuma** - Koristite konzistentan format (DD.MM.YYYY ili MM/DD/YYYY)",
+    "**Zanemarivanje prestupnih godina** - Veljača ima 29 dana u prestupnim godinama",
+    "**Pogrešno računanje vikenda** - Subota i nedjelja se ne računaju kao radni dani",
+    "**Zaboravljanje državnih blagdana** - U Hrvatskoj ima 13 državnih blagdana godišnje"
+  ],
+  "faq": [
+    {
+      "q": "Kako izračunati samo radne dane između dva datuma?",
+      "a": "Izračunajte ukupan broj dana, zatim oduzmi te vikende (subote i nedjelje) i državne blagdane. Formula: Radni dani = Ukupni dani - Vikendi - Blagdani. Naš kalkulator automatski računa radne dane za Hrvatsku."
+    },
+    {
+      "q": "Računaju li se blagdani kao radni dani?",
+      "a": "Ne, državni blagdani se ne računaju kao radni dani. Hrvatska ima 13 državnih blagdana: Nova godina, Bogojavljenje, Uskrs, Uskrsni ponedjeljak, Praznik rada, Dan državnosti, Tijelovo, Dan antifašističke borbe, Dan domovinske zahvalnosti, Svi sveti, Dan neovisnosti i Božić."
+    },
+    {
+      "q": "Kako računati razliku preko više godina?",
+      "a": "Za duže periode koristite istu formulu, ali pazite na prestupne godine. Prestupne godine imaju 366 dana umjesto 365. Prestupne su godine djeljive s 4 (osim stoljeća koja moraju biti djeljiva s 400)."
+    },
+    {
+      "q": "Što ako je početni datum kasniji od završnog?",
+      "a": "Ako je početni datum kasniji, rezultat će biti negativan broj. To znači da računate unazad u vremenu. Jednostavno zamijenite datume ili koristite apsolutnu vrijednost rezultata."
+    },
+    {
+      "q": "Kako uključiti sate i minute u izračun?",
+      "a": "Za precizne izračune s vremenom koristite naš Kalkulator Vremena koji računa razlike do sekunde. Za osnovne potrebe, razlika u danima je obično dovoljna."
+    }
+  ]
+}
