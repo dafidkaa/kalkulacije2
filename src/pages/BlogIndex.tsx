@@ -49,37 +49,23 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
       setLoading(true);
       setError(null);
 
-      // Load posts based on filters
-      let allPosts: BlogIndexType[];
-      
+      // Load posts from static JSON file
+      const response = await fetch('/blog-index.json');
+      if (!response.ok) {
+        throw new Error('Failed to load blog posts');
+      }
+
+      let allPosts: BlogIndexType[] = await response.json();
+
+      // Apply filters
       if (tag) {
-        const tagPosts = await blogFileSystem.getPostsByTag(tag);
-        allPosts = tagPosts.map(post => ({
-          slug: post.slug,
-          title: post.title,
-          description: post.description,
-          date: post.date,
-          tags: post.tags,
-          category: post.category,
-          heroImage: post.heroImage,
-          excerpt: post.excerpt,
-          readTime: post.readTime
-        }));
+        allPosts = allPosts.filter(post =>
+          post.tags.some(postTag => postTag.toLowerCase().includes(tag.toLowerCase()))
+        );
       } else if (category) {
-        const categoryPosts = await blogFileSystem.getPostsByCategory(category);
-        allPosts = categoryPosts.map(post => ({
-          slug: post.slug,
-          title: post.title,
-          description: post.description,
-          date: post.date,
-          tags: post.tags,
-          category: post.category,
-          heroImage: post.heroImage,
-          excerpt: post.excerpt,
-          readTime: post.readTime
-        }));
-      } else {
-        allPosts = await blogFileSystem.getBlogIndex();
+        allPosts = allPosts.filter(post =>
+          post.category.toLowerCase() === category.toLowerCase()
+        );
       }
 
       // Implement pagination
@@ -99,11 +85,33 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
         hasPrevPage: page > 1
       });
 
-      // Load categories and tags
-      const [categoriesData, tagsData] = await Promise.all([
-        blogFileSystem.getCategories(),
-        blogFileSystem.getTags()
-      ]);
+      // Generate categories and tags from posts
+      const categoriesMap = new Map<string, number>();
+      const tagsMap = new Map<string, number>();
+
+      allPosts.forEach(post => {
+        // Count categories
+        const count = categoriesMap.get(post.category) || 0;
+        categoriesMap.set(post.category, count + 1);
+
+        // Count tags
+        post.tags.forEach(tag => {
+          const tagCount = tagsMap.get(tag) || 0;
+          tagsMap.set(tag, tagCount + 1);
+        });
+      });
+
+      const categoriesData = Array.from(categoriesMap.entries()).map(([name, count]) => ({
+        name,
+        slug: name.toLowerCase().replace(/\s+/g, '-'),
+        count
+      }));
+
+      const tagsData = Array.from(tagsMap.entries()).map(([name, count]) => ({
+        name,
+        slug: name.toLowerCase().replace(/\s+/g, '-'),
+        count
+      })).sort((a, b) => b.count - a.count);
 
       setCategories(categoriesData);
       setTags(tagsData);
@@ -367,19 +375,7 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                   </div>
                 )}
 
-                {/* RSS Feed */}
-                <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Pretplati se</h3>
-                  <a
-                    href="/blog/rss.xml"
-                    className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M3.429 2.571c8.571 0 15.429 6.857 15.429 15.429h-3.429c0-6.857-5.714-12.571-12.571-12.571v-2.857zM3.429 7.429c5.714 0 10.286 4.571 10.286 10.286h-3.429c0-3.714-3.143-6.857-6.857-6.857v-3.429zM6.857 14.857c0 1.571-1.286 2.857-2.857 2.857s-2.857-1.286-2.857-2.857 1.286-2.857 2.857-2.857 2.857 1.286 2.857 2.857z"/>
-                    </svg>
-                    RSS Feed
-                  </a>
-                </div>
+
               </div>
             </div>
           </div>

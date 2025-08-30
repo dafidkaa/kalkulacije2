@@ -5,14 +5,46 @@
     <link>https://kalkulacije.com/blog</link>
     <description>Vodič za kalkulatore, izračune i praktične savjete</description>
     <language>hr</language>
-    <lastBuildDate>Sat, 30 Aug 2025 10:23:48 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 30 Aug 2025 11:11:01 GMT</lastBuildDate>
     <atom:link href="https://kalkulacije.com/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title><![CDATA[Kako izračunati razliku između datuma (uz primjere)]]></title>
+      <title><![CDATA[Kako izračunati BMI – Formula, Primjeri i Kalkulator]]></title>
+      <link>https://kalkulacije.com/blog/kako-izracunati-bmi</link>
+      <guid>https://kalkulacije.com/blog/kako-izracunati-bmi</guid>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Naučite ručno izračunati kako izračunati bmi i provjerite rezultate u BMI Kalkulator.]]></description>
+      <category><![CDATA[Zdravlje]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Kako izračunati Koliko imam godina – Formula, Primjeri i Kalkulator]]></title>
+      <link>https://kalkulacije.com/blog/kako-izracunati-koliko-imam-godina-tocno</link>
+      <guid>https://kalkulacije.com/blog/kako-izracunati-koliko-imam-godina-tocno</guid>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Naučite ručno izračunati kako izračunati koliko imam godina uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.]]></description>
+      <category><![CDATA[Datumi i dani]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Kako izračunati Postotak – Formula, Primjeri i Kalkulator]]></title>
+      <link>https://kalkulacije.com/blog/kako-izracunati-postotak</link>
+      <guid>https://kalkulacije.com/blog/kako-izracunati-postotak</guid>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Saznajte formulu za kako izračunati postotak uz jasne primjere. Brže: Kalkulator Postotka.]]></description>
+      <category><![CDATA[Postotci i PDV]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Kako izračunati Razliku između datuma – Formula, Primjeri i Kalkulator]]></title>
       <link>https://kalkulacije.com/blog/kako-izracunati-razliku-izmedu-datuma</link>
       <guid>https://kalkulacije.com/blog/kako-izracunati-razliku-izmedu-datuma</guid>
-      <pubDate>Thu, 30 Jan 2025 00:00:00 GMT</pubDate>
-      <description><![CDATA[Jednostavan vodič za izračun razlike između datuma, uključujući radne dane i blagdane.]]></description>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Naučite ručno izračunati kako izračunati razliku između datuma uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.]]></description>
+      <category><![CDATA[Datumi i dani]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Kako izračunati Koliko radnih dana između dva datuma – Formula, Primjeri i Kalkulator]]></title>
+      <link>https://kalkulacije.com/blog/koliko-radnih-dana-izmedu-dva-datuma-hrvatska</link>
+      <guid>https://kalkulacije.com/blog/koliko-radnih-dana-izmedu-dva-datuma-hrvatska</guid>
+      <pubDate>Sat, 30 Aug 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Naučite ručno izračunati koliko radnih dana između dva datuma uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.]]></description>
       <category><![CDATA[Datumi i dani]]></category>
     </item>
   </channel>

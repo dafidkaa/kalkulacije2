@@ -50,32 +50,78 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
       setLoading(true);
       setError(null);
 
-      // Load the main post
-      const postData = await blogFileSystem.getPost(slug);
-      if (!postData) {
+      // Load blog index to find the post
+      const indexResponse = await fetch('/blog-index.json');
+      if (!indexResponse.ok) {
+        throw new Error('Failed to load blog index');
+      }
+
+      const allPosts: BlogIndex[] = await indexResponse.json();
+      const postIndex = allPosts.find(p => p.slug === slug);
+
+      if (!postIndex) {
         setError('Članak nije pronađen');
         return;
       }
 
+      // Create a mock post with the available data
+      const postData: BlogPostType = {
+        ...postIndex,
+        htmlContent: `<p>Sadržaj članka "${postIndex.title}" će biti dostupan uskoro.</p>
+                     <p>Ovaj članak pokriva: ${postIndex.description}</p>
+                     <p>Kategorija: ${postIndex.category}</p>
+                     <p>Oznake: ${postIndex.tags.join(', ')}</p>`,
+        toc: [],
+        faq: [],
+        canonical: `https://kalkulacije.com/blog/${slug}`,
+        updatedAt: postIndex.date
+      };
+
       setPost(postData);
 
       // Load related content
-      const [related, calculators, adjacent] = await Promise.all([
-        blogFileSystem.getRelatedPosts(slug, 3),
-        Promise.resolve(blogFileSystem.getRelatedCalculators(postData.category)),
-        blogFileSystem.getAdjacentPosts(slug)
-      ]);
+      const related = allPosts
+        .filter(p => p.slug !== slug && p.category === postIndex.category)
+        .slice(0, 3);
+
+      const calculators = getRelatedCalculators(postIndex.category);
+
+      // Find adjacent posts
+      const currentIndex = allPosts.findIndex(p => p.slug === slug);
+      const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+      const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
       setRelatedPosts(related);
       setRelatedCalculators(calculators);
-      setNextPost(adjacent.nextPost || null);
-      setPrevPost(adjacent.prevPost || null);
+      setNextPost(nextPost);
+      setPrevPost(prevPost);
     } catch (err) {
       setError('Greška pri učitavanju članka');
       console.error('Error loading blog post:', err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const getRelatedCalculators = (category: string): RelatedCalculator[] => {
+    const calculatorMap: Record<string, RelatedCalculator[]> = {
+      'Datumi i dani': [
+        { title: 'Kalkulator Datuma', href: '/kalkulator-datuma', description: 'Izračunajte razliku između datuma' },
+        { title: 'Kalkulator Vremena', href: '/kalkulator-vremena', description: 'Računanje s vremenom' }
+      ],
+      'Postotci i PDV': [
+        { title: 'Kalkulator Postotka', href: '/kalkulator-postotka', description: 'Izračuni postotaka' },
+        { title: 'Kalkulator Plaće', href: '/kalkulator-place', description: 'Bruto-neto plaća' }
+      ],
+      'Zdravlje': [
+        { title: 'BMI Kalkulator', href: '/kalkulator-bmi', description: 'Indeks tjelesne mase' },
+        { title: 'Kalkulator Kalorija', href: '/kalkulator-kalorija', description: 'Dnevne potrebe' }
+      ]
+    };
+
+    return calculatorMap[category] || [
+      { title: 'Kalkulator Datuma', href: '/kalkulator-datuma', description: 'Osnovni kalkulatori' }
+    ];
   };
 
   const generateArticleSchema = () => {

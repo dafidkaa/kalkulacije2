@@ -20,7 +20,15 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">Brzi Linkovi</h3>
             <ul className="space-y-2">
               <li>
-                <button 
+                <a
+                  href="/blog"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Blog
+                </a>
+              </li>
+              <li>
+                <button
                   onClick={() => setActiveModal('contact')}
                   className="text-gray-400 hover:text-white transition-colors"
                 >
@@ -28,7 +36,7 @@ export function Footer() {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => setActiveModal('privacy')}
                   className="text-gray-400 hover:text-white transition-colors"
                 >
@@ -36,7 +44,7 @@ export function Footer() {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => setActiveModal('terms')}
                   className="text-gray-400 hover:text-white transition-colors"
                 >
@@ -46,10 +54,36 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Pratite Nas</h3>
-            <p className="text-gray-400">
-              Budite u toku s najnovijim kalkulatorima i ažuriranjima.
-            </p>
+            <h3 className="text-lg font-semibold mb-4">Resursi</h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="/blog/rss.xml"
+                  className="text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3.429 2.571c8.571 0 15.429 6.857 15.429 15.429h-3.429c0-6.857-5.714-12.571-12.571-12.571v-2.857zM3.429 7.429c5.714 0 10.286 4.571 10.286 10.286h-3.429c0-3.714-3.143-6.857-6.857-6.857v-3.429zM6.857 14.857c0 1.571-1.286 2.857-2.857 2.857s-2.857-1.286-2.857-2.857 1.286-2.857 2.857-2.857 2.857 1.286 2.857 2.857z"/>
+                  </svg>
+                  RSS Feed
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/sitemap.xml"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Sitemap
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/sitemap-blog.xml"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Blog Sitemap
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">

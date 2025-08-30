@@ -1,17 +1,92 @@
 [
   {
-    "slug": "kako-izracunati-razliku-izmedu-datuma",
-    "title": "Kako izračunati razliku između datuma (uz primjere)",
-    "description": "Jednostavan vodič za izračun razlike između datuma, uključujući radne dane i blagdane.",
-    "date": "2025-01-30",
+    "slug": "kako-izracunati-bmi",
+    "title": "Kako izračunati BMI – Formula, Primjeri i Kalkulator",
+    "description": "Naučite ručno izračunati kako izračunati bmi i provjerite rezultate u BMI Kalkulator.",
+    "date": "2025-08-30",
+    "tags": [
+      "bmi",
+      "kalorije",
+      "idealna težina",
+      "zdravlje",
+      "BMI formula",
+      "indeks tjelesne mase"
+    ],
+    "category": "Zdravlje",
+    "heroImage": "/images/blog/kako-izracunati-bmi/hero.jpg",
+    "excerpt": "Naučite ručno izračunati kako izračunati bmi i provjerite rezultate u BMI Kalkulator.",
+    "readTime": 4
+  },
+  {
+    "slug": "kako-izracunati-koliko-imam-godina-tocno",
+    "title": "Kako izračunati Koliko imam godina – Formula, Primjeri i Kalkulator",
+    "description": "Naučite ručno izračunati kako izračunati koliko imam godina uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
+    "date": "2025-08-30",
     "tags": [
       "datumi",
       "radni dani",
-      "računanje"
+      "odbrojavanje",
+      "izračun dana",
+      "izračun dobi",
+      "koliko imam godina"
     ],
     "category": "Datumi i dani",
-    "heroImage": "/images/blog/kako-izracunati-razliku/hero.jpg",
-    "excerpt": "Jednostavan vodič za izračun razlike između datuma, uključujući radne dane i blagdane.",
-    "readTime": 3
+    "heroImage": "/images/blog/kako-izracunati-koliko-imam-godina/hero.jpg",
+    "excerpt": "Naučite ručno izračunati kako izračunati koliko imam godina uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
+    "readTime": 5
+  },
+  {
+    "slug": "kako-izracunati-postotak",
+    "title": "Kako izračunati Postotak – Formula, Primjeri i Kalkulator",
+    "description": "Saznajte formulu za kako izračunati postotak uz jasne primjere. Brže: Kalkulator Postotka.",
+    "date": "2025-08-30",
+    "tags": [
+      "postotak",
+      "pdv",
+      "popust",
+      "povećanje",
+      "postotak od broja",
+      "izračun postotka"
+    ],
+    "category": "Postotci i PDV",
+    "heroImage": "/images/blog/kako-izracunati-postotak/hero.jpg",
+    "excerpt": "Saznajte formulu za kako izračunati postotak uz jasne primjere. Brže: Kalkulator Postotka.",
+    "readTime": 4
+  },
+  {
+    "slug": "kako-izracunati-razliku-izmedu-datuma",
+    "title": "Kako izračunati Razliku između datuma – Formula, Primjeri i Kalkulator",
+    "description": "Naučite ručno izračunati kako izračunati razliku između datuma uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
+    "date": "2025-08-30",
+    "tags": [
+      "datumi",
+      "radni dani",
+      "odbrojavanje",
+      "izračun dana",
+      "izračun dana između datuma",
+      "koliko dana između datuma"
+    ],
+    "category": "Datumi i dani",
+    "heroImage": "/images/blog/kako-izracunati-razliku-izmedu-datuma/hero.jpg",
+    "excerpt": "Naučite ručno izračunati kako izračunati razliku između datuma uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
+    "readTime": 9
+  },
+  {
+    "slug": "koliko-radnih-dana-izmedu-dva-datuma-hrvatska",
+    "title": "Kako izračunati Koliko radnih dana između dva datuma – Formula, Primjeri i Kalkulator",
+    "description": "Naučite ručno izračunati koliko radnih dana između dva datuma uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
+    "date": "2025-08-30",
+    "tags": [
+      "datumi",
+      "radni dani",
+      "odbrojavanje",
+      "izračun dana",
+      "radni dani između datuma",
+      "poslovni dani"
+    ],
+    "category": "Datumi i dani",
+    "heroImage": "/images/blog/koliko-radnih-dana-izmedu-dva-datuma/hero.jpg",
+    "excerpt": "Naučite ručno izračunati koliko radnih dana između dva datuma uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
+    "readTime": 5
   }
 ]

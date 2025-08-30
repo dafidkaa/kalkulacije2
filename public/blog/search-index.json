@@ -1,13 +1,72 @@
 [
   {
-    "slug": "kako-izracunati-razliku-izmedu-datuma",
-    "title": "Kako izračunati razliku između datuma (uz primjere)",
-    "description": "Jednostavan vodič za izračun razlike između datuma, uključujući radne dane i blagdane.",
+    "slug": "kako-izracunati-bmi",
+    "title": "Kako izračunati BMI – Formula, Primjeri i Kalkulator",
+    "description": "Naučite ručno izračunati kako izračunati bmi i provjerite rezultate u BMI Kalkulator.",
+    "tags": [
+      "bmi",
+      "kalorije",
+      "idealna težina",
+      "zdravlje",
+      "BMI formula",
+      "indeks tjelesne mase"
+    ],
+    "content": "\n# Kako izračunati BMI\n\n**Brzi odgovor:** BMI se izračunava formulom: težina (kg) ÷ visina² (m). Na primjer, za 70 kg i 175 cm: BMI = 70 ÷ 1.75² = 22.9.  \nAko želite rezultat u sekundi, upotrijebite naš [BMI Kalkulator](/kalkulator-bmi).\n\n## Što je kako izračunati BMI i gdje se koristi\n\nkako izračunati BMI je postupak koji se koristi u mnogim situacijama. Također se naziva i BMI formula, indeks tjelesne mase, izračun BMI.\n\nNajčešće se koristi za:\n- Planiranje i organizaciju\n- Financijske kalkulacije  \n- Svakodnevne praktične potrebe\n- Profesionalne analize\n\n## Formula za BMI\n\nBMI = Težina (kg) ÷ [Visina (m)]²\n\n```\nBMI = kg / m²\n```\n\n## Primjeri iz prakse\n\n### Standardni primjer\n1. Osoba teška 70 kg, visoka 175 cm (1.75 m)\n2. BMI = 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = 22.9\n3. Rezultat: BMI 22.9 (normalna težina)\n\n> Brže: [BMI Kalkulator](/kalkulator-bmi)\n\n### Primjer s različitim mjerama\n1. Osoba teška 85 kg, visoka 180 cm (1.80 m)\n2. BMI = 85 ÷ (1.80 × 1.80) = 85 ÷ 3.24 = 26.2\n3. Rezulta"
+  },
+  {
+    "slug": "kako-izracunati-koliko-imam-godina-tocno",
+    "title": "Kako izračunati Koliko imam godina – Formula, Primjeri i Kalkulator",
+    "description": "Naučite ručno izračunati kako izračunati koliko imam godina uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
     "tags": [
       "datumi",
       "radni dani",
-      "računanje"
+      "odbrojavanje",
+      "izračun dana",
+      "izračun dobi",
+      "koliko imam godina"
     ],
-    "content": "\n## Sažetak\nKratki uvod u problem i rješenje. Jasno navedite što čitatelj dobiva.\n\n## Sadržaj\n- [Što je razlika datuma](#sto-je-razlika-datuma)\n- [Kako izračunati razliku](#kako-izracunati-razliku)\n- [Primjeri](#primjeri)\n- [ČPP](#cpp)\n\n## Što je razlika datuma\nObjasnite jednostavnim jezikom što predstavlja razlika između dva datuma i zašto je to korisno znati.\n\nRazlika datuma je broj dana, tjedana, mjeseci ili godina između dva specifična datuma. Ova informacija je korisna u mnogim situacijama:\n\n- **Planiranje projekata** - koliko dana imate do roka\n- **Osobni događaji** - koliko dana do rođendana ili godišnjice\n- **Poslovni izračuni** - trajanje ugovora ili radnog odnosa\n- **Financijski planovi** - razdoblje štednje ili otplate kredita\n\n## Kako izračunati razliku\nKoraci 1–2–3. Ubacite formule, tablice ili kratke primjere.\n\n### Osnovni postupak:\n\n1. **Odaberite početni datum** - datum od kojeg počinjete računati\n2. **Odaberite završni datum** - datum do kojeg računate\n3. **Definirajte"
+    "content": "\n# Kako izračunati Koliko imam godina\n\n**Brzi odgovor:** Dob se izračunava oduzimanjem datuma rođenja od današnjeg datuma. Rezultat se prikazuje u godinama, mjesecima i danima za potpunu preciznost.  \nAko želite rezultat u sekundi, upotrijebite naš [Kalkulator Datuma](/kalkulator-datuma).\n\n## Što je kako izračunati koliko imam godina i gdje se koristi\n\nkako izračunati koliko imam godina je postupak koji se koristi u mnogim situacijama. Također se naziva i izračun dobi, koliko imam godina, točna dob.\n\nNajčešće se koristi za:\n- Planiranje i organizaciju\n- Financijske kalkulacije  \n- Svakodnevne praktične potrebe\n- Profesionalne analize\n\n## Formula za izračun točne dobi\n\n**Osnovna formula:** Današnji datum - Datum rođenja = Dob\n\n**Detaljno:** Godine + Mjeseci + Dani\n**Napomena:** Pazite na prestupne godine i različit broj dana u mjesecima\n\n```\nDob = Danas - Rođenje\nGodine = floor((Danas - Rođenje) / 365.25)\nMjeseci = ostatak / 30.44\nDani = ostatak\n```\n\n## Primjeri iz prakse\n\n### Osnovni i"
+  },
+  {
+    "slug": "kako-izracunati-postotak",
+    "title": "Kako izračunati Postotak – Formula, Primjeri i Kalkulator",
+    "description": "Saznajte formulu za kako izračunati postotak uz jasne primjere. Brže: Kalkulator Postotka.",
+    "tags": [
+      "postotak",
+      "pdv",
+      "popust",
+      "povećanje",
+      "postotak od broja",
+      "izračun postotka"
+    ],
+    "content": "\n# Kako izračunati Postotak\n\n**Brzi odgovor:** Postotak se izračunava formulom: (dio/cjelina) × 100. Na primjer, 25 od 100 = 25%.  \nAko želite rezultat u sekundi, upotrijebite naš [Kalkulator Postotka](/kalkulator-postotka).\n\n## Što je kako izračunati postotak i gdje se koristi\n\nkako izračunati postotak je postupak koji se koristi u mnogim situacijama. Također se naziva i postotak od broja, izračun postotka, postotak formula.\n\nNajčešće se koristi za:\n- Planiranje i organizaciju\n- Financijske kalkulacije  \n- Svakodnevne praktične potrebe\n- Profesionalne analize\n\n## Formula za izračun postotka\n\nOsnovna formula za postotak je: Postotak = (Dio ÷ Cjelina) × 100\n\n```\nP = (d / c) × 100\n```\n\n## Primjeri iz prakse\n\n### Osnovni primjer\n1. Imamo 25 jabuka od ukupno 100 jabuka\n2. Postotak = (25 ÷ 100) × 100 = 25%\n3. Rezultat: 25 jabuka čini 25% od ukupnog broja\n\n> Brže: [Kalkulator Postotka](/kalkulator-postotka)\n\n### Praktični primjer s popustom\n1. Proizvod košta 200 €, popust je 30 €\n2. Postotak"
+  },
+  {
+    "slug": "kako-izracunati-razliku-izmedu-datuma",
+    "title": "Kako izračunati Razliku između datuma – Formula, Primjeri i Kalkulator",
+    "description": "Naučite ručno izračunati kako izračunati razliku između datuma uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
+    "tags": [
+      "datumi",
+      "radni dani",
+      "odbrojavanje",
+      "izračun dana",
+      "izračun dana između datuma",
+      "koliko dana između datuma"
+    ],
+    "content": "\n# Kako izračunati Razliku između datuma\n\n**Brzi odgovor:** Razlika između datuma se izračunava oduzimanjem ranijeg datuma od kasnijeg. Formula: Kasniji datum - Raniji datum = Broj dana.  \nAko želite rezultat u sekundi, upotrijebite naš [Kalkulator Datuma](/kalkulator-datuma).\n\n## Što je razlika između datuma i gdje se koristi\n\n**Razlika između datuma** je izračun koji pokazuje koliko dana, tjedana, mjeseci ili godina prođe između dva specifična datuma. Ovaj izračun je temelj za mnoge svakodnevne i poslovne odluke.\n\n### 📅 Najčešće situacije korištenja:\n\n| **Kategorija** | **Primjeri korištenja** | **Tip izračuna** |\n|---|---|---|\n| **🏢 Poslovno** | Rokovi projekata, ugovori, planiranje | Radni dani |\n| **💰 Financije** | Kamata, krediti, štednja | Kalendarski dani |\n| **🎯 Osobno** | Rođendani, godišnjice, putovanja | Kalendarski dani |\n| **📚 Obrazovanje** | Školske godine, ispiti, praznici | Radni/školski dani |\n| **⚖️ Pravno** | Rokovi žalbi, zastara, ugovori | Kalendarski dani |\n"
+  },
+  {
+    "slug": "koliko-radnih-dana-izmedu-dva-datuma-hrvatska",
+    "title": "Kako izračunati Koliko radnih dana između dva datuma – Formula, Primjeri i Kalkulator",
+    "description": "Naučite ručno izračunati koliko radnih dana između dva datuma uz formulu i primjere. Za brži rezultat, isprobajte besplatni Kalkulator Datuma.",
+    "tags": [
+      "datumi",
+      "radni dani",
+      "odbrojavanje",
+      "izračun dana",
+      "radni dani između datuma",
+      "poslovni dani"
+    ],
+    "content": "\n# Kako izračunati Koliko radnih dana između dva datuma\n\n**Brzi odgovor:** Radni dani se računaju kao ukupni dani minus vikendi (subote i nedjelje) minus državni blagdani. Hrvatska ima 13 državnih blagdana godišnje.  \nAko želite rezultat u sekundi, upotrijebite naš [Kalkulator Datuma](/kalkulator-datuma).\n\n## Što je koliko radnih dana između dva datuma i gdje se koristi\n\nkoliko radnih dana između dva datuma je postupak koji se koristi u mnogim situacijama. Također se naziva i radni dani između datuma, poslovni dani, radni dani hrvatska.\n\nNajčešće se koristi za:\n- Planiranje i organizaciju\n- Financijske kalkulacije  \n- Svakodnevne praktične potrebe\n- Profesionalne analize\n\n## Formula za radne dane u Hrvatskoj\n\n**Radni dani = Ukupni dani - Vikendi - Državni blagdani**\n\n**Vikendi:** Subote i nedjelje\n**Državni blagdani:** 13 blagdana godišnje u Hrvatskoj\n\n```\nRadni dani = Ukupni dani - (Subote + Nedjelje) - Blagdani\nGodišnje: ≈ 365 - 104 - 13 = 248 radnih dana\n```\n\n## Primjeri iz prakse\n\n"
   }
 ]
