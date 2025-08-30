@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
 import { BreadcrumbSchema } from './SchemaMarkup';
@@ -24,6 +24,37 @@ const routeNames: Record<string, string> = {
 
 export function Breadcrumb() {
   const location = useLocation();
+  const [blogPostData, setBlogPostData] = useState<{ title: string; category: string } | null>(null);
+
+  // Fetch blog post data for individual blog posts
+  useEffect(() => {
+    const fetchBlogPostData = async () => {
+      // Check if this is an individual blog post (not category, tag, or blog index)
+      if (location.pathname.startsWith('/blog/') &&
+          !location.pathname.startsWith('/blog/category/') &&
+          !location.pathname.startsWith('/blog/tag/') &&
+          location.pathname !== '/blog') {
+
+        const slug = location.pathname.split('/blog/')[1];
+        try {
+          const response = await fetch('/blog-index.json');
+          if (response.ok) {
+            const posts = await response.json();
+            const post = posts.find((p: any) => p.slug === slug);
+            if (post) {
+              setBlogPostData({ title: post.title, category: post.category });
+            }
+          }
+        } catch (error) {
+          console.warn('Failed to fetch blog post data for breadcrumb:', error);
+        }
+      } else {
+        setBlogPostData(null);
+      }
+    };
+
+    fetchBlogPostData();
+  }, [location.pathname]);
 
   // Don't show breadcrumbs on homepage
   if (location.pathname === '/') {
@@ -76,10 +107,27 @@ export function Breadcrumb() {
       name: 'Blog',
       url: 'https://kalkulacije.com/blog'
     });
-    breadcrumbItems.push({
-      name: 'Članak',
-      url: `https://kalkulacije.com${location.pathname}`
-    });
+
+    if (blogPostData) {
+      // Add category breadcrumb
+      const categorySlug = blogPostData.category.toLowerCase().replace(/\s+/g, '-');
+      breadcrumbItems.push({
+        name: `Kategorija: ${blogPostData.category}`,
+        url: `https://kalkulacije.com/blog/category/${categorySlug}`
+      });
+
+      // Add post title breadcrumb
+      breadcrumbItems.push({
+        name: blogPostData.title,
+        url: `https://kalkulacije.com${location.pathname}`
+      });
+    } else {
+      // Fallback while loading
+      breadcrumbItems.push({
+        name: 'Članak',
+        url: `https://kalkulacije.com${location.pathname}`
+      });
+    }
   } else {
     breadcrumbItems.push({
       name: routeNames[location.pathname] || 'Stranica',
