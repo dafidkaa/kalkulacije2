@@ -20,14 +20,27 @@ export async function calculateWithGroqAI(expression: string): Promise<GroqRespo
   }
 
   try {
-    const prompt = `You are a precise mathematical calculator that can solve both mathematical expressions and practical word problems. Calculate the following and return ONLY the numerical result, nothing else. No explanations, no text, just the number.
+    const prompt = `You are a precise mathematical calculator that understands Croatian language and can solve both mathematical expressions and practical word problems. Calculate the following and return ONLY the numerical result, nothing else. No explanations, no text, just the number.
 
 Expression: ${expression}
 
-Important rules:
-- Return only the numerical result
-- Use standard mathematical notation
-- For trigonometric functions, assume degrees unless specified
+Croatian Mathematical Terms:
+- "povećaj X za Y%" = increase X by Y% = X * (1 + Y/100)
+- "smanji X za Y%" = decrease X by Y% = X * (1 - Y/100)
+- "koliko je X% od Y" = what is X% of Y = (X/100) * Y
+- "koliko posto je X od Y" = what percent is X of Y = (X/Y) * 100
+- "dodaj X% na Y" = add X% to Y = Y * (1 + X/100)
+- "oduzmi X% od Y" = subtract X% from Y = Y * (1 - X/100)
+- "puta" = times/multiply = *
+- "podijeljeno" = divided = /
+- "plus" = add = +
+- "minus" = subtract = -
+- "milijun/milijuna" = million = 1,000,000
+- "milijard/milijarda" = billion = 1,000,000,000
+- "tisuća/tisuću" = thousand = 1,000
+
+Important calculation rules:
+- Return only the numerical result (no units, no explanations)
 - For percentage calculations:
   * "X percent of Y" = (X * Y) / 100
   * "increase X by Y percent" = X * (1 + Y/100)
@@ -36,10 +49,17 @@ Important rules:
 - For practical calculations:
   * Fuel consumption: (liters / kilometers) * 100 = liters per 100km
   * Speed: distance / time = speed
-  * Unit conversions: apply appropriate conversion factors
-- For word problems, extract the numbers and apply the correct formula
+- For trigonometric functions, assume degrees unless specified
 - Round to maximum 4 decimal places for readability
 - If the expression is invalid or cannot be calculated, return "ERROR"
+
+Examples:
+- "povećaj 100 za 20%" → 120
+- "koliko je 50% od 200" → 100
+- "koliko posto je 25 od 100" → 25
+- "15 puta 8" → 120
+
+Calculate: ${expression}
 
 Result:`;
 

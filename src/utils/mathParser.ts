@@ -120,50 +120,77 @@ function normalizeExpression(text: string): string {
 function handlePercentage(expression: string): string {
   let result = expression.toLowerCase();
 
-  // Handle "what is X percent of Y" or "koliko je X posto od Y" -> "X * Y / 100"
-  const whatIsPercentOfRegex = /(?:what\s+is\s+|koliko\s+je\s+)?(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
-  result = result.replace(whatIsPercentOfRegex, '($1 * $2 / 100)');
+  console.log('Processing percentage expression:', result);
 
-  // Handle "X percent of Y" or "X posto od Y" -> "X * Y / 100" (fallback)
-  const percentOfRegex = /(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
-  result = result.replace(percentOfRegex, '($1 * $2 / 100)');
+  // Handle "povećaj X za Y%" or "increase X by Y%" -> "X * (1 + Y/100)"
+  const increasePatterns = [
+    /(?:povećaj|povećati|uvećaj|uvećati|increase)\s+(\d+(?:\.\d+)?)\s+(?:za|by)\s+(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)/gi,
+    /(?:povećaj|povećati|uvećaj|uvećati|increase)\s+(\d+(?:\.\d+)?)\s+(?:za|by)\s+(\d+(?:\.\d+)?)/gi
+  ];
 
-  // Handle "increase X by Y percent" or "povećaj X za Y posto"
-  const increaseRegex = /(?:increase|povećaj|povećati|dodaj)\s*(\d+(?:\.\d+)?)\s*(?:by|za|na)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)/gi;
-  result = result.replace(increaseRegex, '($1 * (1 + $2 / 100))');
+  for (const pattern of increasePatterns) {
+    if (pattern.test(result)) {
+      result = result.replace(pattern, '($1 * (1 + $2 / 100))');
+      console.log('Applied increase pattern:', result);
+      break;
+    }
+  }
 
-  // Handle "decrease X by Y percent" or "smanji X za Y posto"
-  const decreaseRegex = /(?:decrease|smanji|smanjiti|oduzmi)\s*(\d+(?:\.\d+)?)\s*(?:by|za|sa)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)/gi;
-  result = result.replace(decreaseRegex, '($1 * (1 - $2 / 100))');
+  // Handle "smanji X za Y%" or "decrease X by Y%" -> "X * (1 - Y/100)"
+  const decreasePatterns = [
+    /(?:smanji|smanjiti|umanji|umanjiti|decrease)\s+(\d+(?:\.\d+)?)\s+(?:za|by)\s+(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)/gi,
+    /(?:smanji|smanjiti|umanji|umanjiti|decrease)\s+(\d+(?:\.\d+)?)\s+(?:za|by)\s+(\d+(?:\.\d+)?)/gi
+  ];
 
-  // Handle "what percent is X of Y" or "koliko posto je X od Y"
-  const whatPercentRegex = /(?:what|koliko|koji)\s*(?:percent|posto|postotak)\s*(?:is|je)\s*(\d+(?:\.\d+)?)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
-  result = result.replace(whatPercentRegex, '(($1 / $2) * 100)');
+  for (const pattern of decreasePatterns) {
+    if (pattern.test(result)) {
+      result = result.replace(pattern, '($1 * (1 - $2 / 100))');
+      console.log('Applied decrease pattern:', result);
+      break;
+    }
+  }
 
-  // Handle "X is what percent of Y" or "X je koliko posto od Y"
-  const isWhatPercentRegex = /(\d+(?:\.\d+)?)\s*(?:is|je)\s*(?:what|koliko|koji)\s*(?:percent|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
-  result = result.replace(isWhatPercentRegex, '(($1 / $2) * 100)');
+  // Handle "koliko je X% od Y" or "what is X% of Y" -> "X * Y / 100"
+  const percentOfPatterns = [
+    /(?:koliko\s+je\s+|what\s+is\s+)?(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s+(?:od|of)\s+(\d+(?:\.\d+)?)/gi,
+    /(?:koliko\s+je\s+|what\s+is\s+)?(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:od|of)\s*(\d+(?:\.\d+)?)/gi
+  ];
 
-  // Handle percentage change: "from X to Y, what is the change"
-  const percentChangeRegex = /(?:from|od|sa)\s*(\d+(?:\.\d+)?)\s*(?:to|na|do)\s*(\d+(?:\.\d+)?)\s*(?:percent|posto|postotak)?\s*(?:change|promjena|rast|pad)/gi;
-  result = result.replace(percentChangeRegex, '((($2 - $1) / $1) * 100)');
+  for (const pattern of percentOfPatterns) {
+    if (pattern.test(result)) {
+      result = result.replace(pattern, '($1 * $2 / 100)');
+      console.log('Applied percent of pattern:', result);
+      break;
+    }
+  }
 
-  // Handle compound percentage: "X percent of Y percent of Z"
-  const compoundPercentRegex = /(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
-  result = result.replace(compoundPercentRegex, '(($1 / 100) * ($2 / 100) * $3)');
+  // Handle "koliko posto je X od Y" or "what percent is X of Y" -> "(X / Y) * 100"
+  const whatPercentPatterns = [
+    /(?:koliko|what)\s+(?:posto|percent)\s+(?:je|is)\s+(\d+(?:\.\d+)?)\s+(?:od|of)\s+(\d+(?:\.\d+)?)/gi
+  ];
 
-  // Handle "add X percent to Y" or "dodaj X posto na Y"
-  const addPercentRegex = /(?:add|dodaj)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:to|na)\s*(\d+(?:\.\d+)?)/gi;
-  result = result.replace(addPercentRegex, '($2 * (1 + $1 / 100))');
+  for (const pattern of whatPercentPatterns) {
+    if (pattern.test(result)) {
+      result = result.replace(pattern, '(($1 / $2) * 100)');
+      console.log('Applied what percent pattern:', result);
+      break;
+    }
+  }
 
-  // Handle "subtract X percent from Y" or "oduzmi X posto od Y"
-  const subtractPercentRegex = /(?:subtract|oduzmi)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:from|od)\s*(\d+(?:\.\d+)?)/gi;
-  result = result.replace(subtractPercentRegex, '($2 * (1 - $1 / 100))');
+  // Handle "dodaj X% na Y" or "add X% to Y" -> "Y * (1 + X/100)"
+  const addPercentPatterns = [
+    /(?:dodaj|add)\s+(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s+(?:na|to)\s+(\d+(?:\.\d+)?)/gi
+  ];
 
-  // Handle standalone percentages "X percent" -> "X / 100"
-  const percentRegex = /(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)(?!\s*(?:of|od|je|is|na|to|from|sa))/gi;
-  result = result.replace(percentRegex, '($1 / 100)');
+  for (const pattern of addPercentPatterns) {
+    if (pattern.test(result)) {
+      result = result.replace(pattern, '($2 * (1 + $1 / 100))');
+      console.log('Applied add percent pattern:', result);
+      break;
+    }
+  }
 
+  console.log('Final percentage result:', result);
   return result;
 }
 
@@ -280,6 +307,8 @@ export function parseNaturalLanguageMath(input: string): ParseResult {
   try {
     let expression = input.trim();
 
+    console.log('Starting to parse:', expression);
+
     if (!expression) {
       return { success: false, error: 'Prazan unos' };
     }
@@ -287,34 +316,46 @@ export function parseNaturalLanguageMath(input: string): ParseResult {
     // First, try to handle complex word problems
     const wordProblemResult = handleWordProblems(expression);
     if (wordProblemResult) {
+      console.log('Handled as word problem:', wordProblemResult);
       return wordProblemResult;
     }
 
     // Handle common question patterns first
     expression = expression.replace(/^(what\s+is\s+|calculate\s+|compute\s+|koliko\s+je\s+|što\s+je\s+|izračunaj\s+)/i, '');
     expression = expression.replace(/\?+$/, ''); // Remove question marks
+    console.log('After question pattern removal:', expression);
 
-    // Convert words to numbers
+    // Convert words to numbers FIRST (before operations)
     expression = convertWordsToNumbers(expression);
+    console.log('After word to number conversion:', expression);
+
+    // Handle percentage calculations EARLY (before operation conversion)
+    expression = handlePercentage(expression);
+    console.log('After percentage handling:', expression);
 
     // Convert operation words to symbols
     expression = convertOperationsToSymbols(expression);
-
-    // Handle percentage calculations (before normalization)
-    expression = handlePercentage(expression);
+    console.log('After operation conversion:', expression);
 
     // Handle scientific operations
     expression = handleScientificOperations(expression);
+    console.log('After scientific operations:', expression);
 
     // Normalize expression (handles scientific notation, implicit multiplication)
     expression = normalizeExpression(expression);
+    console.log('After normalization:', expression);
 
     // Replace mathematical symbols with operators
     expression = expression.replace(/×/g, '*').replace(/÷/g, '/');
     expression = expression.replace(/−/g, '-'); // En dash to minus
+    console.log('After symbol replacement:', expression);
+
+    // Clean up extra spaces and validate
+    expression = expression.replace(/\s+/g, ' ').trim();
 
     // Handle special cases
     if (!expression || expression.trim() === '' || expression === '0') {
+      console.log('Empty or zero expression detected');
       return { success: false, error: 'Nevaljan izraz' };
     }
 
@@ -322,17 +363,23 @@ export function parseNaturalLanguageMath(input: string): ParseResult {
     const openParens = (expression.match(/\(/g) || []).length;
     const closeParens = (expression.match(/\)/g) || []).length;
     if (openParens !== closeParens) {
+      console.log('Unbalanced parentheses detected');
       return { success: false, error: 'Neusklađene zagrade' };
     }
 
+    console.log('Final expression before evaluation:', expression);
+
     // Evaluate the expression safely
     const result = evaluateExpression(expression);
+    console.log('Evaluation result:', result);
 
     if (isNaN(result)) {
+      console.log('Result is NaN');
       return { success: false, error: 'Nevaljan matematički izraz' };
     }
 
     if (!isFinite(result)) {
+      console.log('Result is not finite');
       return { success: false, error: 'Rezultat je beskonačan ili previše velik' };
     }
 
@@ -354,9 +401,12 @@ export function parseNaturalLanguageMath(input: string): ParseResult {
 // Safe expression evaluator
 function evaluateExpression(expression: string): number {
   try {
+    console.log('Evaluating expression:', expression);
+
     // Allow Math functions, numbers, operators, parentheses, and dots
     // This regex allows: Math.function, numbers, +, -, *, /, (, ), ., spaces
     const safeExpression = expression.replace(/[^0-9+\-*/().\sMath]/g, '');
+    console.log('Safe expression after cleaning:', safeExpression);
 
     // Additional safety: ensure only allowed Math functions
     const allowedMathFunctions = [
@@ -378,9 +428,24 @@ function evaluateExpression(expression: string): number {
       }
     }
 
+    // Basic validation - check if expression has valid structure
+    if (!safeExpression || safeExpression.trim() === '') {
+      console.warn('Empty expression after cleaning');
+      return NaN;
+    }
+
+    // Check for basic mathematical structure
+    if (!/[\d\(\)]/.test(safeExpression)) {
+      console.warn('No numbers or parentheses found in expression');
+      return NaN;
+    }
+
+    console.log('About to evaluate:', safeExpression);
+
     // Use Function constructor for safer evaluation than eval
     const result = new Function('Math', `return ${safeExpression}`)(Math);
 
+    console.log('Evaluation result:', result);
     return Number(result);
   } catch (error) {
     console.warn('Expression evaluation error:', error);
