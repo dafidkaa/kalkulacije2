@@ -161,39 +161,6 @@ export function PercentageCalculator() {
       <PercentageFeatures />
       <PercentageBenefits />
       <PercentageFAQ />
-
-      {/* Internal Links Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Povezano
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <a
-              href="/kalkulator-place"
-              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
-            >
-              <h3 className="font-semibold text-blue-600 mb-2">Kalkulator Plaće</h3>
-              <p className="text-gray-600 text-sm">Izračunajte bruto/neto plaću i doprinose</p>
-            </a>
-            <a
-              href="/kalkulator-kredita"
-              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
-            >
-              <h3 className="font-semibold text-blue-600 mb-2">Kalkulator Kredita</h3>
-              <p className="text-gray-600 text-sm">Izračunajte rate i kamatu na kredit</p>
-            </a>
-            <a
-              href="/pretvarač-jedinica"
-              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
-            >
-              <h3 className="font-semibold text-blue-600 mb-2">Pretvarač Jedinica</h3>
-              <p className="text-gray-600 text-sm">Pretvarajte između različitih mjernih jedinica</p>
-            </a>
-          </div>
-        </div>
-      </section>
-
       <RelatedCalculators />
     </>
   );

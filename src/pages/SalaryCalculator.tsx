@@ -147,32 +147,6 @@ export function SalaryCalculator() {
       <SalaryFeatures />
       <SalaryBenefits />
       <SalaryFAQ />
-
-      {/* Internal Links Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Povezano
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <a
-              href="/kalkulator-postotaka"
-              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
-            >
-              <h3 className="font-semibold text-blue-600 mb-2">Kalkulator Postotka</h3>
-              <p className="text-gray-600 text-sm">Izračunajte postotke za povećanja plaće i bonuse</p>
-            </a>
-            <a
-              href="/blog/bruto-u-neto-objasnjenje"
-              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
-            >
-              <h3 className="font-semibold text-blue-600 mb-2">Blog: Bruto u Neto Objašnjenje</h3>
-              <p className="text-gray-600 text-sm">Detaljno objašnjenje i najčešće greške</p>
-            </a>
-          </div>
-        </div>
-      </section>
-
       <RelatedCalculators />
     </>
   );
