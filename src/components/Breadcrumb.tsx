@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
 import { BreadcrumbSchema } from './SchemaMarkup';
@@ -22,39 +22,44 @@ const routeNames: Record<string, string> = {
   '/blog': 'Blog',
 };
 
+// Helper function to convert slug to readable title
+const slugToTitle = (slug: string): string => {
+  return slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
+// Helper function to get blog post title from slug
+const getBlogPostTitle = (slug: string): string => {
+  // Map of known blog post slugs to titles
+  const blogPostTitles: { [key: string]: string } = {
+    'kako-izracunati-bmi': 'Kako izračunati BMI',
+    'kako-izracunati-koliko-imam-godina-tocno': 'Kako izračunati Koliko imam godina',
+    'kako-izracunati-postotak': 'Kako izračunati Postotak',
+    'kako-izracunati-razliku-izmedu-datuma': 'Kako izračunati Razliku između datuma',
+    'koliko-radnih-dana-izmedu-dva-datuma-hrvatska': 'Koliko radnih dana između dva datuma'
+  };
+
+  return blogPostTitles[slug] || slugToTitle(slug);
+};
+
+// Helper function to get category from blog post slug
+const getBlogPostCategory = (slug: string): string => {
+  // Map of known blog post slugs to categories
+  const blogPostCategories: { [key: string]: string } = {
+    'kako-izracunati-bmi': 'Zdravlje',
+    'kako-izracunati-koliko-imam-godina-tocno': 'Datumi i dani',
+    'kako-izracunati-postotak': 'Postotci i PDV',
+    'kako-izracunati-razliku-izmedu-datuma': 'Datumi i dani',
+    'koliko-radnih-dana-izmedu-dva-datuma-hrvatska': 'Datumi i dani'
+  };
+
+  return blogPostCategories[slug] || 'Blog';
+};
+
 export function Breadcrumb() {
   const location = useLocation();
-  const [blogPostData, setBlogPostData] = useState<{ title: string; category: string } | null>(null);
-
-  // Fetch blog post data for individual blog posts
-  useEffect(() => {
-    const fetchBlogPostData = async () => {
-      // Check if this is an individual blog post (not category, tag, or blog index)
-      if (location.pathname.startsWith('/blog/') &&
-          !location.pathname.startsWith('/blog/category/') &&
-          !location.pathname.startsWith('/blog/tag/') &&
-          location.pathname !== '/blog') {
-
-        const slug = location.pathname.split('/blog/')[1];
-        try {
-          const response = await fetch('/blog-index.json');
-          if (response.ok) {
-            const posts = await response.json();
-            const post = posts.find((p: any) => p.slug === slug);
-            if (post) {
-              setBlogPostData({ title: post.title, category: post.category });
-            }
-          }
-        } catch (error) {
-          console.warn('Failed to fetch blog post data for breadcrumb:', error);
-        }
-      } else {
-        setBlogPostData(null);
-      }
-    };
-
-    fetchBlogPostData();
-  }, [location.pathname]);
 
   // Don't show breadcrumbs on homepage
   if (location.pathname === '/') {
@@ -76,10 +81,7 @@ export function Breadcrumb() {
     });
   } else if (location.pathname.startsWith('/blog/category/')) {
     const categorySlug = location.pathname.split('/blog/category/')[1];
-    const categoryName = categorySlug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    const categoryName = slugToTitle(categorySlug);
     breadcrumbItems.push({
       name: 'Blog',
       url: 'https://kalkulacije.com/blog'
@@ -90,10 +92,7 @@ export function Breadcrumb() {
     });
   } else if (location.pathname.startsWith('/blog/tag/')) {
     const tagSlug = location.pathname.split('/blog/tag/')[1];
-    const tagName = tagSlug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    const tagName = slugToTitle(tagSlug);
     breadcrumbItems.push({
       name: 'Blog',
       url: 'https://kalkulacije.com/blog'
@@ -103,31 +102,27 @@ export function Breadcrumb() {
       url: `https://kalkulacije.com${location.pathname}`
     });
   } else if (location.pathname.startsWith('/blog/')) {
+    const slug = location.pathname.split('/blog/')[1];
+    const postTitle = getBlogPostTitle(slug);
+    const postCategory = getBlogPostCategory(slug);
+    const categorySlug = postCategory.toLowerCase().replace(/\s+/g, '-');
+
     breadcrumbItems.push({
       name: 'Blog',
       url: 'https://kalkulacije.com/blog'
     });
 
-    if (blogPostData) {
-      // Add category breadcrumb
-      const categorySlug = blogPostData.category.toLowerCase().replace(/\s+/g, '-');
-      breadcrumbItems.push({
-        name: `Kategorija: ${blogPostData.category}`,
-        url: `https://kalkulacije.com/blog/category/${categorySlug}`
-      });
+    // Add category breadcrumb
+    breadcrumbItems.push({
+      name: `Kategorija: ${postCategory}`,
+      url: `https://kalkulacije.com/blog/category/${categorySlug}`
+    });
 
-      // Add post title breadcrumb
-      breadcrumbItems.push({
-        name: blogPostData.title,
-        url: `https://kalkulacije.com${location.pathname}`
-      });
-    } else {
-      // Fallback while loading
-      breadcrumbItems.push({
-        name: 'Članak',
-        url: `https://kalkulacije.com${location.pathname}`
-      });
-    }
+    // Add post title breadcrumb
+    breadcrumbItems.push({
+      name: postTitle,
+      url: `https://kalkulacije.com${location.pathname}`
+    });
   } else {
     breadcrumbItems.push({
       name: routeNames[location.pathname] || 'Stranica',
