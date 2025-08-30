@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import blog-specific styles */
+@import './styles/blog.css';
+
 @layer base {
   html {
     font-family: 'Poppins', sans-serif;

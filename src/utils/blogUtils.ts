@@ -6,6 +6,7 @@ import remarkToc from 'remark-toc';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import 'highlight.js/styles/github.css'; // Import syntax highlighting styles
 
 export interface BlogPost {
   slug: string;
@@ -55,17 +56,26 @@ export interface SearchIndex {
 
 // Configure markdown processor
 const processor = remark()
-  .use(remarkGfm)
-  .use(remarkToc, { heading: 'Sadržaj', tight: true })
+  .use(remarkGfm) // GitHub Flavored Markdown
+  .use(remarkToc, {
+    heading: 'Sadržaj',
+    tight: true,
+    maxDepth: 3
+  })
   .use(remarkHtml, { sanitize: false })
-  .use(rehypeSlug)
+  .use(rehypeSlug) // Add IDs to headings
   .use(rehypeAutolinkHeadings, {
     behavior: 'wrap',
     properties: {
-      className: ['anchor-link']
+      className: ['anchor-link'],
+      'aria-label': 'Link to section'
     }
   })
-  .use(rehypeHighlight);
+  .use(rehypeHighlight, {
+    // Configure syntax highlighting
+    detect: true,
+    ignoreMissing: true
+  });
 
 /**
  * Parse markdown content with front-matter

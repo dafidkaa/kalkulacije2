@@ -1,0 +1,206 @@
+/* Blog-specific styles */
+
+/* Enhanced prose styles for blog content */
+.blog-content {
+  @apply text-gray-800 leading-relaxed;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  @apply font-bold text-gray-900 mt-8 mb-4;
+  scroll-margin-top: 100px; /* Account for fixed header */
+}
+
+.blog-content h1 {
+  @apply text-3xl;
+}
+
+.blog-content h2 {
+  @apply text-2xl border-b border-gray-200 pb-2;
+}
+
+.blog-content h3 {
+  @apply text-xl;
+}
+
+.blog-content h4 {
+  @apply text-lg;
+}
+
+.blog-content p {
+  @apply mb-4 text-base leading-7;
+}
+
+.blog-content a {
+  @apply text-blue-600 hover:text-blue-700 hover:underline;
+}
+
+.blog-content ul,
+.blog-content ol {
+  @apply mb-4 pl-6;
+}
+
+.blog-content ul {
+  @apply list-disc;
+}
+
+.blog-content ol {
+  @apply list-decimal;
+}
+
+.blog-content li {
+  @apply mb-2;
+}
+
+.blog-content blockquote {
+  @apply border-l-4 border-blue-500 pl-4 py-2 my-6 bg-blue-50 italic text-gray-700;
+}
+
+.blog-content code {
+  @apply bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono;
+}
+
+.blog-content pre {
+  @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-6;
+}
+
+.blog-content pre code {
+  @apply bg-transparent text-gray-100 p-0;
+}
+
+.blog-content table {
+  @apply w-full border-collapse border border-gray-300 my-6;
+}
+
+.blog-content th,
+.blog-content td {
+  @apply border border-gray-300 px-4 py-2 text-left;
+}
+
+.blog-content th {
+  @apply bg-gray-100 font-semibold;
+}
+
+.blog-content img {
+  @apply max-w-full h-auto rounded-lg shadow-sm my-6;
+}
+
+.blog-content hr {
+  @apply border-gray-300 my-8;
+}
+
+/* Anchor links */
+.blog-content .anchor-link {
+  @apply no-underline;
+}
+
+.blog-content .anchor-link:hover {
+  @apply text-blue-600;
+}
+
+/* Syntax highlighting enhancements */
+.blog-content .hljs {
+  @apply bg-gray-900 text-gray-100;
+}
+
+/* Custom styles for specific elements */
+.blog-content .formula {
+  @apply bg-blue-50 border border-blue-200 p-3 rounded-lg my-4 font-mono text-center;
+}
+
+.blog-content .example {
+  @apply bg-green-50 border border-green-200 p-4 rounded-lg my-4;
+}
+
+.blog-content .warning {
+  @apply bg-yellow-50 border border-yellow-200 p-4 rounded-lg my-4;
+}
+
+.blog-content .tip {
+  @apply bg-blue-50 border border-blue-200 p-4 rounded-lg my-4;
+}
+
+/* Enhanced list styles */
+.blog-content ul li::marker {
+  @apply text-blue-600;
+}
+
+.blog-content ol li::marker {
+  @apply text-blue-600 font-semibold;
+}
+
+/* Better spacing for nested lists */
+.blog-content ul ul,
+.blog-content ol ol,
+.blog-content ul ol,
+.blog-content ol ul {
+  @apply mt-2 mb-0;
+}
+
+/* Task list styles */
+.blog-content .task-list-item {
+  @apply list-none;
+}
+
+.blog-content .task-list-item input[type="checkbox"] {
+  @apply mr-2;
+}
+
+/* Definition lists */
+.blog-content dl {
+  @apply my-6;
+}
+
+.blog-content dt {
+  @apply font-semibold text-gray-900 mt-4;
+}
+
+.blog-content dd {
+  @apply ml-4 text-gray-700;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .blog-content {
+    @apply text-sm;
+  }
+  
+  .blog-content h1 {
+    @apply text-2xl;
+  }
+  
+  .blog-content h2 {
+    @apply text-xl;
+  }
+  
+  .blog-content h3 {
+    @apply text-lg;
+  }
+  
+  .blog-content pre {
+    @apply text-xs;
+  }
+  
+  .blog-content table {
+    @apply text-sm;
+  }
+}
+
+/* Print styles */
+@media print {
+  .blog-content {
+    @apply text-black;
+  }
+  
+  .blog-content a {
+    @apply text-black no-underline;
+  }
+  
+  .blog-content pre {
+    @apply bg-gray-100 text-black border border-gray-300;
+  }
+}

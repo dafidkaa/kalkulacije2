@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { Search, Calendar, Clock, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { BlogIndex as BlogIndexType, BlogCategory, BlogTag, PaginationInfo } from '../types/blog';
 import { blogFileSystem } from '../utils/blogFileSystem';
+import ReadingProgressBar from '../components/blog/ReadingProgressBar';
+import BlogSearch from '../components/blog/BlogSearch';
+import LazyImage from '../components/blog/LazyImage';
 
 // Add line-clamp utility classes
 const lineClampStyles = `
@@ -31,9 +34,9 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
   const [categories, setCategories] = useState<BlogCategory[]>([]);
   const [tags, setTags] = useState<BlogTag[]>([]);
   const [pagination, setPagination] = useState<PaginationInfo | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isSearchActive, setIsSearchActive] = useState(false);
 
   const postsPerPage = 12;
 
@@ -112,35 +115,15 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
     }
   };
 
-  const handleSearch = async (query: string) => {
-    if (!query.trim()) {
-      loadBlogData();
-      return;
-    }
+  const handleSearch = (searchResults: BlogIndexType[]) => {
+    setPosts(searchResults);
+    setPagination(null); // Disable pagination for search results
+    setIsSearchActive(true);
+  };
 
-    try {
-      setLoading(true);
-      const searchResults = await blogFileSystem.searchPosts(query);
-      const searchIndex = searchResults.map(post => ({
-        slug: post.slug,
-        title: post.title,
-        description: post.description,
-        date: post.date,
-        tags: post.tags,
-        category: post.category,
-        heroImage: post.heroImage,
-        excerpt: post.excerpt,
-        readTime: post.readTime
-      }));
-      
-      setPosts(searchIndex);
-      setPagination(null); // Disable pagination for search results
-    } catch (err) {
-      setError('Search failed');
-      console.error('Search error:', err);
-    } finally {
-      setLoading(false);
-    }
+  const handleClearSearch = () => {
+    setIsSearchActive(false);
+    loadBlogData(); // Reload original data
   };
 
   const getPageTitle = () => {
@@ -185,6 +168,9 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
 
   return (
     <>
+      {/* Reading Progress Bar for blog index */}
+      <ReadingProgressBar target=".container" />
+
       <Helmet>
         <title>{getPageTitle()} | Kalkulacije</title>
         <meta name="description" content={getPageDescription()} />
@@ -218,36 +204,28 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-3">
-              {/* Search Bar */}
+              {/* Enhanced Search Bar */}
               <div className="mb-8">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    placeholder="Pretraži članke..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleSearch(searchQuery)}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                  <button
-                    onClick={() => handleSearch(searchQuery)}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-1.5 rounded-md hover:bg-blue-700 text-sm"
-                  >
-                    Pretraži
-                  </button>
-                </div>
+                <BlogSearch
+                  onSearch={handleSearch}
+                  onClear={handleClearSearch}
+                />
               </div>
 
               {/* Posts Grid */}
               {posts.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-gray-600 text-lg">Nema pronađenih članaka.</p>
-                  {(tag || category || searchQuery) && (
+                  <p className="text-gray-600 text-lg">
+                    {isSearchActive ? 'Nema rezultata pretrage.' : 'Nema pronađenih članaka.'}
+                  </p>
+                  {(tag || category || isSearchActive) && (
                     <button
                       onClick={() => {
-                        setSearchQuery('');
-                        window.location.href = '/blog';
+                        if (isSearchActive) {
+                          handleClearSearch();
+                        } else {
+                          window.location.href = '/blog';
+                        }
                       }}
                       className="mt-4 text-blue-600 hover:text-blue-700"
                     >
@@ -261,11 +239,10 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                     <article key={post.slug} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
                       {post.heroImage && (
                         <div className="aspect-video bg-gray-200 rounded-t-xl overflow-hidden">
-                          <img
+                          <LazyImage
                             src={post.heroImage}
                             alt={post.title}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
+                            className="w-full h-full"
                           />
                         </div>
                       )}

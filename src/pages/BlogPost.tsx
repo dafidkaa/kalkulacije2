@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { Calendar, Clock, Tag, ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { BlogPost as BlogPostType, BlogIndex, RelatedCalculator } from '../types/blog';
 import { blogFileSystem } from '../utils/blogFileSystem';
+import ReadingProgressBar from '../components/blog/ReadingProgressBar';
+import TableOfContents from '../components/blog/TableOfContents';
 
 interface BlogPostProps {
   slug: string;
@@ -157,6 +159,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
 
   return (
     <>
+      {/* Reading Progress Bar */}
+      <ReadingProgressBar target="article" />
+
+      {/* Floating Table of Contents */}
+      <TableOfContents items={post.toc} />
+
       <Helmet>
         <title>{post.title} | Kalkulacije</title>
         <meta name="description" content={post.description} />
@@ -257,39 +265,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
         </div>
 
         {/* Main Content */}
-        <div className="container mx-auto px-4 py-12 max-w-6xl">
-          <div className="grid lg:grid-cols-4 gap-8">
-            {/* Table of Contents */}
-            {post.toc.length > 0 && (
-              <div className="lg:col-span-1 order-2 lg:order-1">
-                <div className="sticky top-8">
-                  <div className="bg-white rounded-xl p-6 shadow-sm">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Sadržaj</h3>
-                    <nav className="space-y-2">
-                      {post.toc.map((item) => (
-                        <a
-                          key={item.id}
-                          href={`#${item.id}`}
-                          className={`block text-sm py-1 transition-colors ${
-                            activeSection === item.id
-                              ? 'text-blue-600 font-medium'
-                              : 'text-gray-600 hover:text-blue-600'
-                          } ${item.level === 3 ? 'ml-4' : ''}`}
-                        >
-                          {item.title}
-                        </a>
-                      ))}
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Article Content */}
-            <div className={`${post.toc.length > 0 ? 'lg:col-span-3' : 'lg:col-span-4'} order-1 lg:order-2`}>
+        <div className="container mx-auto px-4 py-12 max-w-4xl">
+          {/* Article Content */}
+          <div className="w-full">
               <article className="bg-white rounded-xl shadow-sm p-8">
-                <div 
-                  className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline"
+                <div
+                  className="blog-content max-w-none"
                   dangerouslySetInnerHTML={{ __html: post.htmlContent }}
                 />
               </article>
@@ -380,7 +361,6 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
                 </div>
               )}
             </div>
-          </div>
         </div>
       </div>
 
