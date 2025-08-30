@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'rea
 import { Header } from './components/Header';
 import { Breadcrumb } from './components/Breadcrumb';
 import { Footer } from './components/Footer';
+import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { initializeAnalytics } from './utils/analytics';
 
 // Import page components directly for now to fix deployment issues
@@ -18,6 +19,7 @@ import { DateCalculator } from './pages/DateCalculator';
 import { Calculator } from './pages/Calculator';
 import BlogIndex from './pages/BlogIndex';
 import { BlogPost } from './pages/BlogPost';
+import { CookiePolicyPage } from './pages/CookiePolicyPage';
 
 // Wrapper component to extract slug from URL params
 function BlogPostWrapper() {
@@ -55,10 +57,14 @@ export function App() {
             <Route path="/blog/category/:category" element={<BlogIndex />} />
             <Route path="/blog/:slug" element={<BlogPostWrapper />} />
 
+            {/* Legal Pages */}
+            <Route path="/kolacici" element={<CookiePolicyPage />} />
+
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
         <Footer />
+        <CookieConsentBanner />
       </div>
     </Router>
   );

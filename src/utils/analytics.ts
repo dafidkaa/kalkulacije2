@@ -1,7 +1,9 @@
 /**
  * Analytics Utility
- * Centralized tracking for Google Analytics and Microsoft Clarity
+ * Centralized tracking for Google Analytics and Microsoft Clarity with Cookie Consent
  */
+
+import { hasConsent, getGoogleConsentMode } from './cookieConsent';
 
 // Extend window object for analytics
 declare global {
@@ -16,15 +18,100 @@ declare global {
 const GA_TRACKING_ID = 'G-KMWE9DLRD1';
 const CLARITY_PROJECT_ID = 'owjgqfafcf';
 
+// Track if analytics have been initialized
+let analyticsInitialized = false;
+let clarityInitialized = false;
+
 /**
- * Check if analytics are available
+ * Initialize Google Analytics with consent
+ */
+export const initializeGoogleAnalytics = (): void => {
+  if (analyticsInitialized || typeof window === 'undefined') return;
+
+  // Initialize dataLayer
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function() { window.dataLayer.push(arguments); };
+
+  // Set default consent state
+  const consentMode = getGoogleConsentMode();
+  window.gtag('consent', 'default', consentMode);
+
+  // Initialize GA
+  window.gtag('js', new Date());
+  window.gtag('config', GA_TRACKING_ID, {
+    anonymize_ip: true,
+    allow_google_signals: consentMode.analytics_storage === 'granted',
+    allow_ad_personalization_signals: consentMode.ad_storage === 'granted',
+  });
+
+  // Load GA script
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
+  document.head.appendChild(script);
+
+  analyticsInitialized = true;
+};
+
+/**
+ * Initialize Microsoft Clarity with consent
+ */
+export const initializeMicrosoftClarity = (): void => {
+  if (clarityInitialized || typeof window === 'undefined') return;
+
+  // Initialize Clarity
+  (function(c: any, l: any, a: any, r: any, i: any, t: any, y: any) {
+    c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments); };
+    t = l.createElement(r);
+    t.async = 1;
+    t.src = "https://www.clarity.ms/tag/" + i;
+    y = l.getElementsByTagName(r)[0];
+    y.parentNode.insertBefore(t, y);
+  })(window, document, "clarity", "script", CLARITY_PROJECT_ID);
+
+  clarityInitialized = true;
+};
+
+/**
+ * Update consent for Google Analytics
+ */
+export const updateGoogleConsent = (): void => {
+  if (!analyticsInitialized || typeof window.gtag !== 'function') return;
+
+  const consentMode = getGoogleConsentMode();
+  window.gtag('consent', 'update', consentMode);
+};
+
+/**
+ * Update consent for Microsoft Clarity
+ */
+export const updateClarityConsent = (): void => {
+  if (!clarityInitialized || typeof window.clarity !== 'function') return;
+
+  const hasAnalyticsConsent = hasConsent('analytics');
+
+  // Clarity consent API
+  if (hasAnalyticsConsent) {
+    window.clarity('consent');
+  } else {
+    // Disable Clarity tracking
+    window.clarity('stop');
+  }
+};
+
+/**
+ * Check if analytics are available and consent is given
  */
 export const isAnalyticsAvailable = (): boolean => {
-  return typeof window !== 'undefined' && typeof window.gtag === 'function';
+  return typeof window !== 'undefined' &&
+         typeof window.gtag === 'function' &&
+         hasConsent('analytics');
 };
 
 export const isClarityAvailable = (): boolean => {
-  return typeof window !== 'undefined' && typeof window.clarity === 'function';
+  return typeof window !== 'undefined' &&
+         typeof window.clarity === 'function' &&
+         hasConsent('analytics');
 };
 
 /**
@@ -287,39 +374,74 @@ export const performanceAnalytics = {
 };
 
 /**
- * Initialize analytics tracking
+ * Initialize analytics tracking with consent
  */
 export const initializeAnalytics = (): void => {
-  // Track initial page load
-  if (typeof window !== 'undefined') {
+  if (typeof window === 'undefined') return;
+
+  // Initialize analytics if consent is given
+  if (hasConsent('analytics')) {
+    initializeGoogleAnalytics();
+    initializeMicrosoftClarity();
+  }
+
+  // Listen for consent changes
+  window.addEventListener('cookieConsentChanged', (event: any) => {
+    const { consent } = event.detail;
+
+    if (consent.analytics) {
+      // Initialize analytics if not already done
+      if (!analyticsInitialized) {
+        initializeGoogleAnalytics();
+      }
+      if (!clarityInitialized) {
+        initializeMicrosoftClarity();
+      }
+
+      // Update consent
+      updateGoogleConsent();
+      updateClarityConsent();
+    } else {
+      // Update consent to deny
+      updateGoogleConsent();
+      updateClarityConsent();
+    }
+  });
+
+  // Track initial page load (only if consent given)
+  if (hasConsent('analytics')) {
     const loadTime = performance.now();
-    const pageType = window.location.pathname.includes('/blog') ? 'blog' : 
+    const pageType = window.location.pathname.includes('/blog') ? 'blog' :
                     window.location.pathname === '/' ? 'homepage' : 'calculator';
-    
+
     performanceAnalytics.trackPageLoadTime(pageType, loadTime);
-    
+
     // Track scroll depth
     let maxScrollPercentage = 0;
     const trackScroll = () => {
+      if (!hasConsent('analytics')) return;
+
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercentage = Math.round((scrollTop / docHeight) * 100);
-      
+
       if (scrollPercentage > maxScrollPercentage) {
         maxScrollPercentage = scrollPercentage;
         engagementAnalytics.trackScrollDepth(pageType, scrollPercentage);
       }
     };
-    
+
     window.addEventListener('scroll', trackScroll, { passive: true });
-    
+
     // Track time on page when user leaves
     let startTime = Date.now();
     const trackTimeOnPage = () => {
+      if (!hasConsent('analytics')) return;
+
       const timeSpent = Math.round((Date.now() - startTime) / 1000);
       engagementAnalytics.trackTimeOnPage(pageType, timeSpent);
     };
-    
+
     window.addEventListener('beforeunload', trackTimeOnPage);
     window.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {

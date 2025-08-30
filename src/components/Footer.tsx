@@ -86,8 +86,18 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-          <p>© {new Date().getFullYear()} Kalkulacije.com by <a href="https://ajde.online" className="text-blue-400 hover:text-blue-300">Ajde.Online</a>. Sva prava pridržana.</p>
+        <div className="mt-8 pt-8 border-t border-gray-800">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-gray-400">
+            <p>© {new Date().getFullYear()} Kalkulacije.com by <a href="https://ajde.online" className="text-blue-400 hover:text-blue-300">Ajde.Online</a>. Sva prava pridržana.</p>
+            <div className="flex gap-6">
+              <Link
+                to="/kolacici"
+                className="text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm"
+              >
+                Pravila o kolačićima
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
