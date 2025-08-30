@@ -204,3 +204,83 @@
     @apply bg-gray-100 text-black border border-gray-300;
   }
 }
+
+/* Q&A Section Styling */
+.blog-content .faq-section,
+.blog-content .qa-section {
+  @apply mt-12 mb-8;
+}
+
+.blog-content .faq-item,
+.blog-content .qa-item {
+  @apply mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border-l-4 border-blue-500 shadow-sm;
+}
+
+.blog-content .faq-question,
+.blog-content .qa-question,
+.blog-content .question {
+  @apply text-lg font-semibold text-gray-900 mb-3 flex items-start gap-3;
+}
+
+.blog-content .faq-question::before,
+.blog-content .qa-question::before,
+.blog-content .question::before {
+  content: "❓";
+  @apply text-blue-600 text-xl flex-shrink-0 mt-0.5;
+}
+
+.blog-content .faq-answer,
+.blog-content .qa-answer,
+.blog-content .answer {
+  @apply text-gray-700 leading-relaxed pl-8;
+}
+
+.blog-content .faq-answer p,
+.blog-content .qa-answer p,
+.blog-content .answer p {
+  @apply mb-3 last:mb-0;
+}
+
+/* Alternative Q&A styling with different colors */
+.blog-content .faq-item:nth-child(even),
+.blog-content .qa-item:nth-child(even) {
+  @apply bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500;
+}
+
+.blog-content .faq-item:nth-child(even) .faq-question::before,
+.blog-content .qa-item:nth-child(even) .qa-question::before {
+  content: "💡";
+  @apply text-green-600;
+}
+
+/* FAQ Section Header */
+.blog-content .faq-header,
+.blog-content .qa-header {
+  @apply text-2xl font-bold text-gray-900 mb-8 text-center;
+}
+
+.blog-content .faq-header::before,
+.blog-content .qa-header::before {
+  content: "❓ ";
+  @apply text-blue-600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .blog-content .faq-item,
+  .blog-content .qa-item {
+    @apply p-4;
+  }
+
+  .blog-content .faq-question,
+  .blog-content .qa-question,
+  .blog-content .question {
+    @apply text-base;
+  }
+
+  .blog-content .faq-answer,
+  .blog-content .qa-answer,
+  .blog-content .answer {
+    @apply pl-6;
+  }
+}

@@ -4,7 +4,7 @@ import { Search, Calendar, Clock, Tag, ChevronLeft, ChevronRight } from 'lucide-
 import { BlogIndex as BlogIndexType, BlogCategory, BlogTag, PaginationInfo } from '../types/blog';
 import { blogFileSystem } from '../utils/blogFileSystem';
 import { blogAnalytics } from '../utils/analytics';
-import ReadingProgressBar from '../components/blog/ReadingProgressBar';
+
 import BlogSearch from '../components/blog/BlogSearch';
 import LazyImage from '../components/blog/LazyImage';
 
@@ -186,8 +186,6 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
 
   return (
     <>
-      {/* Reading Progress Bar for blog index */}
-      <ReadingProgressBar target=".container" />
 
       <Helmet>
         <title>{getPageTitle()} | Kalkulacije</title>

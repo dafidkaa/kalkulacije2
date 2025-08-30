@@ -96,8 +96,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ items, className = ''
   }
 
   return (
-    <div className={`fixed right-6 top-1/2 transform -translate-y-1/2 z-40 ${className}`}>
-      <div className="bg-white rounded-xl shadow-lg border border-gray-200 max-w-xs">
+    <div className={`fixed right-6 top-24 z-40 hidden xl:block ${className}`}>
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 max-w-xs sticky top-24">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <div className="flex items-center gap-2">

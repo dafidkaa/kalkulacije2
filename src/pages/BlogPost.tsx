@@ -16,6 +16,7 @@ export function BlogPost() {
   const [prevPost, setPrevPost] = useState<BlogIndex | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [readingProgress, setReadingProgress] = useState(0);
 
   // Analytics tracking
   const startTimeRef = useRef<number>(Date.now());
@@ -34,7 +35,10 @@ export function BlogPost() {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercentage = Math.round((scrollTop / docHeight) * 100);
+      const scrollPercentage = Math.min(Math.round((scrollTop / docHeight) * 100), 100);
+
+      // Update reading progress state
+      setReadingProgress(scrollPercentage);
 
       // Track maximum scroll depth
       if (scrollPercentage > maxScrollRef.current) {
@@ -43,7 +47,7 @@ export function BlogPost() {
         // Track reading milestones
         if ([25, 50, 75, 90, 100].includes(scrollPercentage)) {
           const timeSpent = Math.round((Date.now() - startTimeRef.current) / 1000);
-          blogAnalytics.trackBlogPostRead(slug, scrollPercentage, timeSpent);
+          blogAnalytics.trackBlogPostRead(slug!, scrollPercentage, timeSpent);
         }
       }
     };
@@ -412,21 +416,12 @@ export function BlogPost() {
               </div>
             </header>
 
-            {/* Hero Image */}
-            {post.heroImage && (
-              <div className="aspect-video bg-gray-200 rounded-xl overflow-hidden mb-8">
-                <img
-                  src={post.heroImage}
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
+
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="container mx-auto px-4 py-12 max-w-4xl">
+        <div className="container mx-auto px-4 py-12 max-w-4xl xl:max-w-5xl xl:pr-80">
           {/* Article Content */}
           <div className="w-full">
               <article className="bg-white rounded-xl shadow-sm p-8">
