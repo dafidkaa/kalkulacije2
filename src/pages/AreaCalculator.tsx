@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ToolSchema, HowToSchema, FAQSchema, BreadcrumbSchema } from '../components/SchemaMarkup';
 import { AreaTabs } from '../components/area/AreaTabs';
@@ -7,7 +7,23 @@ import { AreaBenefits } from '../components/area/AreaBenefits';
 import { AreaDetails } from '../components/area/AreaDetails';
 import { AreaFAQ } from '../components/area/AreaFAQ';
 
+type TabType = 'shapes' | 'converter' | 'land' | 'room' | 'roof';
+
 export function AreaCalculator() {
+  const [activeTab, setActiveTab] = useState<TabType>('shapes');
+  const calculatorRef = useRef<HTMLElement>(null);
+
+  const handleFeatureClick = (tabId: TabType) => {
+    setActiveTab(tabId);
+    // Smooth scroll to calculator section
+    if (calculatorRef.current) {
+      calculatorRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   // FAQ data for schema
   const faqData = [
     {
@@ -100,13 +116,16 @@ export function AreaCalculator() {
       </section>
 
       {/* Calculator Section */}
-      <section className="py-12">
+      <section ref={calculatorRef} className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
-          <AreaTabs />
+          <AreaTabs
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
         </div>
       </section>
 
-      <AreaFeatures />
+      <AreaFeatures onFeatureClick={handleFeatureClick} />
       <AreaDetails />
       <AreaBenefits />
       <AreaFAQ />

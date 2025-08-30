@@ -15,52 +15,67 @@ import {
   Building
 } from 'lucide-react';
 
-export function AreaFeatures() {
+type TabType = 'shapes' | 'converter' | 'land' | 'room' | 'roof';
+
+interface AreaFeaturesProps {
+  onFeatureClick?: (tabId: TabType) => void;
+}
+
+export function AreaFeatures({ onFeatureClick }: AreaFeaturesProps) {
   const features = [
     {
       icon: <Square className="w-6 h-6 text-teal-500" />,
       title: 'Kvadrat i Pravokutnik',
-      description: 'Izračunajte površinu kvadrata i pravokutnika jednostavnim unosom dimenzija.'
+      description: 'Izračunajte površinu kvadrata i pravokutnika jednostavnim unosom dimenzija.',
+      tabId: 'shapes' as TabType
     },
     {
       icon: <Circle className="w-6 h-6 text-teal-500" />,
       title: 'Krug i Elipsa',
-      description: 'Precizno izračunajte površinu kruga i elipse koristeći polumjer ili poluosi.'
+      description: 'Precizno izračunajte površinu kruga i elipse koristeći polumjer ili poluosi.',
+      tabId: 'shapes' as TabType
     },
     {
       icon: <Triangle className="w-6 h-6 text-teal-500" />,
       title: 'Trokut i Trapez',
-      description: 'Izračunajte površinu trokuta i trapeza pomoću osnovice i visine.'
+      description: 'Izračunajte površinu trokuta i trapeza pomoću osnovice i visine.',
+      tabId: 'shapes' as TabType
     },
     {
       icon: <Hexagon className="w-6 h-6 text-teal-500" />,
       title: 'Pravilni Poligoni',
-      description: 'Izračunajte površinu pravilnih poligona s bilo kojim brojem stranica.'
+      description: 'Izračunajte površinu pravilnih poligona s bilo kojim brojem stranica.',
+      tabId: 'shapes' as TabType
     },
     {
       icon: <MoveHorizontal className="w-6 h-6 text-teal-500" />,
       title: 'Pretvaranje Jedinica',
-      description: 'Pretvorite između metričkih, imperijalnih i drugih jedinica površine.'
+      description: 'Pretvorite između metričkih, imperijalnih i drugih jedinica površine.',
+      tabId: 'converter' as TabType
     },
     {
       icon: <Globe className="w-6 h-6 text-teal-500" />,
       title: 'Međunarodne Jedinice',
-      description: 'Podrška za jedinice iz različitih dijelova svijeta poput akera, hektara, raija i više.'
+      description: 'Podrška za jedinice iz različitih dijelova svijeta poput akera, hektara, raija i više.',
+      tabId: 'converter' as TabType
     },
     {
       icon: <MapPin className="w-6 h-6 text-teal-500" />,
       title: 'Zemljište i Parcele',
-      description: 'Izračunajte površinu zemljišta i parcela pomoću koordinata točaka.'
+      description: 'Izračunajte površinu zemljišta i parcela pomoću koordinata točaka.',
+      tabId: 'land' as TabType
     },
     {
       icon: <Home className="w-6 h-6 text-teal-500" />,
       title: 'Prostorije i Stanovi',
-      description: 'Izračunajte površinu prostorija, podova i zidova za stambene prostore.'
+      description: 'Izračunajte površinu prostorija, podova i zidova za stambene prostore.',
+      tabId: 'room' as TabType
     },
     {
       icon: <Building className="w-6 h-6 text-teal-500" />,
       title: 'Krovovi i Materijali',
-      description: 'Izračunajte površinu krova i procijenite potrebne materijale za različite tipove krovova.'
+      description: 'Izračunajte površinu krova i procijenite potrebne materijale za različite tipove krovova.',
+      tabId: 'roof' as TabType
     },
     {
       icon: <Calculator className="w-6 h-6 text-teal-500" />,
@@ -79,6 +94,12 @@ export function AreaFeatures() {
     }
   ];
 
+  const handleFeatureClick = (tabId?: TabType) => {
+    if (tabId && onFeatureClick) {
+      onFeatureClick(tabId);
+    }
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -88,7 +109,24 @@ export function AreaFeatures() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="bg-white p-6 rounded-xl shadow-sm">
+            <div
+              key={index}
+              className={`bg-white p-6 rounded-xl shadow-sm transition-all duration-200 ${
+                feature.tabId
+                  ? 'cursor-pointer hover:shadow-md hover:scale-105 hover:bg-teal-50'
+                  : ''
+              }`}
+              onClick={() => handleFeatureClick(feature.tabId)}
+              role={feature.tabId ? 'button' : undefined}
+              tabIndex={feature.tabId ? 0 : undefined}
+              onKeyDown={(e) => {
+                if (feature.tabId && (e.key === 'Enter' || e.key === ' ')) {
+                  e.preventDefault();
+                  handleFeatureClick(feature.tabId);
+                }
+              }}
+              aria-label={feature.tabId ? `Idite na ${feature.title} kalkulator` : undefined}
+            >
               <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
                 {feature.icon}
               </div>
@@ -98,6 +136,11 @@ export function AreaFeatures() {
               <p className="text-gray-600">
                 {feature.description}
               </p>
+              {feature.tabId && (
+                <div className="mt-3 text-sm text-teal-600 font-medium">
+                  Kliknite za korištenje →
+                </div>
+              )}
             </div>
           ))}
         </div>

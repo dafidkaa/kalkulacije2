@@ -64,8 +64,23 @@ interface TabProps {
   description: string;
 }
 
-export function DateTabs() {
-  const [activeTab, setActiveTab] = useState<TabType>('difference');
+interface DateTabsProps {
+  activeTab?: TabType;
+  onTabChange?: (tab: TabType) => void;
+}
+
+export function DateTabs({ activeTab: externalActiveTab, onTabChange }: DateTabsProps) {
+  const [internalActiveTab, setInternalActiveTab] = useState<TabType>('difference');
+
+  const activeTab = externalActiveTab || internalActiveTab;
+
+  const handleTabChange = (tab: TabType) => {
+    if (onTabChange) {
+      onTabChange(tab);
+    } else {
+      setInternalActiveTab(tab);
+    }
+  };
 
   const tabs: TabProps[] = [
     {
@@ -108,7 +123,7 @@ export function DateTabs() {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => handleTabChange(tab.id)}
               className={`
                 flex items-center px-6 py-4 border-b-2 font-medium text-sm whitespace-nowrap
                 ${activeTab === tab.id

@@ -1,5 +1,11 @@
 import React from 'react';
 
+type TabType = 'difference' | 'addSubtract' | 'workingDays' | 'age' | 'countdown';
+
+interface DateFeaturesProps {
+  onFeatureClick?: (tabId: TabType) => void;
+}
+
 // Using SVG directly to avoid icon issues
 const FeatureIcons = {
   difference: (
@@ -73,32 +79,37 @@ const FeatureIcons = {
   )
 };
 
-export function DateFeatures() {
+export function DateFeatures({ onFeatureClick }: DateFeaturesProps) {
   const features = [
     {
       icon: FeatureIcons.difference,
       title: 'Razlika Između Datuma',
-      description: 'Izračunajte točnu razliku između dva datuma u godinama, mjesecima, tjednima i danima.'
+      description: 'Izračunajte točnu razliku između dva datuma u godinama, mjesecima, tjednima i danima.',
+      tabId: 'difference' as TabType
     },
     {
       icon: FeatureIcons.addSubtract,
       title: 'Dodavanje i Oduzimanje',
-      description: 'Dodajte ili oduzmite dane, tjedne, mjesece ili godine od određenog datuma.'
+      description: 'Dodajte ili oduzmite dane, tjedne, mjesece ili godine od određenog datuma.',
+      tabId: 'addSubtract' as TabType
     },
     {
       icon: FeatureIcons.workingDays,
       title: 'Kalkulator Radnih Dana',
-      description: 'Izračunajte radne dane između dva datuma, isključujući vikende i praznike.'
+      description: 'Izračunajte radne dane između dva datuma, isključujući vikende i praznike.',
+      tabId: 'workingDays' as TabType
     },
     {
       icon: FeatureIcons.age,
       title: 'Kalkulator Starosti',
-      description: 'Izračunajte točnu starost u godinama, mjesecima i danima, s dodatnim informacijama o zodijaku.'
+      description: 'Izračunajte točnu starost u godinama, mjesecima i danima, s dodatnim informacijama o zodijaku.',
+      tabId: 'age' as TabType
     },
     {
       icon: FeatureIcons.countdown,
       title: 'Odbrojavanje do Događaja',
-      description: 'Stvorite odbrojavanje do važnih datuma i događaja, s mogućnošću praćenja više događaja.'
+      description: 'Stvorite odbrojavanje do važnih datuma i događaja, s mogućnošću praćenja više događaja.',
+      tabId: 'countdown' as TabType
     },
     {
       icon: FeatureIcons.format,
@@ -117,6 +128,12 @@ export function DateFeatures() {
     }
   ];
 
+  const handleFeatureClick = (tabId?: TabType) => {
+    if (tabId && onFeatureClick) {
+      onFeatureClick(tabId);
+    }
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -129,7 +146,24 @@ export function DateFeatures() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div
+              key={index}
+              className={`bg-white p-6 rounded-lg shadow-sm transition-all duration-300 ${
+                feature.tabId
+                  ? 'cursor-pointer hover:shadow-md hover:scale-105 hover:bg-purple-50'
+                  : 'hover:shadow-md'
+              }`}
+              onClick={() => handleFeatureClick(feature.tabId)}
+              role={feature.tabId ? 'button' : undefined}
+              tabIndex={feature.tabId ? 0 : undefined}
+              onKeyDown={(e) => {
+                if (feature.tabId && (e.key === 'Enter' || e.key === ' ')) {
+                  e.preventDefault();
+                  handleFeatureClick(feature.tabId);
+                }
+              }}
+              aria-label={feature.tabId ? `Idite na ${feature.title} kalkulator` : undefined}
+            >
               <div className="mb-4">
                 {feature.icon}
               </div>
@@ -139,6 +173,11 @@ export function DateFeatures() {
               <p className="text-gray-600">
                 {feature.description}
               </p>
+              {feature.tabId && (
+                <div className="mt-3 text-sm text-purple-600 font-medium">
+                  Kliknite za korištenje →
+                </div>
+              )}
             </div>
           ))}
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ToolSchema, HowToSchema, FAQSchema, BreadcrumbSchema } from '../components/SchemaMarkup';
 import { DateTabs } from '../components/date/DateTabs';
@@ -6,7 +6,22 @@ import { DateFeatures } from '../components/date/DateFeatures';
 import { DateDetails } from '../components/date/DateDetails';
 import { DateFAQ } from '../components/date/DateFAQ';
 
+type TabType = 'difference' | 'addSubtract' | 'workingDays' | 'age' | 'countdown';
+
 export function DateCalculator() {
+  const [activeTab, setActiveTab] = useState<TabType>('difference');
+  const calculatorRef = useRef<HTMLElement>(null);
+
+  const handleFeatureClick = (tabId: TabType) => {
+    setActiveTab(tabId);
+    // Smooth scroll to calculator section
+    if (calculatorRef.current) {
+      calculatorRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
   // FAQ data for schema
   const faqData = [
     {
@@ -98,13 +113,16 @@ export function DateCalculator() {
       </section>
 
       {/* Calculator Section */}
-      <section className="py-12">
+      <section ref={calculatorRef} className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
-          <DateTabs />
+          <DateTabs
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
         </div>
       </section>
 
-      <DateFeatures />
+      <DateFeatures onFeatureClick={handleFeatureClick} />
       <DateDetails />
       <DateFAQ />
     </>
