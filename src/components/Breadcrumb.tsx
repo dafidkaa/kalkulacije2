@@ -19,11 +19,12 @@ const routeNames: Record<string, string> = {
   '/pretvarac-temperature': 'Pretvarač Temperature',
   '/kalkulator-datuma': 'Kalkulator Datuma',
   '/kalkulator': 'AI Kalkulator',
+  '/blog': 'Blog',
 };
 
 export function Breadcrumb() {
   const location = useLocation();
-  
+
   // Don't show breadcrumbs on homepage
   if (location.pathname === '/') {
     return null;
@@ -33,12 +34,26 @@ export function Breadcrumb() {
     {
       name: 'Početna',
       url: 'https://kalkulacije.com/'
-    },
-    {
-      name: routeNames[location.pathname] || 'Stranica',
-      url: `https://kalkulacije.com${location.pathname}`
     }
   ];
+
+  // Handle blog post routes
+  if (location.pathname.startsWith('/blog/')) {
+    breadcrumbItems.push({
+      name: 'Blog',
+      url: 'https://kalkulacije.com/blog'
+    });
+    // For blog posts, we'll show "Članak" instead of the full title to keep it clean
+    breadcrumbItems.push({
+      name: 'Članak',
+      url: `https://kalkulacije.com${location.pathname}`
+    });
+  } else {
+    breadcrumbItems.push({
+      name: routeNames[location.pathname] || 'Stranica',
+      url: `https://kalkulacije.com${location.pathname}`
+    });
+  }
 
   return (
     <>

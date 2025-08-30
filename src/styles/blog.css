@@ -265,6 +265,15 @@
   @apply text-blue-600;
 }
 
+/* Hide any breadcrumbs in blog content and main content area */
+.blog-content nav,
+.blog-content .breadcrumb,
+.blog-content ol:first-child,
+main > div > div:first-child nav,
+main > div > div:first-child > nav {
+  display: none !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .blog-content .faq-item,

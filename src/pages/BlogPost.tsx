@@ -367,16 +367,7 @@ export function BlogPost() {
         {/* Hero Section */}
         <div className="bg-white">
           <div className="container mx-auto px-4 py-16 max-w-4xl">
-            {/* Breadcrumb */}
-            <nav className="mb-8">
-              <ol className="flex items-center space-x-2 text-sm text-gray-500">
-                <li><a href="/" className="hover:text-blue-600">Početna</a></li>
-                <li>/</li>
-                <li><a href="/blog" className="hover:text-blue-600">Blog</a></li>
-                <li>/</li>
-                <li className="text-gray-900">{post.title}</li>
-              </ol>
-            </nav>
+
 
             {/* Article Header */}
             <header className="mb-8">
