@@ -145,17 +145,41 @@ export function TextCalculator({ isScientific }: TextCalculatorProps) {
   };
 
   const formatResult = (value: number): string => {
-    // Format large numbers with scientific notation
-    if (Math.abs(value) >= 1e10 || (Math.abs(value) < 1e-6 && value !== 0)) {
-      return value.toExponential(6);
+    // Handle special cases
+    if (!isFinite(value)) {
+      return value === Infinity ? '∞' : value === -Infinity ? '-∞' : 'NaN';
     }
-    
+
+    // Handle very large numbers with scientific notation
+    if (Math.abs(value) >= 1e15) {
+      return value.toExponential(3);
+    }
+
+    // Handle very small numbers with scientific notation
+    if (Math.abs(value) < 1e-6 && value !== 0) {
+      return value.toExponential(3);
+    }
+
+    // Format large numbers with thousand separators
+    if (Math.abs(value) >= 1000) {
+      if (Number.isInteger(value)) {
+        return value.toLocaleString('hr-HR'); // Croatian number formatting
+      } else {
+        return value.toLocaleString('hr-HR', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 6
+        });
+      }
+    }
+
     // Format normal numbers with appropriate decimal places
     if (Number.isInteger(value)) {
       return value.toString();
     }
-    
-    return parseFloat(value.toFixed(10)).toString();
+
+    // Round to reasonable precision and remove trailing zeros
+    const rounded = parseFloat(value.toFixed(10));
+    return rounded.toString();
   };
 
   const exampleQueries = isScientific ? [
@@ -163,13 +187,18 @@ export function TextCalculator({ isScientific }: TextCalculatorProps) {
     "sinus od 30 stupnjeva",
     "logaritam od 100",
     "2 na treću",
-    "faktoriјal od 5"
+    "faktoriјal od 5",
+    "exp(2) plus ln(10)",
+    "apsolutna vrijednost od -25",
+    "max(15, 23, 8)"
   ] : [
-    "25 plus 37",
-    "100 minus 23",
+    "koliko je 50% od 2 milijuna",
+    "povećaj 100 za 20%",
     "15 puta 8",
     "144 podijeljeno s 12",
-    "15 posto od 200"
+    "koliko posto je 75 od 300",
+    "napunio auto 28l, prešao 450km",
+    "25 plus 37 minus 12"
   ];
 
   return (
@@ -198,10 +227,24 @@ export function TextCalculator({ isScientific }: TextCalculatorProps) {
             >
               {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
             </button>
+            {isGroqAIAvailable() && (
+              <button
+                onClick={handleCalculateWithAI}
+                disabled={isCalculatingWithAI || !input.trim()}
+                className="p-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-xl transition-colors duration-200"
+                title="Izračunaj s AI"
+              >
+                {isCalculatingWithAI ? (
+                  <Loader className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Brain className="w-5 h-5" />
+                )}
+              </button>
+            )}
             <button
               onClick={() => handleCalculate()}
               className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition-colors duration-200"
-              title="Izračunaj"
+              title="Izračunaj lokalno"
             >
               <Send className="w-5 h-5" />
             </button>
@@ -244,9 +287,37 @@ export function TextCalculator({ isScientific }: TextCalculatorProps) {
               )}
             </div>
           ) : result !== null ? (
-            <div className="text-3xl md:text-4xl font-mono font-light">{formatResult(result)}</div>
+            <div className="space-y-3">
+              <div className="text-3xl md:text-4xl font-mono font-light">{formatResult(result)}</div>
+              {isGroqAIAvailable() && input.trim() && (
+                <div className="flex justify-end">
+                  <button
+                    onClick={handleCalculateWithAI}
+                    disabled={isCalculatingWithAI}
+                    className="flex items-center space-x-2 px-3 py-1 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 text-white rounded-lg transition-colors duration-200 text-sm"
+                  >
+                    {isCalculatingWithAI ? (
+                      <Loader className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <Brain className="w-3 h-3" />
+                    )}
+                    <span className="text-xs font-medium">
+                      {isCalculatingWithAI ? 'AI računa...' : 'Provjeri s AI'}
+                    </span>
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
-            <div className="text-gray-400 text-lg">Unesite izraz za izračun</div>
+            <div className="space-y-3">
+              <div className="text-gray-400 text-lg">Unesite izraz za izračun</div>
+              {isGroqAIAvailable() && (
+                <div className="text-xs text-gray-500 flex items-center justify-end space-x-1">
+                  <Brain className="w-3 h-3" />
+                  <span>AI podrška dostupna</span>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>

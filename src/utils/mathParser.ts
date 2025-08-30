@@ -28,7 +28,9 @@ const wordToNumber: { [key: string]: number } = {
   'jedanaest': 11, 'dvanaest': 12, 'trinaest': 13, 'četrnaest': 14, 'petnaest': 15,
   'šesnaest': 16, 'sedamnaest': 17, 'osamnaest': 18, 'devetnaest': 19, 'dvadeset': 20,
   'trideset': 30, 'četrdeset': 40, 'pedeset': 50, 'šezdeset': 60, 'sedamdeset': 70,
-  'osamdeset': 80, 'devedeset': 90, 'sto': 100, 'tisuću': 1000, 'milijun': 1000000,
+  'osamdeset': 80, 'devedeset': 90, 'sto': 100, 'tisuću': 1000, 'tisuća': 1000, 'tisuca': 1000,
+  'milijun': 1000000, 'milijuna': 1000000, 'milijunu': 1000000, 'milijunom': 1000000,
+  'milijard': 1000000000, 'milijarda': 1000000000, 'milijardu': 1000000000, 'milijardom': 1000000000,
 };
 
 // Operation mapping
@@ -43,7 +45,9 @@ const operationWords: { [key: string]: string } = {
   'square root': 'sqrt', 'sqrt': 'sqrt', 'root': 'sqrt',
   'squared': '^2', 'cubed': '^3', 'power': '^', 'to the power of': '^',
   'sine': 'sin', 'cosine': 'cos', 'tangent': 'tan',
-  'log': 'log', 'logarithm': 'log', 'natural log': 'ln',
+  'arcsine': 'asin', 'arccosine': 'acos', 'arctangent': 'atan',
+  'logarithm': 'log', 'natural log': 'ln', 'log base 2': 'log2',
+  'exponential': 'exp', 'absolute': 'abs', 'ceiling': 'ceil', 'floor': 'floor',
   // Croatian
   'dodaj': '+', 'zbrojiti': '+', 'zbroj': '+', 'uvećaj': '+', 'povećaj': '+',
   'oduzmi': '-', 'oduzeti': '-', 'razlika': '-', 'smanji': '-', 'umanji': '-',
@@ -54,6 +58,9 @@ const operationWords: { [key: string]: string } = {
   'kvadratni korijen': 'sqrt', 'korijen': 'sqrt',
   'na kvadrat': '^2', 'na kub': '^3', 'na': '^', 'stepenovan': '^',
   'sinus': 'sin', 'kosinus': 'cos', 'tangens': 'tan',
+  'arkus sinus': 'asin', 'arkus kosinus': 'acos', 'arkus tangens': 'atan',
+  'logaritam': 'log', 'prirodni logaritam': 'ln', 'logaritam baza 2': 'log2',
+  'eksponencijalna': 'exp', 'apsolutna vrijednost': 'abs', 'strop': 'ceil', 'pod': 'floor',
   'od': 'of', 'iz': 'of', 'sa': 'from', 'do': 'to',
   'koliko': 'what', 'što': 'what', 'koji': 'what', 'kakav': 'what',
   'rast': 'increase', 'porast': 'increase', 'pad': 'decrease', 'smanjenje': 'decrease',
@@ -90,17 +97,34 @@ function convertOperationsToSymbols(text: string): string {
 
 // Function to clean and normalize expression
 function normalizeExpression(text: string): string {
-  return text
+  let result = text
     .replace(/\s+/g, ' ') // Multiple spaces to single space
-    .replace(/[^\d+\-*/().^%\s]/g, '') // Remove non-math characters
     .trim();
+
+  // Handle scientific notation (e.g., 1e5, 2.5E-3)
+  result = result.replace(/(\d+(?:\.\d+)?)[eE]([+-]?\d+)/g, '$1 * Math.pow(10, $2)');
+
+  // Handle implicit multiplication (e.g., 2x, 3(4+5))
+  result = result.replace(/(\d+)\s*([a-zA-Z])/g, '$1 * $2');
+  result = result.replace(/(\d+)\s*\(/g, '$1 * (');
+  result = result.replace(/\)\s*(\d+)/g, ') * $1');
+  result = result.replace(/\)\s*\(/g, ') * (');
+
+  // Handle percentage as decimal conversion
+  result = result.replace(/(\d+(?:\.\d+)?)\s*%/g, '($1 / 100)');
+
+  return result;
 }
 
 // Function to handle percentage calculations
 function handlePercentage(expression: string): string {
   let result = expression.toLowerCase();
 
-  // Handle "X percent of Y" or "X posto od Y" -> "X * Y / 100"
+  // Handle "what is X percent of Y" or "koliko je X posto od Y" -> "X * Y / 100"
+  const whatIsPercentOfRegex = /(?:what\s+is\s+|koliko\s+je\s+)?(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
+  result = result.replace(whatIsPercentOfRegex, '($1 * $2 / 100)');
+
+  // Handle "X percent of Y" or "X posto od Y" -> "X * Y / 100" (fallback)
   const percentOfRegex = /(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
   result = result.replace(percentOfRegex, '($1 * $2 / 100)');
 
@@ -145,74 +169,132 @@ function handlePercentage(expression: string): string {
 
 // Function to handle scientific operations
 function handleScientificOperations(expression: string): string {
-  // Handle sqrt
-  expression = expression.replace(/sqrt\s*\(?\s*(\d+(?:\.\d+)?)\s*\)?/gi, 'Math.sqrt($1)');
-  expression = expression.replace(/sqrt\s+(\d+(?:\.\d+)?)/gi, 'Math.sqrt($1)');
-  
-  // Handle trigonometric functions
-  expression = expression.replace(/sin\s*\(?\s*(\d+(?:\.\d+)?)\s*\)?/gi, 'Math.sin($1 * Math.PI / 180)');
-  expression = expression.replace(/cos\s*\(?\s*(\d+(?:\.\d+)?)\s*\)?/gi, 'Math.cos($1 * Math.PI / 180)');
-  expression = expression.replace(/tan\s*\(?\s*(\d+(?:\.\d+)?)\s*\)?/gi, 'Math.tan($1 * Math.PI / 180)');
-  
+  let result = expression;
+
+  // Handle square root - more flexible patterns
+  result = result.replace(/sqrt\s*\(\s*([^)]+)\s*\)/gi, 'Math.sqrt($1)');
+  result = result.replace(/sqrt\s+(\d+(?:\.\d+)?)/gi, 'Math.sqrt($1)');
+  result = result.replace(/√\s*(\d+(?:\.\d+)?)/gi, 'Math.sqrt($1)');
+
+  // Handle trigonometric functions (degrees to radians)
+  result = result.replace(/sin\s*\(\s*([^)]+)\s*\)/gi, 'Math.sin(($1) * Math.PI / 180)');
+  result = result.replace(/cos\s*\(\s*([^)]+)\s*\)/gi, 'Math.cos(($1) * Math.PI / 180)');
+  result = result.replace(/tan\s*\(\s*([^)]+)\s*\)/gi, 'Math.tan(($1) * Math.PI / 180)');
+
+  // Handle inverse trigonometric functions (result in degrees)
+  result = result.replace(/asin\s*\(\s*([^)]+)\s*\)/gi, 'Math.asin($1) * 180 / Math.PI');
+  result = result.replace(/acos\s*\(\s*([^)]+)\s*\)/gi, 'Math.acos($1) * 180 / Math.PI');
+  result = result.replace(/atan\s*\(\s*([^)]+)\s*\)/gi, 'Math.atan($1) * 180 / Math.PI');
+
   // Handle logarithms
-  expression = expression.replace(/log\s*\(?\s*(\d+(?:\.\d+)?)\s*\)?/gi, 'Math.log10($1)');
-  expression = expression.replace(/ln\s*\(?\s*(\d+(?:\.\d+)?)\s*\)?/gi, 'Math.log($1)');
-  
-  // Handle powers
-  expression = expression.replace(/(\d+(?:\.\d+)?)\s*\^\s*(\d+(?:\.\d+)?)/g, 'Math.pow($1, $2)');
-  
-  return expression;
+  result = result.replace(/log\s*\(\s*([^)]+)\s*\)/gi, 'Math.log10($1)');
+  result = result.replace(/ln\s*\(\s*([^)]+)\s*\)/gi, 'Math.log($1)');
+  result = result.replace(/log2\s*\(\s*([^)]+)\s*\)/gi, 'Math.log2($1)');
+
+  // Handle exponential
+  result = result.replace(/exp\s*\(\s*([^)]+)\s*\)/gi, 'Math.exp($1)');
+
+  // Handle powers - more flexible
+  result = result.replace(/(\d+(?:\.\d+)?|\([^)]+\))\s*\^\s*(\d+(?:\.\d+)?|\([^)]+\))/g, 'Math.pow($1, $2)');
+  result = result.replace(/(\d+(?:\.\d+)?|\([^)]+\))\s*\*\*\s*(\d+(?:\.\d+)?|\([^)]+\))/g, 'Math.pow($1, $2)');
+
+  // Handle absolute value
+  result = result.replace(/abs\s*\(\s*([^)]+)\s*\)/gi, 'Math.abs($1)');
+
+  // Handle ceiling and floor
+  result = result.replace(/ceil\s*\(\s*([^)]+)\s*\)/gi, 'Math.ceil($1)');
+  result = result.replace(/floor\s*\(\s*([^)]+)\s*\)/gi, 'Math.floor($1)');
+  result = result.replace(/round\s*\(\s*([^)]+)\s*\)/gi, 'Math.round($1)');
+
+  // Handle min and max
+  result = result.replace(/min\s*\(\s*([^)]+)\s*\)/gi, 'Math.min($1)');
+  result = result.replace(/max\s*\(\s*([^)]+)\s*\)/gi, 'Math.max($1)');
+
+  // Handle factorial (simple implementation for small numbers)
+  result = result.replace(/(\d+)!/g, (match, num) => {
+    const n = parseInt(num);
+    if (n > 20) return 'Infinity'; // Prevent overflow
+    let factorial = 1;
+    for (let i = 2; i <= n; i++) {
+      factorial *= i;
+    }
+    return factorial.toString();
+  });
+
+  // Handle constants
+  result = result.replace(/\bpi\b/gi, 'Math.PI');
+  result = result.replace(/\be\b/gi, 'Math.E');
+
+  // Handle Croatian constants
+  result = result.replace(/\bpi\b/gi, 'Math.PI');
+  result = result.replace(/\beuler\b/gi, 'Math.E');
+
+  return result;
 }
 
 // Main parsing function
 export function parseNaturalLanguageMath(input: string): ParseResult {
   try {
     let expression = input.trim();
-    
+
     if (!expression) {
       return { success: false, error: 'Prazan unos' };
     }
-    
+
+    // Handle common question patterns first
+    expression = expression.replace(/^(what\s+is\s+|calculate\s+|compute\s+|koliko\s+je\s+|što\s+je\s+|izračunaj\s+)/i, '');
+    expression = expression.replace(/\?+$/, ''); // Remove question marks
+
     // Convert words to numbers
     expression = convertWordsToNumbers(expression);
-    
+
     // Convert operation words to symbols
     expression = convertOperationsToSymbols(expression);
-    
-    // Handle percentage calculations
+
+    // Handle percentage calculations (before normalization)
     expression = handlePercentage(expression);
-    
+
     // Handle scientific operations
     expression = handleScientificOperations(expression);
-    
-    // Normalize expression
+
+    // Normalize expression (handles scientific notation, implicit multiplication)
     expression = normalizeExpression(expression);
-    
-    // Handle simple patterns like "what is X + Y"
-    expression = expression.replace(/^(what\s+is\s+|calculate\s+|compute\s+)/i, '');
-    expression = expression.replace(/\?+$/, ''); // Remove question marks
-    
-    // Replace × and ÷ with * and /
+
+    // Replace mathematical symbols with operators
     expression = expression.replace(/×/g, '*').replace(/÷/g, '/');
-    
-    if (!expression || expression === '0') {
+    expression = expression.replace(/−/g, '-'); // En dash to minus
+
+    // Handle special cases
+    if (!expression || expression.trim() === '' || expression === '0') {
       return { success: false, error: 'Nevaljan izraz' };
     }
-    
+
+    // Additional validation for balanced parentheses
+    const openParens = (expression.match(/\(/g) || []).length;
+    const closeParens = (expression.match(/\)/g) || []).length;
+    if (openParens !== closeParens) {
+      return { success: false, error: 'Neusklađene zagrade' };
+    }
+
     // Evaluate the expression safely
     const result = evaluateExpression(expression);
-    
-    if (isNaN(result) || !isFinite(result)) {
-      return { success: false, error: 'Nevaljan rezultat' };
+
+    if (isNaN(result)) {
+      return { success: false, error: 'Nevaljan matematički izraz' };
     }
-    
+
+    if (!isFinite(result)) {
+      return { success: false, error: 'Rezultat je beskonačan ili previše velik' };
+    }
+
     return {
       success: true,
       result: result,
       expression: expression
     };
-    
+
   } catch (error) {
+    console.warn('Parsing error:', error);
     return {
       success: false,
       error: 'Greška u parsiranju izraza'
@@ -223,14 +305,36 @@ export function parseNaturalLanguageMath(input: string): ParseResult {
 // Safe expression evaluator
 function evaluateExpression(expression: string): number {
   try {
-    // Remove any potentially dangerous characters
-    const safeExpression = expression.replace(/[^0-9+\-*/().\s]/g, '');
-    
+    // Allow Math functions, numbers, operators, parentheses, and dots
+    // This regex allows: Math.function, numbers, +, -, *, /, (, ), ., spaces
+    const safeExpression = expression.replace(/[^0-9+\-*/().\sMath]/g, '');
+
+    // Additional safety: ensure only allowed Math functions
+    const allowedMathFunctions = [
+      'Math.sqrt', 'Math.sin', 'Math.cos', 'Math.tan',
+      'Math.asin', 'Math.acos', 'Math.atan', 'Math.atan2',
+      'Math.log', 'Math.log10', 'Math.log2', 'Math.exp',
+      'Math.pow', 'Math.abs', 'Math.ceil', 'Math.floor', 'Math.round',
+      'Math.PI', 'Math.E', 'Math.max', 'Math.min'
+    ];
+
+    // Check if expression contains only allowed Math functions
+    const mathFunctionRegex = /Math\.[a-zA-Z0-9]+/g;
+    const foundFunctions = safeExpression.match(mathFunctionRegex) || [];
+
+    for (const func of foundFunctions) {
+      if (!allowedMathFunctions.some(allowed => func.startsWith(allowed))) {
+        console.warn(`Potentially unsafe Math function: ${func}`);
+        return NaN;
+      }
+    }
+
     // Use Function constructor for safer evaluation than eval
     const result = new Function('Math', `return ${safeExpression}`)(Math);
-    
+
     return Number(result);
-  } catch {
+  } catch (error) {
+    console.warn('Expression evaluation error:', error);
     return NaN;
   }
 }
