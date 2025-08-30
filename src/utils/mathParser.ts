@@ -45,15 +45,18 @@ const operationWords: { [key: string]: string } = {
   'sine': 'sin', 'cosine': 'cos', 'tangent': 'tan',
   'log': 'log', 'logarithm': 'log', 'natural log': 'ln',
   // Croatian
-  'dodaj': '+', 'zbrojiti': '+', 'zbroj': '+',
-  'oduzmi': '-', 'oduzeti': '-', 'razlika': '-',
-  'puta': '*', 'množiti': '*', 'pomnožiti': '*', 'umnožak': '*',
-  'podijeli': '/', 'podijeliti': '/', 'količnik': '/',
-  'jednako': '=', 'je': '=',
-  'posto': '%', 'postotak': '%',
+  'dodaj': '+', 'zbrojiti': '+', 'zbroj': '+', 'uvećaj': '+', 'povećaj': '+',
+  'oduzmi': '-', 'oduzeti': '-', 'razlika': '-', 'smanji': '-', 'umanji': '-',
+  'puta': '*', 'množiti': '*', 'pomnožiti': '*', 'umnožak': '*', 'krat': '*',
+  'podijeli': '/', 'podijeliti': '/', 'količnik': '/', 'kroz': '/',
+  'jednako': '=', 'je': '=', 'iznosi': '=', 'čini': '=',
+  'posto': '%', 'postotak': '%', 'postotaka': '%',
   'kvadratni korijen': 'sqrt', 'korijen': 'sqrt',
-  'na kvadrat': '^2', 'na kub': '^3', 'na': '^',
+  'na kvadrat': '^2', 'na kub': '^3', 'na': '^', 'stepenovan': '^',
   'sinus': 'sin', 'kosinus': 'cos', 'tangens': 'tan',
+  'od': 'of', 'iz': 'of', 'sa': 'from', 'do': 'to',
+  'koliko': 'what', 'što': 'what', 'koji': 'what', 'kakav': 'what',
+  'rast': 'increase', 'porast': 'increase', 'pad': 'decrease', 'smanjenje': 'decrease',
 };
 
 // Function to convert words to numbers
@@ -95,15 +98,49 @@ function normalizeExpression(text: string): string {
 
 // Function to handle percentage calculations
 function handlePercentage(expression: string): string {
-  // Handle "X percent of Y" -> "X * Y / 100"
-  const percentOfRegex = /(\d+(?:\.\d+)?)\s*%\s*of\s*(\d+(?:\.\d+)?)/gi;
-  expression = expression.replace(percentOfRegex, '($1 * $2 / 100)');
-  
-  // Handle "X percent" -> "X / 100"
-  const percentRegex = /(\d+(?:\.\d+)?)\s*%/g;
-  expression = expression.replace(percentRegex, '($1 / 100)');
-  
-  return expression;
+  let result = expression.toLowerCase();
+
+  // Handle "X percent of Y" or "X posto od Y" -> "X * Y / 100"
+  const percentOfRegex = /(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
+  result = result.replace(percentOfRegex, '($1 * $2 / 100)');
+
+  // Handle "increase X by Y percent" or "povećaj X za Y posto"
+  const increaseRegex = /(?:increase|povećaj|povećati|dodaj)\s*(\d+(?:\.\d+)?)\s*(?:by|za|na)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)/gi;
+  result = result.replace(increaseRegex, '($1 * (1 + $2 / 100))');
+
+  // Handle "decrease X by Y percent" or "smanji X za Y posto"
+  const decreaseRegex = /(?:decrease|smanji|smanjiti|oduzmi)\s*(\d+(?:\.\d+)?)\s*(?:by|za|sa)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)/gi;
+  result = result.replace(decreaseRegex, '($1 * (1 - $2 / 100))');
+
+  // Handle "what percent is X of Y" or "koliko posto je X od Y"
+  const whatPercentRegex = /(?:what|koliko|koji)\s*(?:percent|posto|postotak)\s*(?:is|je)\s*(\d+(?:\.\d+)?)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
+  result = result.replace(whatPercentRegex, '(($1 / $2) * 100)');
+
+  // Handle "X is what percent of Y" or "X je koliko posto od Y"
+  const isWhatPercentRegex = /(\d+(?:\.\d+)?)\s*(?:is|je)\s*(?:what|koliko|koji)\s*(?:percent|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
+  result = result.replace(isWhatPercentRegex, '(($1 / $2) * 100)');
+
+  // Handle percentage change: "from X to Y, what is the change"
+  const percentChangeRegex = /(?:from|od|sa)\s*(\d+(?:\.\d+)?)\s*(?:to|na|do)\s*(\d+(?:\.\d+)?)\s*(?:percent|posto|postotak)?\s*(?:change|promjena|rast|pad)/gi;
+  result = result.replace(percentChangeRegex, '((($2 - $1) / $1) * 100)');
+
+  // Handle compound percentage: "X percent of Y percent of Z"
+  const compoundPercentRegex = /(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:of|od)\s*(\d+(?:\.\d+)?)/gi;
+  result = result.replace(compoundPercentRegex, '(($1 / 100) * ($2 / 100) * $3)');
+
+  // Handle "add X percent to Y" or "dodaj X posto na Y"
+  const addPercentRegex = /(?:add|dodaj)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:to|na)\s*(\d+(?:\.\d+)?)/gi;
+  result = result.replace(addPercentRegex, '($2 * (1 + $1 / 100))');
+
+  // Handle "subtract X percent from Y" or "oduzmi X posto od Y"
+  const subtractPercentRegex = /(?:subtract|oduzmi)\s*(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)\s*(?:from|od)\s*(\d+(?:\.\d+)?)/gi;
+  result = result.replace(subtractPercentRegex, '($2 * (1 - $1 / 100))');
+
+  // Handle standalone percentages "X percent" -> "X / 100"
+  const percentRegex = /(\d+(?:\.\d+)?)\s*(?:%|posto|postotak)(?!\s*(?:of|od|je|is|na|to|from|sa))/gi;
+  result = result.replace(percentRegex, '($1 / 100)');
+
+  return result;
 }
 
 // Function to handle scientific operations

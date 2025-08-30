@@ -20,7 +20,7 @@ export async function calculateWithGroqAI(expression: string): Promise<GroqRespo
   }
 
   try {
-    const prompt = `You are a precise mathematical calculator. Calculate the following expression and return ONLY the numerical result, nothing else. No explanations, no text, just the number.
+    const prompt = `You are a precise mathematical calculator that can solve both mathematical expressions and practical word problems. Calculate the following and return ONLY the numerical result, nothing else. No explanations, no text, just the number.
 
 Expression: ${expression}
 
@@ -28,8 +28,17 @@ Important rules:
 - Return only the numerical result
 - Use standard mathematical notation
 - For trigonometric functions, assume degrees unless specified
-- For percentages, convert to decimal (e.g., 15% = 0.15)
-- Round to maximum 10 decimal places
+- For percentage calculations:
+  * "X percent of Y" = (X * Y) / 100
+  * "increase X by Y percent" = X * (1 + Y/100)
+  * "decrease X by Y percent" = X * (1 - Y/100)
+  * "what percent is X of Y" = (X / Y) * 100
+- For practical calculations:
+  * Fuel consumption: (liters / kilometers) * 100 = liters per 100km
+  * Speed: distance / time = speed
+  * Unit conversions: apply appropriate conversion factors
+- For word problems, extract the numbers and apply the correct formula
+- Round to maximum 4 decimal places for readability
 - If the expression is invalid or cannot be calculated, return "ERROR"
 
 Result:`;
@@ -113,9 +122,10 @@ export function isGroqAIAvailable(): boolean {
 // Function to format mathematical expressions for better AI understanding
 export function formatExpressionForAI(expression: string): string {
   let formatted = expression.toLowerCase().trim();
-  
+
   // Replace common Croatian mathematical terms with English
   const replacements: { [key: string]: string } = {
+    // Mathematical functions
     'kvadratni korijen': 'square root',
     'korijen': 'square root',
     'sinus': 'sin',
@@ -125,21 +135,85 @@ export function formatExpressionForAI(expression: string): string {
     'prirodni logaritam': 'ln',
     'na kvadrat': '^2',
     'na kub': '^3',
+    'stepenovan': 'to the power of',
     'faktoriјal': '!',
-    'posto': '%',
-    'postotak': '%',
+
+    // Percentages and calculations
+    'posto': 'percent',
+    'postotak': 'percent',
+    'postotaka': 'percent',
     'od': 'of',
+    'iz': 'of',
+    'sa': 'from',
+    'do': 'to',
+    'na': 'to',
+
+    // Basic operations
     'plus': '+',
+    'dodaj': 'add',
+    'dodati': 'add',
+    'zbroj': 'sum',
     'minus': '-',
-    'puta': '*',
-    'pomnoženo': '*',
-    'podijeljeno': '/',
-    'jednako': '=',
-    'koliko je': '',
-    'što je': '',
-    'izračunaj': '',
-    'calculate': '',
-    'what is': '',
+    'oduzmi': 'subtract',
+    'oduzeti': 'subtract',
+    'razlika': 'difference',
+    'puta': 'times',
+    'krat': 'times',
+    'pomnoženo': 'multiplied by',
+    'množiti': 'multiply',
+    'umnožak': 'product',
+    'podijeljeno': 'divided by',
+    'podijeliti': 'divide',
+    'kroz': 'divided by',
+    'količnik': 'quotient',
+    'jednako': 'equals',
+    'je': 'is',
+    'iznosi': 'equals',
+    'čini': 'equals',
+
+    // Question words and phrases
+    'koliko je': 'what is',
+    'što je': 'what is',
+    'koliko': 'what',
+    'koji': 'what',
+    'kakav': 'what',
+    'kako': 'how',
+
+    // Percentage operations
+    'povećaj': 'increase',
+    'povećati': 'increase',
+    'uvećaj': 'increase',
+    'rast': 'increase',
+    'porast': 'increase',
+    'smanji': 'decrease',
+    'smanjiti': 'decrease',
+    'umanji': 'decrease',
+    'pad': 'decrease',
+    'smanjenje': 'decrease',
+    'za': 'by',
+
+    // Practical terms
+    'litara': 'liters',
+    'litr': 'liters',
+    'kilometara': 'kilometers',
+    'km': 'kilometers',
+    'sati': 'hours',
+    'sat': 'hour',
+    'brzina': 'speed',
+    'potrošnja': 'consumption',
+    'gorivo': 'fuel',
+    'benzin': 'petrol',
+    'nafta': 'diesel',
+    'napunio': 'filled',
+    'natočio': 'filled',
+    'prešao': 'traveled',
+    'prošao': 'traveled',
+    'vozio': 'drove',
+
+    // Commands
+    'izračunaj': 'calculate',
+    'calculate': 'calculate',
+    'what is': 'what is',
   };
 
   // Apply replacements
@@ -148,11 +222,39 @@ export function formatExpressionForAI(expression: string): string {
     formatted = formatted.replace(regex, english);
   });
 
+  // Handle specific practical calculation patterns
+
+  // Fuel consumption pattern: "X liters for Y km, consumption per 100km"
+  const fuelConsumptionRegex = /(?:filled|napunio|natočio).*?(\d+(?:\.\d+)?)\s*(?:l|liter|litr).*?(?:crossed|prešao|prošao).*?(\d+(?:\.\d+)?)\s*(?:km|kilometer).*?(?:per|na|po)\s*100\s*km/gi;
+  if (fuelConsumptionRegex.test(formatted)) {
+    const match = formatted.match(/(\d+(?:\.\d+)?)\s*(?:l|liter|litr).*?(\d+(?:\.\d+)?)\s*(?:km|kilometer)/i);
+    if (match) {
+      const liters = match[1];
+      const kilometers = match[2];
+      formatted = `fuel consumption: ${liters} liters per ${kilometers} km, calculate consumption per 100 km`;
+    }
+  }
+
+  // Speed calculation: "X km in Y hours, what is speed"
+  const speedRegex = /(\d+(?:\.\d+)?)\s*(?:km|kilometer).*?(\d+(?:\.\d+)?)\s*(?:h|hour|sat|sati).*?(?:speed|brzina)/gi;
+  if (speedRegex.test(formatted)) {
+    const match = formatted.match(/(\d+(?:\.\d+)?)\s*(?:km|kilometer).*?(\d+(?:\.\d+)?)\s*(?:h|hour|sat|sati)/i);
+    if (match) {
+      const distance = match[1];
+      const time = match[2];
+      formatted = `speed calculation: ${distance} km in ${time} hours`;
+    }
+  }
+
+  // Unit conversion patterns
+  formatted = formatted.replace(/(\d+(?:\.\d+)?)\s*(?:km|kilometer)\s*(?:to|u|na)\s*(?:m|meter|metr)/gi, '$1 * 1000');
+  formatted = formatted.replace(/(\d+(?:\.\d+)?)\s*(?:m|meter|metr)\s*(?:to|u|na)\s*(?:cm|centimeter|centimetr)/gi, '$1 * 100');
+
   // Clean up extra spaces
   formatted = formatted.replace(/\s+/g, ' ').trim();
-  
+
   // Remove question marks and other punctuation
   formatted = formatted.replace(/[?!.]+$/, '');
-  
+
   return formatted;
 }

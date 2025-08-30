@@ -24,7 +24,6 @@ interface ButtonCalculatorProps {
 
 export function ButtonCalculator({ isScientific }: ButtonCalculatorProps) {
   const [state, setState] = useState<CalculatorState>({ ...initialState, isScientific });
-  const [showScientific, setShowScientific] = useState(isScientific);
 
   // Handle keyboard input
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
@@ -120,18 +119,12 @@ export function ButtonCalculator({ isScientific }: ButtonCalculatorProps) {
         </div>
       </div>
 
-      <div className={`grid gap-6 ${showScientific && isScientific ? 'lg:grid-cols-5' : 'grid-cols-1'} max-w-2xl mx-auto`}>
+      <div className={`grid gap-6 ${isScientific ? 'lg:grid-cols-5' : 'grid-cols-1'} max-w-2xl mx-auto`}>
         {/* Scientific Functions (if enabled) */}
-        {showScientific && isScientific && (
+        {isScientific && (
           <div className="lg:col-span-2 space-y-3">
             <div className="flex items-center justify-between">
               <h4 className="font-semibold text-gray-700 text-sm">Znanstvene Funkcije</h4>
-              <button
-                onClick={() => setShowScientific(false)}
-                className="text-xs px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg transition-colors duration-200"
-              >
-                Sakrij
-              </button>
             </div>
             {scientificButtons.map((row, rowIndex) => (
               <div key={rowIndex} className={`grid gap-2 ${rowIndex === 2 ? 'grid-cols-5' : 'grid-cols-4'}`}>
@@ -150,17 +143,9 @@ export function ButtonCalculator({ isScientific }: ButtonCalculatorProps) {
         )}
 
         {/* Main Calculator */}
-        <div className={`${showScientific && isScientific ? 'lg:col-span-3' : 'col-span-1'} space-y-3`}>
+        <div className={`${isScientific ? 'lg:col-span-3' : 'col-span-1'} space-y-3`}>
           <div className="flex items-center justify-between">
             <h4 className="font-semibold text-gray-700 text-sm">Kalkulator</h4>
-            {isScientific && !showScientific && (
-              <button
-                onClick={() => setShowScientific(true)}
-                className="text-xs px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg transition-colors duration-200 font-medium"
-              >
-                + Znanstvene funkcije
-              </button>
-            )}
           </div>
           <div className="grid grid-cols-4 gap-3 max-w-sm mx-auto">
             {regularButtons.map((row, rowIndex) => (
