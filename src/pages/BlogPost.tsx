@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Clock, Calendar, User, Tag, Share2, BookOpen } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Clock, Calendar, User, Tag, Share2, BookOpen, Calculator, Scale, Heart, Percent, Ruler, Thermometer } from 'lucide-react';
 import { BlogPostType, BlogIndex, RelatedCalculator } from '../types/blog';
 import { parseMarkdown } from '../utils/markdownParser';
 import { TableOfContents } from '../components/blog/TableOfContents';
@@ -182,21 +182,56 @@ export function BlogPost() {
   const getRelatedCalculators = (category: string): RelatedCalculator[] => {
     const calculatorMap: Record<string, RelatedCalculator[]> = {
       'Datumi i dani': [
-        { title: 'Kalkulator Datuma', href: '/kalkulator-datuma', description: 'Izračunajte razliku između datuma' },
-        { title: 'Kalkulator Vremena', href: '/kalkulator-vremena', description: 'Računanje s vremenom' }
+        {
+          title: 'Kalkulator Datuma',
+          href: '/kalkulator-datuma',
+          description: 'Izračunajte razliku između datuma ili dodajte/oduzmite dane',
+          icon: 'Calendar',
+          color: 'text-purple-500'
+        },
+        {
+          title: 'Kalkulator Vremena',
+          href: '/kalkulator-vremena',
+          description: 'Zbrajajte i oduzimajte vrijeme, računajte razlike između vremenskih zona',
+          icon: 'Clock',
+          color: 'text-indigo-500'
+        }
       ],
       'Postotci i PDV': [
-        { title: 'Kalkulator Postotka', href: '/kalkulator-postotka', description: 'Izračuni postotaka' },
-        { title: 'Kalkulator Plaće', href: '/kalkulator-place', description: 'Bruto-neto plaća' }
+        {
+          title: 'Kalkulator Postotaka',
+          href: '/kalkulator-postotaka',
+          description: 'Izračunajte postotke, povećanja, smanjenja i omjere',
+          icon: 'Percent',
+          color: 'text-orange-500'
+        },
+        {
+          title: 'Kalkulator Plaće',
+          href: '/kalkulator-place',
+          description: 'Izračunajte neto plaću iz bruto iznosa ili obrnuto, uz sve poreze i doprinose',
+          icon: 'Calculator',
+          color: 'text-blue-500'
+        }
       ],
       'Zdravlje': [
-        { title: 'BMI Kalkulator', href: '/kalkulator-bmi', description: 'Indeks tjelesne mase' },
-        { title: 'Kalkulator Kalorija', href: '/kalkulator-kalorija', description: 'Dnevne potrebe' }
+        {
+          title: 'BMI Kalkulator',
+          href: '/kalkulator-bmi',
+          description: 'Izračunajte indeks tjelesne mase i saznajte idealnu težinu',
+          icon: 'Heart',
+          color: 'text-[#f17273]'
+        }
       ]
     };
 
     return calculatorMap[category] || [
-      { title: 'Kalkulator Datuma', href: '/kalkulator-datuma', description: 'Osnovni kalkulatori' }
+      {
+        title: 'Kalkulator Datuma',
+        href: '/kalkulator-datuma',
+        description: 'Osnovni kalkulatori',
+        icon: 'Calendar',
+        color: 'text-purple-500'
+      }
     ];
   };
 
@@ -401,23 +436,42 @@ export function BlogPost() {
               {relatedCalculators.length > 0 && (
                 <div className="mt-8 bg-white rounded-xl shadow-sm p-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-6">Povezani Kalkulatori</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {relatedCalculators.map((calc) => (
-                      <a
-                        key={calc.href}
-                        href={calc.href}
-                        onClick={() => blogAnalytics.trackRelatedCalculatorClick(slug, calc.href, calc.title)}
-                        className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors"
-                      >
-                        <ExternalLink className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                        <div>
-                          <h4 className="font-semibold text-gray-900">{calc.title}</h4>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {relatedCalculators.map((calc) => {
+                      // Get the icon component based on the icon name
+                      const getIconComponent = (iconName: string) => {
+                        const iconMap: Record<string, any> = {
+                          Calculator,
+                          Scale,
+                          Heart,
+                          Percent,
+                          Clock,
+                          Ruler,
+                          Thermometer,
+                          Calendar
+                        };
+                        return iconMap[iconName] || Calculator;
+                      };
+
+                      const IconComponent = getIconComponent(calc.icon || 'Calculator');
+
+                      return (
+                        <Link
+                          key={calc.href}
+                          to={calc.href}
+                          onClick={() => blogAnalytics.trackRelatedCalculatorClick(slug!, calc.href, calc.title)}
+                          className="relative overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 block bg-white p-6 h-full hover:bg-gray-50"
+                        >
+                          <IconComponent className={`w-10 h-10 ${calc.color || 'text-blue-500'} mb-4`} />
+                          <h4 className="text-xl font-semibold text-gray-900 mb-2">
+                            {calc.title}
+                          </h4>
                           {calc.description && (
                             <p className="text-sm text-gray-600">{calc.description}</p>
                           )}
-                        </div>
-                      </a>
-                    ))}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               )}

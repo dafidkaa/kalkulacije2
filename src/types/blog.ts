@@ -72,6 +72,8 @@ export interface RelatedCalculator {
   title: string;
   href: string;
   description?: string;
+  icon?: string;
+  color?: string;
 }
 
 export interface BlogPageProps {
