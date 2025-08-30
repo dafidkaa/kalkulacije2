@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Search, Calendar, Clock, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { BlogIndex as BlogIndexType, BlogCategory, BlogTag, PaginationInfo } from '../types/blog';
 import { blogFileSystem } from '../utils/blogFileSystem';
 import { blogAnalytics } from '../utils/analytics';
 
 import BlogSearch from '../components/blog/BlogSearch';
-import LazyImage from '../components/blog/LazyImage';
+
 
 // Add line-clamp utility classes
 const lineClampStyles = `
@@ -24,13 +25,10 @@ const lineClampStyles = `
   }
 `;
 
-interface BlogIndexProps {
-  page?: number;
-  tag?: string;
-  category?: string;
-}
-
-const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
+const BlogIndex: React.FC = () => {
+  const { page: pageParam, tag, category } = useParams<{ page?: string; tag?: string; category?: string }>();
+  const navigate = useNavigate();
+  const page = pageParam ? parseInt(pageParam) : 1;
   const [posts, setPosts] = useState<BlogIndexType[]>([]);
   const [categories, setCategories] = useState<BlogCategory[]>([]);
   const [tags, setTags] = useState<BlogTag[]>([]);
@@ -272,7 +270,7 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                         if (isSearchActive) {
                           handleClearSearch();
                         } else {
-                          window.location.href = '/blog';
+                          navigate('/blog');
                         }
                       }}
                       className="mt-4 text-blue-600 hover:text-blue-700"
@@ -285,15 +283,7 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                 <div className="grid md:grid-cols-2 gap-8 mb-12">
                   {posts.map((post, index) => (
                     <article key={post.slug} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                      {post.heroImage && (
-                        <div className="aspect-video bg-gray-200 rounded-t-xl overflow-hidden">
-                          <LazyImage
-                            src={post.heroImage}
-                            alt={post.title}
-                            className="w-full h-full"
-                          />
-                        </div>
-                      )}
+
                       <div className="p-6">
                         <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
                           <div className="flex items-center gap-1">
@@ -328,14 +318,14 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                         <div className="flex items-center justify-between">
                           <div className="flex flex-wrap gap-2">
                             {post.tags.slice(0, 2).map((tag) => (
-                              <a
+                              <Link
                                 key={tag}
-                                href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                                to={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
                                 className="inline-flex items-center gap-1 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full hover:bg-blue-200"
                               >
                                 <Tag className="w-3 h-3" />
                                 {tag}
-                              </a>
+                              </Link>
                             ))}
                           </div>
                           
@@ -391,14 +381,14 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                     <h3 className="text-lg font-semibold text-gray-900 mb-4">Kategorije</h3>
                     <div className="space-y-2">
                       {categories.map((cat) => (
-                        <a
+                        <Link
                           key={cat.slug}
-                          href={`/blog/category/${cat.slug}`}
+                          to={`/blog/category/${cat.slug}`}
                           className="flex items-center justify-between text-gray-600 hover:text-blue-600 py-1"
                         >
                           <span>{cat.name}</span>
                           <span className="text-sm bg-gray-100 px-2 py-0.5 rounded-full">{cat.count}</span>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -410,15 +400,15 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                     <h3 className="text-lg font-semibold text-gray-900 mb-4">Popularne oznake</h3>
                     <div className="flex flex-wrap gap-2">
                       {tags.slice(0, 10).map((tag) => (
-                        <a
+                        <Link
                           key={tag.slug}
-                          href={`/blog/tag/${tag.slug}`}
+                          to={`/blog/tag/${tag.slug}`}
                           className="inline-flex items-center gap-1 text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-blue-100 hover:text-blue-700"
                         >
                           <Tag className="w-3 h-3" />
                           {tag.name}
                           <span className="text-xs">({tag.count})</span>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>

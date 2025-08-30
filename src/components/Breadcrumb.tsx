@@ -37,13 +37,35 @@ export function Breadcrumb() {
     }
   ];
 
-  // Handle blog post routes
-  if (location.pathname.startsWith('/blog/')) {
+  // Handle blog routes
+  if (location.pathname === '/blog') {
     breadcrumbItems.push({
       name: 'Blog',
       url: 'https://kalkulacije.com/blog'
     });
-    // For blog posts, we'll show "Članak" instead of the full title to keep it clean
+  } else if (location.pathname.startsWith('/blog/category/')) {
+    breadcrumbItems.push({
+      name: 'Blog',
+      url: 'https://kalkulacije.com/blog'
+    });
+    breadcrumbItems.push({
+      name: 'Kategorija',
+      url: `https://kalkulacije.com${location.pathname}`
+    });
+  } else if (location.pathname.startsWith('/blog/tag/')) {
+    breadcrumbItems.push({
+      name: 'Blog',
+      url: 'https://kalkulacije.com/blog'
+    });
+    breadcrumbItems.push({
+      name: 'Tag',
+      url: `https://kalkulacije.com${location.pathname}`
+    });
+  } else if (location.pathname.startsWith('/blog/')) {
+    breadcrumbItems.push({
+      name: 'Blog',
+      url: 'https://kalkulacije.com/blog'
+    });
     breadcrumbItems.push({
       name: 'Članak',
       url: `https://kalkulacije.com${location.pathname}`
