@@ -1,8 +1,9 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Breadcrumb } from './components/Breadcrumb';
 import { Footer } from './components/Footer';
+import { initializeAnalytics } from './utils/analytics';
 
 // Import page components directly for now to fix deployment issues
 import { HomePage } from './pages/HomePage';
@@ -25,6 +26,11 @@ function BlogPostWrapper() {
 }
 
 export function App() {
+  // Initialize analytics on app start
+  useEffect(() => {
+    initializeAnalytics();
+  }, []);
+
   return (
     <Router>
       <div className="min-h-screen bg-white">

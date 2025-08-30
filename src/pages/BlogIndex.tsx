@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Search, Calendar, Clock, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { BlogIndex as BlogIndexType, BlogCategory, BlogTag, PaginationInfo } from '../types/blog';
 import { blogFileSystem } from '../utils/blogFileSystem';
+import { blogAnalytics } from '../utils/analytics';
 import ReadingProgressBar from '../components/blog/ReadingProgressBar';
 import BlogSearch from '../components/blog/BlogSearch';
 import LazyImage from '../components/blog/LazyImage';
@@ -62,10 +63,14 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
         allPosts = allPosts.filter(post =>
           post.tags.some(postTag => postTag.toLowerCase().includes(tag.toLowerCase()))
         );
+        // Track tag filter usage
+        blogAnalytics.trackTagFilter(tag, allPosts.length);
       } else if (category) {
         allPosts = allPosts.filter(post =>
           post.category.toLowerCase() === category.toLowerCase()
         );
+        // Track category filter usage
+        blogAnalytics.trackCategoryFilter(category, allPosts.length);
       }
 
       // Implement pagination
@@ -123,10 +128,15 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
     }
   };
 
-  const handleSearch = (searchResults: BlogIndexType[]) => {
+  const handleSearch = (searchResults: BlogIndexType[], searchQuery?: string) => {
     setPosts(searchResults);
     setPagination(null); // Disable pagination for search results
     setIsSearchActive(true);
+
+    // Track search analytics
+    if (searchQuery) {
+      blogAnalytics.trackBlogSearch(searchQuery, searchResults.length);
+    }
   };
 
   const handleClearSearch = () => {
@@ -243,7 +253,7 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                 </div>
               ) : (
                 <div className="grid md:grid-cols-2 gap-8 mb-12">
-                  {posts.map((post) => (
+                  {posts.map((post, index) => (
                     <article key={post.slug} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
                       {post.heroImage && (
                         <div className="aspect-video bg-gray-200 rounded-t-xl overflow-hidden">
@@ -267,7 +277,16 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
                         </div>
                         
                         <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
-                          <a href={`/blog/${post.slug}`} className="hover:text-blue-600">
+                          <a
+                            href={`/blog/${post.slug}`}
+                            onClick={() => {
+                              if (isSearchActive) {
+                                // Track search result click
+                                blogAnalytics.trackBlogSearchClick('', post.slug, index);
+                              }
+                            }}
+                            className="hover:text-blue-600"
+                          >
                             {post.title}
                           </a>
                         </h2>

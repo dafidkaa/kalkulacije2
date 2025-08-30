@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp, List } from 'lucide-react';
+import { blogAnalytics } from '../../utils/analytics';
 
 interface TOCItem {
   id: string;
@@ -10,9 +11,10 @@ interface TOCItem {
 interface TableOfContentsProps {
   items: TOCItem[];
   className?: string;
+  postSlug?: string; // For analytics tracking
 }
 
-const TableOfContents: React.FC<TableOfContentsProps> = ({ items, className = '' }) => {
+const TableOfContents: React.FC<TableOfContentsProps> = ({ items, className = '', postSlug = '' }) => {
   const [activeSection, setActiveSection] = useState<string>('');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -77,6 +79,15 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ items, className = ''
         top: offsetPosition,
         behavior: 'smooth'
       });
+
+      // Track TOC click analytics
+      if (postSlug) {
+        const item = items.find(item => item.id === id);
+        if (item) {
+          const sectionIndex = items.findIndex(item => item.id === id);
+          blogAnalytics.trackTOCClick(postSlug, item.title, sectionIndex);
+        }
+      }
     }
   };
 

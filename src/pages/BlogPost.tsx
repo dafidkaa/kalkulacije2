@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Calendar, Clock, Tag, ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { BlogPost as BlogPostType, BlogIndex, RelatedCalculator } from '../types/blog';
@@ -6,6 +6,7 @@ import { blogFileSystem } from '../utils/blogFileSystem';
 import ReadingProgressBar from '../components/blog/ReadingProgressBar';
 import TableOfContents from '../components/blog/TableOfContents';
 import { parseMarkdown } from '../utils/markdownParser';
+import { blogAnalytics, conversionAnalytics } from '../utils/analytics';
 
 interface BlogPostProps {
   slug: string;
@@ -19,11 +20,51 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
   const [prevPost, setPrevPost] = useState<BlogIndex | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Analytics tracking
+  const startTimeRef = useRef<number>(Date.now());
+  const maxScrollRef = useRef<number>(0);
+  const hasTrackedViewRef = useRef<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
     loadBlogPost();
   }, [slug]);
+
+  // Track reading progress and scroll behavior
+  useEffect(() => {
+    if (!post) return;
+
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercentage = Math.round((scrollTop / docHeight) * 100);
+
+      // Track maximum scroll depth
+      if (scrollPercentage > maxScrollRef.current) {
+        maxScrollRef.current = scrollPercentage;
+
+        // Track reading milestones
+        if ([25, 50, 75, 90, 100].includes(scrollPercentage)) {
+          const timeSpent = Math.round((Date.now() - startTimeRef.current) / 1000);
+          blogAnalytics.trackBlogPostRead(slug, scrollPercentage, timeSpent);
+        }
+      }
+    };
+
+    const handleBeforeUnload = () => {
+      const timeSpent = Math.round((Date.now() - startTimeRef.current) / 1000);
+      blogAnalytics.trackBlogPostRead(slug, maxScrollRef.current, timeSpent);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [post, slug]);
 
   useEffect(() => {
     // Handle scroll for table of contents highlighting
@@ -113,6 +154,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
       }
 
       setPost(postData);
+
+      // Track blog post view
+      if (!hasTrackedViewRef.current) {
+        blogAnalytics.trackBlogPostView(slug, postIndex.title, postIndex.category);
+        hasTrackedViewRef.current = true;
+      }
 
       // Load related content
       const related = allPosts
@@ -244,7 +291,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
       <ReadingProgressBar target="article" />
 
       {/* Floating Table of Contents */}
-      <TableOfContents items={post.toc} />
+      <TableOfContents items={post.toc} postSlug={slug} />
 
       <Helmet>
         <title>{post.title} | Kalkulacije</title>
@@ -365,6 +412,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
                       <a
                         key={calc.href}
                         href={calc.href}
+                        onClick={() => blogAnalytics.trackRelatedCalculatorClick(slug, calc.href, calc.title)}
                         className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors"
                       >
                         <ExternalLink className="w-5 h-5 text-blue-600 flex-shrink-0" />
@@ -385,10 +433,11 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug }) => {
                 <div className="mt-8 bg-white rounded-xl shadow-sm p-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-6">Povezani Članci</h3>
                   <div className="grid md:grid-cols-3 gap-6">
-                    {relatedPosts.map((relatedPost) => (
+                    {relatedPosts.map((relatedPost, index) => (
                       <a
                         key={relatedPost.slug}
                         href={`/blog/${relatedPost.slug}`}
+                        onClick={() => blogAnalytics.trackRelatedPostClick(slug, relatedPost.slug, index)}
                         className="group"
                       >
                         <div className="bg-gray-50 rounded-lg p-4 group-hover:bg-blue-50 transition-colors">

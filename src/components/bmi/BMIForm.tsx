@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GradientCard } from '../GradientCard';
 import { calculateBMI, BMIResult, ActivityLevel, Gender } from '../../utils/bmiCalculator';
+import { calculatorAnalytics } from '../../utils/analytics';
 
 export function BMIForm() {
   const [formData, setFormData] = useState({
@@ -38,8 +39,26 @@ export function BMIForm() {
     try {
       const newResult = calculateBMI(updatedFormData);
       setResult(newResult);
+
+      // Track calculator usage
+      calculatorAnalytics.trackCalculatorUse('bmi', {
+        age: updatedFormData.age,
+        gender: updatedFormData.gender,
+        height: updatedFormData.height,
+        weight: updatedFormData.weight,
+        activityLevel: updatedFormData.activityLevel
+      });
+
+      // Track calculator result
+      const complexity = (updatedFormData.waist && updatedFormData.hip) ? 'complex' : 'simple';
+      calculatorAnalytics.trackCalculatorResult('bmi', {
+        bmi: newResult.bmi,
+        category: newResult.category,
+        idealWeight: newResult.idealWeight
+      }, complexity);
     } catch (error) {
       console.error('Error calculating BMI:', error);
+      calculatorAnalytics.trackCalculatorError('bmi', 'calculation_error');
     }
   };
 
