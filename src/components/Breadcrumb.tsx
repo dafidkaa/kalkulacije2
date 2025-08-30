@@ -18,6 +18,7 @@ const routeNames: Record<string, string> = {
   '/kalkulator-povrsine': 'Kalkulator Površine',
   '/pretvarac-temperature': 'Pretvarač Temperature',
   '/kalkulator-datuma': 'Kalkulator Datuma',
+  '/kalkulator': 'AI Kalkulator',
 };
 
 export function Breadcrumb() {

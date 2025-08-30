@@ -89,7 +89,6 @@ export function Calculator() {
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Kalkulacije.com" />
         <link rel="canonical" href="https://kalkulacije.com/kalkulator" />
-        <link rel="canonical" href="https://kalkulacije.com/kalkulator" />
       </Helmet>
 
       <ToolSchema

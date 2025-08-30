@@ -1,1 +1,43 @@
+# Force HTTPS and standardize on kalkulacije.com (no www)
+http://kalkulacije.com/*    https://kalkulacije.com/:splat    301!
+http://www.kalkulacije.com/*    https://kalkulacije.com/:splat    301!
+https://www.kalkulacije.com/*    https://kalkulacije.com/:splat    301!
+
+# Fix old/typo URLs - Alternative naming patterns
+/pretvaranje-temperature    /pretvarac-temperature    301
+/pretvaranje-jedinica    /pretvaranje-jedinica    301
+/pretvarac-jedinica    /pretvaranje-jedinica    301
+
+# Common typos and alternative spellings
+/kalkulator-placa    /kalkulator-place    301
+/kalkulator-plače    /kalkulator-place    301
+/kalkulator-salary    /kalkulator-place    301
+/kalkulator-postotka    /kalkulator-postotaka    301
+/kalkulator-procenta    /kalkulator-postotaka    301
+/kalkulator-percentage    /kalkulator-postotaka    301
+/kalkulator-datum    /kalkulator-datuma    301
+/kalkulator-date    /kalkulator-datuma    301
+/kalkulator-vrijeme    /kalkulator-vremena    301
+/kalkulator-time    /kalkulator-vremena    301
+/kalkulator-povrsina    /kalkulator-povrsine    301
+/kalkulator-area    /kalkulator-povrsine    301
+/pretvarac-temp    /pretvarac-temperature    301
+/pretvarac-temperatura    /pretvarac-temperature    301
+/temperature-converter    /pretvarac-temperature    301
+/unit-converter    /pretvaranje-jedinica    301
+/pretvarac-mjera    /pretvaranje-jedinica    301
+
+# Alternative calculator names
+/calculator    /kalkulator    301
+/calc    /kalkulator    301
+/kalkulator-osnovni    /kalkulator    301
+/kalkulator-znanstveni    /kalkulator    301
+/ai-kalkulator    /kalkulator    301
+
+# BMI alternatives
+/bmi    /kalkulator-bmi    301
+/kalkulator-indeks    /kalkulator-bmi    301
+/body-mass-index    /kalkulator-bmi    301
+
+# SPA fallback (must be last)
 /*    /index.html   200
