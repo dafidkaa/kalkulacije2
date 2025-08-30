@@ -3,9 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Clock, Calendar, User, Tag, Share2, BookOpen, Calculator, Scale, Heart, Percent, Ruler, Thermometer } from 'lucide-react';
 import { BlogPostType, BlogIndex, RelatedCalculator } from '../types/blog';
 import { parseMarkdown } from '../utils/markdownParser';
-import { TableOfContents } from '../components/blog/TableOfContents';
-import { RelatedPosts } from '../components/blog/RelatedPosts';
-import { BlogSEO } from '../components/blog/BlogSEO';
+import TableOfContents from '../components/blog/TableOfContents';
+import { Helmet } from 'react-helmet-async';
 import { blogAnalytics } from '../utils/analytics';
 
 export function BlogPost() {
@@ -317,7 +316,12 @@ export function BlogPost() {
   return (
     <>
       {/* Reading Progress Bar */}
-      <ReadingProgressBar target="article" />
+      <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+        <div
+          className="h-full bg-blue-600 transition-all duration-150 ease-out"
+          style={{ width: `${readingProgress}%` }}
+        />
+      </div>
 
       {/* Floating Table of Contents */}
       <TableOfContents items={post.toc} postSlug={slug} />
