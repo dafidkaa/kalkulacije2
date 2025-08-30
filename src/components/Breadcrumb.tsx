@@ -44,21 +44,31 @@ export function Breadcrumb() {
       url: 'https://kalkulacije.com/blog'
     });
   } else if (location.pathname.startsWith('/blog/category/')) {
+    const categorySlug = location.pathname.split('/blog/category/')[1];
+    const categoryName = categorySlug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
     breadcrumbItems.push({
       name: 'Blog',
       url: 'https://kalkulacije.com/blog'
     });
     breadcrumbItems.push({
-      name: 'Kategorija',
+      name: `Kategorija: ${categoryName}`,
       url: `https://kalkulacije.com${location.pathname}`
     });
   } else if (location.pathname.startsWith('/blog/tag/')) {
+    const tagSlug = location.pathname.split('/blog/tag/')[1];
+    const tagName = tagSlug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
     breadcrumbItems.push({
       name: 'Blog',
       url: 'https://kalkulacije.com/blog'
     });
     breadcrumbItems.push({
-      name: 'Tag',
+      name: `Tag: ${tagName}`,
       url: `https://kalkulacije.com${location.pathname}`
     });
   } else if (location.pathname.startsWith('/blog/')) {

@@ -64,9 +64,11 @@ const BlogIndex: React.FC = () => {
         // Track tag filter usage
         blogAnalytics.trackTagFilter(tag, allPosts.length);
       } else if (category) {
-        allPosts = allPosts.filter(post =>
-          post.category.toLowerCase() === category.toLowerCase()
-        );
+        allPosts = allPosts.filter(post => {
+          // Convert post category to slug format for comparison
+          const postCategorySlug = post.category.toLowerCase().replace(/\s+/g, '-');
+          return postCategorySlug === category.toLowerCase();
+        });
         // Track category filter usage
         blogAnalytics.trackCategoryFilter(category, allPosts.length);
       }
