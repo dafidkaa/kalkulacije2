@@ -145,10 +145,10 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
   };
 
   const getPageTitle = () => {
-    if (tag) return `Blog - Tag: ${tag}`;
-    if (category) return `Blog - Kategorija: ${category}`;
-    if (page > 1) return `Blog - Stranica ${page}`;
-    return 'Blog';
+    if (tag) return `Kalkulacije Blog - Tag: ${tag}`;
+    if (category) return `Kalkulacije Blog - Kategorija: ${category}`;
+    if (page > 1) return `Kalkulacije Blog - Stranica ${page}`;
+    return 'Kalkulacije Blog';
   };
 
   const getPageDescription = () => {
@@ -188,11 +188,23 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
     <>
 
       <Helmet>
-        <title>{getPageTitle()} | Kalkulacije</title>
+        <title>{getPageTitle()}</title>
         <meta name="description" content={getPageDescription()} />
-        <meta name="keywords" content="blog, vodiči, kalkulatori, savjeti, objašnjenja, izračuni" />
+        <meta name="keywords" content="kalkulacije blog, vodiči za kalkulatore, savjeti za izračune, objašnjenja kalkulatora, kako koristiti kalkulatore, BMI kalkulator, kalkulator plaće, kalkulator postotaka, kalkulator datuma, pretvarač jedinica" />
         <link rel="canonical" href={`https://kalkulacije.com/blog${page > 1 ? `/page/${page}` : ''}`} />
         <link rel="alternate" type="application/rss+xml" title="Kalkulacije Blog" href="/blog/rss.xml" />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={getPageTitle()} />
+        <meta property="og:description" content={getPageDescription()} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://kalkulacije.com/blog${page > 1 ? `/page/${page}` : ''}`} />
+        <meta property="og:site_name" content="Kalkulacije.com" />
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={getPageTitle()} />
+        <meta name="twitter:description" content={getPageDescription()} />
         
         {/* Pagination meta tags */}
         {pagination?.hasPrevPage && (
@@ -201,6 +213,26 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
         {pagination?.hasNextPage && (
           <link rel="next" href={`/blog/page/${pagination.currentPage + 1}`} />
         )}
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "Kalkulacije Blog",
+            "description": getPageDescription(),
+            "url": `https://kalkulacije.com/blog${page > 1 ? `/page/${page}` : ''}`,
+            "publisher": {
+              "@type": "Organization",
+              "name": "Kalkulacije.com",
+              "url": "https://kalkulacije.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://kalkulacije.com/blog${page > 1 ? `/page/${page}` : ''}`
+            }
+          })}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-gray-50">
@@ -208,7 +240,7 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ page = 1, tag, category }) => {
         <div className="bg-white shadow-sm">
           <div className="container mx-auto px-4 py-16 max-w-4xl">
             <h1 className="text-5xl font-bold text-gray-900 mb-4 text-center">
-              {tag ? `Tag: ${tag}` : category ? `Kategorija: ${category}` : 'Blog'}
+              {tag ? `Tag: ${tag}` : category ? `Kategorija: ${category}` : 'Kalkulacije Blog'}
             </h1>
             <p className="text-xl text-gray-600 text-center max-w-2xl mx-auto">
               {getPageDescription()}

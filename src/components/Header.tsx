@@ -27,10 +27,10 @@ export function Header() {
       case '/kalkulator-datuma':
         return 'Kalkulator Datuma';
       case '/blog':
-        return 'Blog';
+        return 'Kalkulacije Blog';
       default:
         if (location.pathname.startsWith('/blog/')) {
-          return 'Blog';
+          return 'Kalkulacije Blog';
         }
         return 'Kalkulacije.com';
     }

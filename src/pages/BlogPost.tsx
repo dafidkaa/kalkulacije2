@@ -331,9 +331,9 @@ export function BlogPost() {
       <TableOfContents items={post.toc} postSlug={slug} />
 
       <Helmet>
-        <title>{post.title} | Kalkulacije</title>
+        <title>{post.title} | Kalkulacije Blog</title>
         <meta name="description" content={post.description} />
-        <meta name="keywords" content={post.tags.join(', ')} />
+        <meta name="keywords" content={`${post.tags.join(', ')}, kalkulacije blog, ${post.category.toLowerCase()}, kako izračunati, kalkulator, vodiči, savjeti`} />
         <link rel="canonical" href={post.canonical || `https://kalkulacije.com/blog/${post.slug}`} />
         
         {/* Open Graph */}
@@ -341,6 +341,7 @@ export function BlogPost() {
         <meta property="og:description" content={post.description} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://kalkulacije.com/blog/${post.slug}`} />
+        <meta property="og:site_name" content="Kalkulacije Blog" />
         {post.heroImage && <meta property="og:image" content={`https://kalkulacije.com${post.heroImage}`} />}
         
         {/* Twitter Cards */}
