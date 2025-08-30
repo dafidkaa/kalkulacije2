@@ -136,7 +136,9 @@ Result:`;
 
 // Function to check if Groq AI is available
 export function isGroqAIAvailable(): boolean {
-  return !!GROQ_API_KEY;
+  // Always show AI button - will show error message if API key not configured
+  return true;
+  // Original logic: return !!GROQ_API_KEY;
 }
 
 // Function to format mathematical expressions for better AI understanding
