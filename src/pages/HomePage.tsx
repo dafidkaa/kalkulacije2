@@ -77,6 +77,14 @@ const calculators = [
     description: 'Izračunajte razliku između datuma ili dodajte/oduzmite dane.',
     icon: Calendar,
     color: 'text-purple-500'
+  },
+  {
+    id: 'calculator',
+    path: '/kalkulator',
+    title: 'Kalkulator',
+    description: 'Napredni kalkulator s glasovnim unosom i znanstvenim funkcijama.',
+    icon: Calculator,
+    color: 'text-gray-700'
   }
 ];
 

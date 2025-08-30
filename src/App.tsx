@@ -14,6 +14,7 @@ import { TimeCalculator } from './pages/TimeCalculator';
 import { AreaCalculator } from './pages/AreaCalculator';
 import { TemperatureConverter } from './pages/TemperatureConverter';
 import { DateCalculator } from './pages/DateCalculator';
+import { Calculator } from './pages/Calculator';
 
 export function App() {
   return (
@@ -32,6 +33,7 @@ export function App() {
             <Route path="/kalkulator-povrsine" element={<AreaCalculator />} />
             <Route path="/pretvarac-temperature" element={<TemperatureConverter />} />
             <Route path="/kalkulator-datuma" element={<DateCalculator />} />
+            <Route path="/kalkulator" element={<Calculator />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

@@ -11,15 +11,23 @@ export function PercentageCalculator() {
   return (
     <>
       <Helmet>
-        <title>Kalkulator Postotaka | Izračun Postotka, Povećanja i Smanjenja | Kalkulacije.com</title>
+        <title>Kalkulator Postotka – Izračun Postotka, Povećanje, Popusti i PDV</title>
         <meta
           name="description"
-          content="📊 Besplatni kalkulator postotaka na hrvatskom. Izračunajte postotak od broja, povećanje, smanjenje, razliku u postocima. Jednostavan i brz postotni kalkulator."
+          content="Izračunajte postotak, postotno povećanje/smanjenje, popuste i PDV. Jednostavan kalkulator postotka s primjerima i formulama."
         />
         <meta
           name="keywords"
-          content="izračun postotka, kalkulator postotka, postotni proračun, povećanje i smanjenje postotka, postotak od broja, razlika u postocima, PDV kalkulator"
+          content="kalkulator postotka, izračun postotka, povećanje postotka, popust kalkulator, PDV kalkulator, postotak od broja, postotno smanjenje, formule postotka"
         />
+        <meta property="og:title" content="Kalkulator Postotka – Izračun Postotka, Povećanje, Popusti i PDV" />
+        <meta property="og:description" content="Izračunajte postotak, postotno povećanje/smanjenje, popuste i PDV. Jednostavan kalkulator postotka s primjerima i formulama." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://kalkulacije.com/kalkulator-postotaka" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Kalkulator Postotka – Izračun Postotka, Povećanje, Popusti i PDV" />
+        <meta name="twitter:description" content="Izračunajte postotak, postotno povećanje/smanjenje, popuste i PDV." />
+        <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://kalkulacije.com/kalkulator-postotaka" />
       </Helmet>
 
@@ -37,11 +45,11 @@ export function PercentageCalculator() {
       <section className="pt-16 pb-8 text-center">
         <div className="container mx-auto px-4">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Kalkulator Postotaka
+            Kalkulator Postotka (Formule i Primjeri)
           </h1>
           <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
-            Jednostavan i precizan način za izračun postotaka, povećanja, smanjenja i više.
-            Idealan za svakodnevne izračune, financije i obrazovanje.
+            Izračunajte postotak, postotno povećanje i smanjenje, popuste i PDV.
+            Jednostavan kalkulator s formulama i praktičnim primjerima.
           </p>
         </div>
       </section>
@@ -53,9 +61,139 @@ export function PercentageCalculator() {
         </div>
       </section>
 
+      {/* Najčešće radnje Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Najčešće Radnje
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="font-semibold text-blue-600 mb-3">Koliko je X% od Y</h3>
+              <p className="text-gray-600 text-sm mb-3">Izračunajte koliko je određeni postotak od broja</p>
+              <p className="text-xs text-gray-500">Primjer: 25% od 200 = 50</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="font-semibold text-blue-600 mb-3">Koliki je postotak X od Y</h3>
+              <p className="text-gray-600 text-sm mb-3">Odredite postotni udio jednog broja u drugome</p>
+              <p className="text-xs text-gray-500">Primjer: 50 od 200 = 25%</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="font-semibold text-blue-600 mb-3">Povećanje/Smanjenje</h3>
+              <p className="text-gray-600 text-sm mb-3">Izračunajte postotno povećanje ili smanjenje</p>
+              <p className="text-xs text-gray-500">Primjer: 100→120 = +20%</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="font-semibold text-blue-600 mb-3">PDV</h3>
+              <p className="text-gray-600 text-sm mb-3">Izračunajte PDV i ukupnu cijenu</p>
+              <p className="text-xs text-gray-500">Primjer: 100 + 25% PDV = 125</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Formule Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Formule
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Osnovne Formule</h3>
+              <div className="space-y-3">
+                <div>
+                  <p className="font-mono text-sm bg-gray-100 p-2 rounded">Postotak = (Dio / Cjelina) × 100</p>
+                  <p className="text-xs text-gray-600 mt-1">Primjer: (25 / 100) × 100 = 25%</p>
+                </div>
+                <div>
+                  <p className="font-mono text-sm bg-gray-100 p-2 rounded">Vrijednost = (Postotak / 100) × Broj</p>
+                  <p className="text-xs text-gray-600 mt-1">Primjer: (20 / 100) × 150 = 30</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Povećanje/Smanjenje</h3>
+              <div className="space-y-3">
+                <div>
+                  <p className="font-mono text-sm bg-gray-100 p-2 rounded">Promjena% = ((Nova - Stara) / Stara) × 100</p>
+                  <p className="text-xs text-gray-600 mt-1">Primjer: ((120 - 100) / 100) × 100 = 20%</p>
+                </div>
+                <div>
+                  <p className="font-mono text-sm bg-gray-100 p-2 rounded">Nova vrijednost = Stara × (1 ± Postotak/100)</p>
+                  <p className="text-xs text-gray-600 mt-1">Primjer: 100 × (1 + 0.15) = 115</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Primjeri iz prakse Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Primjeri iz Prakse
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="text-xl font-semibold text-blue-600 mb-4">💰 Popust</h3>
+              <p className="text-gray-600 mb-3">Proizvod košta 200 kn, popust je 15%</p>
+              <p className="font-semibold text-gray-900">Popust: 200 × 0.15 = 30 kn</p>
+              <p className="font-semibold text-gray-900">Nova cijena: 200 - 30 = 170 kn</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="text-xl font-semibold text-green-600 mb-4">🍽️ Napojnica</h3>
+              <p className="text-gray-600 mb-3">Račun je 80 kn, napojnica 18%</p>
+              <p className="font-semibold text-gray-900">Napojnica: 80 × 0.18 = 14.40 kn</p>
+              <p className="font-semibold text-gray-900">Ukupno: 80 + 14.40 = 94.40 kn</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="text-xl font-semibold text-red-600 mb-4">📊 PDV</h3>
+              <p className="text-gray-600 mb-3">Cijena bez PDV-a: 100 kn, PDV 25%</p>
+              <p className="font-semibold text-gray-900">PDV: 100 × 0.25 = 25 kn</p>
+              <p className="font-semibold text-gray-900">S PDV-om: 100 + 25 = 125 kn</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <PercentageFeatures />
       <PercentageBenefits />
       <PercentageFAQ />
+
+      {/* Internal Links Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Povezano
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <a
+              href="/kalkulator-place"
+              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
+            >
+              <h3 className="font-semibold text-blue-600 mb-2">Kalkulator Plaće</h3>
+              <p className="text-gray-600 text-sm">Izračunajte bruto/neto plaću i doprinose</p>
+            </a>
+            <a
+              href="/kalkulator-kredita"
+              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
+            >
+              <h3 className="font-semibold text-blue-600 mb-2">Kalkulator Kredita</h3>
+              <p className="text-gray-600 text-sm">Izračunajte rate i kamatu na kredit</p>
+            </a>
+            <a
+              href="/pretvarač-jedinica"
+              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
+            >
+              <h3 className="font-semibold text-blue-600 mb-2">Pretvarač Jedinica</h3>
+              <p className="text-gray-600 text-sm">Pretvarajte između različitih mjernih jedinica</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <RelatedCalculators />
     </>
   );

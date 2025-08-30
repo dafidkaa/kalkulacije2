@@ -3,6 +3,18 @@ import { FAQSchema } from '../SchemaMarkup';
 
 const faqs = [
   {
+    question: 'Što se mijenja 1.1.2025?',
+    answer: 'Od 1. siječnja 2025. godine povećava se osobni odbitak na 4.000 kn mjesečno, što znači manje poreza za sve zaposlene. Također se mogu očekivati promjene u poreznim razredima.'
+  },
+  {
+    question: 'Kako uračunati neoporezive dodatke?',
+    answer: 'Neoporezivi dodatci (prijevoz, prehrana do 1.000 kn) se dodaju na neto plaću bez oporezivanja. Unesite ih kao dodatne stavke u kalkulatoru.'
+  },
+  {
+    question: 'Razlika bruto 1 vs bruto 2?',
+    answer: 'Bruto 1 je ukupna plaća prije svih odbitaka. Bruto 2 je plaća nakon doprinosa zaposlenika (36.5%), ali prije poreza na dohodak. Bruto 2 = Bruto 1 - doprinosi.'
+  },
+  {
     question: 'Kako izračunati neto plaću iz bruto iznosa?',
     answer: 'Jednostavno unesite bruto iznos u kalkulator, odaberite željeno razdoblje (mjesečno/godišnje) i kalkulator će automatski izračunati neto plaću sa svim doprinosima i porezima.'
   },

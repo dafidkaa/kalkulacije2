@@ -2,6 +2,18 @@ import React from 'react';
 
 const faqs = [
   {
+    question: 'Kako izračunati postotni udio?',
+    answer: 'Za izračun postotnog udjela podijelite manji broj s većim i pomnožite sa 100. Formula: (dio / cjelina) × 100. Primjer: 25 od 100 = (25/100) × 100 = 25%.'
+  },
+  {
+    question: 'Kako pretvoriti postotak u decimalu i obrnuto?',
+    answer: 'Za pretvaranje postotka u decimalu podijelite sa 100 (25% = 0.25). Za pretvaranje decimale u postotak pomnožite sa 100 (0.25 = 25%).'
+  },
+  {
+    question: 'Kako izračunati PDV iz iznosa s PDV-om?',
+    answer: 'Za izračun PDV-a iz ukupnog iznosa koristite formulu: PDV = ukupni iznos × (stopa PDV / (100 + stopa PDV)). Primjer: iz 125 kn s 25% PDV = 125 × (25/125) = 25 kn.'
+  },
+  {
     question: 'Kako izračunati postotak od broja?',
     answer: 'Jednostavno unesite postotak i broj u standardnom načinu rada ili napišite pitanje poput "Koliko je 20% od 150?" u tekstualnom načinu.'
   },
