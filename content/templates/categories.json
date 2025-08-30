@@ -1,0 +1,146 @@
+{
+  "Datumi i dani": {
+    "title_pattern": "Kako izračunati {keyword_title} – Formula, Primjeri i Kalkulator",
+    "meta_description_pattern": "Naučite ručno izračunati {keyword_desc} uz formulu i primjere. Za brži rezultat, isprobajte besplatni {calculator}.",
+    "h1": "Kako izračunati {keyword_title}",
+    "default_tags": ["datumi","radni dani","odbrojavanje","izračun dana"],
+    "default_query_variants": ["izračun dana","koliko dana između datuma","radni dani","odbrojavanje"],
+    "section_order": ["intro","what_is","formula","examples","how_to_use_calculator","mistakes","faq","conclusion","related"],
+    "mistake_hints": [
+      "Zaboravljanje vikenda i blagdana",
+      "Pogrešno brojanje prvog/posljednjeg dana",
+      "Zbunjenost oko prestupnih godina"
+    ],
+    "calculator_default": {"title":"Kalkulator Datuma","href":"/kalkulator-datuma"},
+    "secondary_calculators_default": [
+      {"title":"Kalkulator Vremena","href":"/kalkulator-vremena"},
+      {"title":"Kalkulator Postotka","href":"/kalkulator-postotka"}
+    ]
+  },
+  "Vrijeme": {
+    "title_pattern": "Kako izračunati {keyword_title} – Formula, Primjeri i Kalkulator",
+    "meta_description_pattern": "Brzo izračunajte {keyword_desc} ručno ili pomoću {calculator}. Primjeri i česte greške.",
+    "h1": "Kako izračunati {keyword_title}",
+    "default_tags": ["vrijeme","sati","minute","sekunde"],
+    "default_query_variants": ["pretvaranje sati u minute","razlika vremena","decimalni sati u h:mm"],
+    "section_order": ["intro","what_is","formula","examples","how_to_use_calculator","mistakes","faq","conclusion","related"],
+    "mistake_hints": [
+      "Miješanje 24h i 12h formata",
+      "Zaboravljanje prijelaza dana",
+      "Decimalni sati vs h:mm"
+    ],
+    "calculator_default": {"title":"Kalkulator Vremena","href":"/kalkulator-vremena"},
+    "secondary_calculators_default": [
+      {"title":"Kalkulator Datuma","href":"/kalkulator-datuma"},
+      {"title":"Kalkulator Postotka","href":"/kalkulator-postotka"}
+    ]
+  },
+  "Površina": {
+    "title_pattern": "Kako izračunati {keyword_title} (m²) – Formule, Primjeri i Kalkulator",
+    "meta_description_pattern": "Formule i primjeri za {keyword_desc}. Izračunajte kvadraturu brzo s {calculator}.",
+    "h1": "Kako izračunati {keyword_title} (m²)",
+    "default_tags": ["površina","kvadratura","m2","mjerenje"],
+    "default_query_variants": ["izračun kvadrature","površina kruga","površina pravokutnika"],
+    "section_order": ["intro","what_is","formula","examples","how_to_use_calculator","mistakes","faq","conclusion","related"],
+    "mistake_hints": [
+      "Krivo mjerenje dimenzija",
+      "Zamjena cm i m",
+      "Zanemarivanje otvora/niša"
+    ],
+    "calculator_default": {"title":"Kalkulator Površine","href":"/kalkulator-povrsine"},
+    "secondary_calculators_default": [
+      {"title":"Pretvarač Jedinica","href":"/pretvarac-jedinica"},
+      {"title":"Kalkulator Postotka","href":"/kalkulator-postotka"}
+    ]
+  },
+  "Postotci i PDV": {
+    "title_pattern": "Kako izračunati {keyword_title} – Formula, Primjeri i Kalkulator",
+    "meta_description_pattern": "Saznajte formulu za {keyword_desc} uz jasne primjere. Brže: {calculator}.",
+    "h1": "Kako izračunati {keyword_title}",
+    "default_tags": ["postotak","pdv","popust","povećanje"],
+    "default_query_variants": ["postotak od broja","pdv iz cijene","marža i markup"],
+    "section_order": ["intro","what_is","formula","examples","how_to_use_calculator","mistakes","faq","conclusion","related"],
+    "mistake_hints": [
+      "Miješanje marže i markupa",
+      "Zaokruživanje prerano",
+      "Krivi smjer (povećanje vs smanjenje)"
+    ],
+    "calculator_default": {"title":"Kalkulator Postotka","href":"/kalkulator-postotka"},
+    "secondary_calculators_default": [
+      {"title":"Kalkulator Plaće","href":"/kalkulator-place"},
+      {"title":"Kalkulator Kredita","href":"/kalkulator-kredita"}
+    ]
+  },
+  "Plaća": {
+    "title_pattern": "Kako izračunati neto iz bruto plaće (Hrvatska) – Formula, Primjeri i Kalkulator",
+    "meta_description_pattern": "Objasnili smo obračun plaće (bruto, neto, doprinosi, porez). Brzo provjerite s {calculator}.",
+    "h1": "Kako izračunati neto iz bruto plaće (Hrvatska)",
+    "default_tags": ["plaća","bruto neto","porez","doprinosi"],
+    "default_query_variants": ["bruto 1 vs bruto 2","prirez","dodaci na plaću"],
+    "section_order": ["intro","what_is","formula","examples","how_to_use_calculator","mistakes","faq","conclusion","related"],
+    "mistake_hints": [
+      "Pogrešan prirez",
+      "Zaboravljeni dodaci",
+      "Zastarjele stope"
+    ],
+    "calculator_default": {"title":"Kalkulator Plaće","href":"/kalkulator-place"},
+    "secondary_calculators_default": [
+      {"title":"Kalkulator Postotka","href":"/kalkulator-postotka"},
+      {"title":"Kalkulator Kredita","href":"/kalkulator-kredita"}
+    ]
+  },
+  "Zdravlje": {
+    "title_pattern": "Kako izračunati {keyword_title} – Formula, Primjeri i Kalkulator",
+    "meta_description_pattern": "Naučite ručno izračunati {keyword_desc} i provjerite rezultate u {calculator}.",
+    "h1": "Kako izračunati {keyword_title}",
+    "default_tags": ["bmi","kalorije","idealna težina","zdravlje"],
+    "default_query_variants": ["bmi rasponi","bmr tdee","kalorijski deficit"],
+    "section_order": ["intro","what_is","formula","examples","how_to_use_calculator","mistakes","faq","conclusion","related"],
+    "mistake_hints": [
+      "Krive ulazne vrijednosti",
+      "Zanemarivanje aktivnosti",
+      "Pogrešno zaokruživanje"
+    ],
+    "calculator_default": {"title":"BMI Kalkulator","href":"/kalkulator-bmi"},
+    "secondary_calculators_default": [
+      {"title":"Idealna Težina","href":"/idealna-tezina"},
+      {"title":"Kalkulator Kalorija","href":"/kalkulator-kalorija"}
+    ]
+  },
+  "Krediti": {
+    "title_pattern": "Kako izračunati mjesečnu ratu kredita – Formula, Primjeri i Kalkulator",
+    "meta_description_pattern": "Anuiteti, kamatna stopa i amortizacijska tablica objašnjeni. Brzo izračunajte s {calculator}.",
+    "h1": "Kako izračunati mjesečnu ratu kredita",
+    "default_tags": ["kredit","rata","kamata","amortizacija"],
+    "default_query_variants": ["anuitet formula","fiksna vs varijabilna","eks"],
+    "section_order": ["intro","what_is","formula","examples","how_to_use_calculator","mistakes","faq","conclusion","related"],
+    "mistake_hints": [
+      "Miješanje nominalne i efektivne",
+      "Zaboravljanje naknada",
+      "Krivi broj rata"
+    ],
+    "calculator_default": {"title":"Kalkulator Kredita","href":"/kalkulator-kredita"},
+    "secondary_calculators_default": [
+      {"title":"Kalkulator Postotka","href":"/kalkulator-postotka"},
+      {"title":"Kalkulator Plaće","href":"/kalkulator-place"}
+    ]
+  },
+  "Pretvarači": {
+    "title_pattern": "Kako pretvoriti {keyword_title} – Formula, Tablice i Kalkulator",
+    "meta_description_pattern": "Jednostavne formule i tablice za {keyword_desc}. Brzo pretvorite pomoću {calculator}.",
+    "h1": "Kako pretvoriti {keyword_title}",
+    "default_tags": ["pretvarač","konverter","jedinice"],
+    "default_query_variants": ["°C u °F","km u milje","kg u funte"],
+    "section_order": ["intro","what_is","formula","examples","how_to_use_calculator","mistakes","faq","conclusion","related"],
+    "mistake_hints": [
+      "Krive jedinice",
+      "Zamjena decimalnog zareza/točke",
+      "Pogrešna tablica faktora"
+    ],
+    "calculator_default": {"title":"Pretvarač Jedinica","href":"/pretvarac-jedinica"},
+    "secondary_calculators_default": [
+      {"title":"Pretvarač Temperature","href":"/pretvarac-temperature"},
+      {"title":"Kalkulator Površine","href":"/kalkulator-povrsine"}
+    ]
+  }
+}

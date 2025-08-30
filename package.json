@@ -7,6 +7,9 @@
     "dev": "vite",
     "build": "npm run build:blog && vite build",
     "build:blog": "node scripts/build-blog.js",
+    "generate:post": "node scripts/generate-blog-post.js",
+    "validate:post": "node scripts/validate-blog-post.js",
+    "validate:all": "node scripts/validate-blog-post.js --all content/blog",
     "lint": "eslint .",
     "preview": "vite preview"
   },

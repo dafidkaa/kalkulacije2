@@ -1,0 +1,64 @@
+{
+  "slug": "kako-izracunati-bmi",
+  "category": "Zdravlje",
+  "main_keyword": "kako izračunati BMI",
+  "calculator": {
+    "title": "BMI Kalkulator",
+    "href": "/kalkulator-bmi"
+  },
+  "secondary_calculators": [
+    { "title": "Kalkulator Idealne Težine", "href": "/idealna-tezina" },
+    { "title": "Kalkulator Kalorija", "href": "/kalkulator-kalorija" }
+  ],
+  "query_variants": ["BMI formula", "indeks tjelesne mase", "izračun BMI", "BMI tablica"],
+  "date": "2025-08-30",
+  "hero_image": "/images/blog/kako-izracunati-bmi/hero.jpg",
+  "quick_answer": "BMI se izračunava formulom: težina (kg) ÷ visina² (m). Na primjer, za 70 kg i 175 cm: BMI = 70 ÷ 1.75² = 22.9.",
+  "manual_formula": {
+    "heading": "Formula za BMI",
+    "prose": "BMI = Težina (kg) ÷ [Visina (m)]²",
+    "latex": "BMI = kg / m²"
+  },
+  "examples": [
+    {
+      "title": "Standardni primjer",
+      "steps": [
+        "Osoba teška 70 kg, visoka 175 cm (1.75 m)",
+        "BMI = 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = 22.9",
+        "Rezultat: BMI 22.9 (normalna težina)"
+      ]
+    },
+    {
+      "title": "Primjer s različitim mjerama",
+      "steps": [
+        "Osoba teška 85 kg, visoka 180 cm (1.80 m)",
+        "BMI = 85 ÷ (1.80 × 1.80) = 85 ÷ 3.24 = 26.2",
+        "Rezultat: BMI 26.2 (prekomjerna težina)"
+      ]
+    }
+  ],
+  "common_mistakes": [
+    "Korištenje visine u centimetrima umjesto metrima",
+    "Zaboravljanje kvadriranja visine",
+    "Pogrešno mjerenje težine ili visine",
+    "Neuzimanje u obzir mišićne mase"
+  ],
+  "faq": [
+    {
+      "q": "Što znače BMI kategorije?",
+      "a": "BMI < 18.5 = pothranjenost, 18.5-24.9 = normalna težina, 25-29.9 = prekomjerna težina, ≥30 = pretilost."
+    },
+    {
+      "q": "Je li BMI precizan za sve ljude?",
+      "a": "BMI je dobar pokazatelj za većinu ljudi, ali ne uzima u obzir mišićnu masu, dob ili spol. Sportaši mogu imati visok BMI zbog mišića."
+    },
+    {
+      "q": "Koliko često trebam mjeriti BMI?",
+      "a": "BMI možete mjeriti mjesečno ili kad god želite pratiti promjene težine. Važnije je pratiti trend nego pojedinačne vrijednosti."
+    },
+    {
+      "q": "Mogu li koristiti BMI za djecu?",
+      "a": "Za djecu se koriste BMI percentile koje uzimaju u obzir dob i spol. Obratite se pedijatru za tumačenje."
+    }
+  ]
+}

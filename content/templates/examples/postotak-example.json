@@ -1,0 +1,64 @@
+{
+  "slug": "kako-izracunati-postotak",
+  "category": "Postotci i PDV",
+  "main_keyword": "kako izračunati postotak",
+  "calculator": {
+    "title": "Kalkulator Postotka",
+    "href": "/kalkulator-postotka"
+  },
+  "secondary_calculators": [
+    { "title": "Kalkulator Plaće", "href": "/kalkulator-place" },
+    { "title": "Kalkulator PDV-a", "href": "/kalkulator-pdv" }
+  ],
+  "query_variants": ["postotak od broja", "izračun postotka", "postotak formula", "kako naći postotak"],
+  "date": "2025-08-30",
+  "hero_image": "/images/blog/kako-izracunati-postotak/hero.jpg",
+  "quick_answer": "Postotak se izračunava formulom: (dio/cjelina) × 100. Na primjer, 25 od 100 = 25%.",
+  "manual_formula": {
+    "heading": "Formula za izračun postotka",
+    "prose": "Osnovna formula za postotak je: Postotak = (Dio ÷ Cjelina) × 100",
+    "latex": "P = (d / c) × 100"
+  },
+  "examples": [
+    {
+      "title": "Osnovni primjer",
+      "steps": [
+        "Imamo 25 jabuka od ukupno 100 jabuka",
+        "Postotak = (25 ÷ 100) × 100 = 25%",
+        "Rezultat: 25 jabuka čini 25% od ukupnog broja"
+      ]
+    },
+    {
+      "title": "Praktični primjer s popustom",
+      "steps": [
+        "Proizvod košta 200 kn, popust je 30 kn",
+        "Postotak popusta = (30 ÷ 200) × 100 = 15%",
+        "Rezultat: Popust iznosi 15%"
+      ]
+    }
+  ],
+  "common_mistakes": [
+    "Miješanje dijela i cjeline u formuli",
+    "Zaboravljanje množenja sa 100",
+    "Pogrešno zaokruživanje rezultata",
+    "Korištenje decimala umjesto postotaka"
+  ],
+  "faq": [
+    {
+      "q": "Kako izračunati 20% od 150?",
+      "a": "20% od 150 = (20 ÷ 100) × 150 = 30. Rezultat je 30."
+    },
+    {
+      "q": "Koja je razlika između postotka i postotnog poena?",
+      "a": "Postotak je omjer, a postotni poen je razlika između dva postotka. Na primjer, povećanje s 10% na 15% je 5 postotnih poena."
+    },
+    {
+      "q": "Kako pretvoriti decimalni broj u postotak?",
+      "a": "Pomnožite decimalni broj sa 100. Na primjer, 0.25 = 25%."
+    },
+    {
+      "q": "Mogu li imati postotak veći od 100%?",
+      "a": "Da, postotak može biti veći od 100%. To znači da je dio veći od cjeline koju uspoređujemo."
+    }
+  ]
+}
