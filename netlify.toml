@@ -2,6 +2,16 @@
   publish = "dist"
   command = "npm run build"
 
+[build.environment]
+  NODE_VERSION = "18"
+
+# Use Ubuntu 22.04 LTS (Jammy) build image instead of deprecated Focal
+[build.processing.images]
+  compress = true
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
 [[headers]]
   for = "/*.js"
   [headers.values]
