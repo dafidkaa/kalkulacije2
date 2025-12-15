@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { WebsiteSchema, OrganizationSchema } from '../components/SchemaMarkup';
+import { HowItWorks } from '../components/HowItWorks';
+import { GlobalFAQ } from '../components/GlobalFAQ';
 import {
   Calculator,
   Scale,
@@ -372,6 +374,39 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* How It Works Section */}
+      <HowItWorks />
+
+      {/* Global FAQ Section */}
+      <GlobalFAQ />
+
+      {/* ItemList Schema for Calculator Grid */}
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": calculators.map((calc, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": calc.title,
+                "description": calc.description,
+                "url": `https://kalkulacije.com${calc.path}`,
+                "applicationCategory": "UtilityApplication",
+                "operatingSystem": "Web",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "EUR"
+                }
+              }
+            }))
+          })}
+        </script>
+      </Helmet>
     </div>
   );
 }
