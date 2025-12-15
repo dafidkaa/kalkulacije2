@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { ToolSchema } from '../components/SchemaMarkup';
+import { ToolSchema, BreadcrumbSchema, HowToSchema } from '../components/SchemaMarkup';
 import { Calculator } from '../components/Calculator';
 import { SalaryFeatures } from '../components/salary/SalaryFeatures';
 import { SalaryBenefits } from '../components/salary/SalaryBenefits';
@@ -35,8 +35,26 @@ export function SalaryCalculator() {
         ]}
       />
 
+      <BreadcrumbSchema
+        items={[
+          { name: 'Početna', url: 'https://kalkulacije.com/' },
+          { name: 'Kalkulator Plaće', url: 'https://kalkulacije.com/kalkulator-place' }
+        ]}
+      />
+
+      <HowToSchema
+        name="Kako izračunati neto plaću?"
+        description="Vodič za izračun neto plaće iz bruto iznosa prema hrvatskim propisima."
+        steps={[
+          { name: 'Bruto iznos', text: 'Unesite iznos svoje bruto plaće u eurima.' },
+          { name: 'Osobne postavke', text: 'Označite živite li u Zagrebu (zbog prireza/poreza) i broj djece/uzdržavanih osoba.' },
+          { name: 'Izračun', text: 'Kalkulator automatski obračunava doprinose za mirovinsko, porez na dohodak i prirez.' },
+          { name: 'Rezultat', text: 'Prikazuje se točan iznos neto plaće koji sjeda na račun te ukupni trošak poslodavca.' }
+        ]}
+      />
+
       {/* Hero Section */}
-      <section className="pt-16 pb-8 text-center">
+      <section className="pt-16 pb-8 text-center bg-gradient-to-br from-blue-50 to-indigo-50">
         <div className="container mx-auto px-4">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
             Kalkulator Plaće (Bruto u Neto i Trošak Poslodavca)
@@ -49,9 +67,40 @@ export function SalaryCalculator() {
       </section>
 
       {/* Calculator Section */}
-      <section className="py-12">
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4 max-w-4xl">
           <Calculator />
+        </div>
+      </section>
+
+      {/* How to Use Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Kako Izračunati Plaću?
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-blue-600 mb-2">1.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Bruto</h3>
+              <p className="text-gray-600 text-sm">Unesite ugovoreni bruto iznos plaće</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-blue-600 mb-2">2.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Postavke</h3>
+              <p className="text-gray-600 text-sm">Grad, djeca i uzdržavani članovi</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-blue-600 mb-2">3.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Izračun</h3>
+              <p className="text-gray-600 text-sm">Automatski obračun poreza i doprinosa</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-blue-600 mb-2">4.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Rezultat</h3>
+              <p className="text-gray-600 text-sm">Vaša neto plaća i trošak poslodavca</p>
+            </div>
+          </div>
         </div>
       </section>
 

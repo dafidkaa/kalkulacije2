@@ -69,29 +69,29 @@ const operationWords: { [key: string]: string } = {
 // Function to convert words to numbers
 function convertWordsToNumbers(text: string): string {
   let result = text.toLowerCase();
-  
+
   // Replace word numbers with digits
   Object.entries(wordToNumber).forEach(([word, number]) => {
     const regex = new RegExp(`\\b${word}\\b`, 'gi');
     result = result.replace(regex, number.toString());
   });
-  
+
   return result;
 }
 
 // Function to convert operation words to symbols
 function convertOperationsToSymbols(text: string): string {
   let result = text.toLowerCase();
-  
+
   // Sort by length (longest first) to handle multi-word operations
   const sortedOperations = Object.entries(operationWords)
     .sort(([a], [b]) => b.length - a.length);
-  
+
   sortedOperations.forEach(([word, symbol]) => {
     const regex = new RegExp(`\\b${word}\\b`, 'gi');
     result = result.replace(regex, ` ${symbol} `);
   });
-  
+
   return result;
 }
 
@@ -456,28 +456,43 @@ function evaluateExpression(expression: string): number {
 // Voice recognition setup
 export function setupVoiceRecognition(
   onResult: (text: string) => void,
-  onError: (error: string) => void
+  onError: (error: string) => void,
+  onEnd: () => void
 ): SpeechRecognition | null {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
     onError('Prepoznavanje govora nije podržano u ovom pregledniku');
     return null;
   }
-  
+
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
-  
+
   recognition.continuous = false;
   recognition.interimResults = false;
   recognition.lang = 'hr-HR'; // Croatian language
-  
+
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
     onResult(transcript);
   };
-  
+
   recognition.onerror = (event) => {
+    // Ignore "no-speech" error as it just means timeout
+    if (event.error === 'no-speech') {
+      onEnd();
+      return;
+    }
     onError(`Greška prepoznavanja govora: ${event.error}`);
+    onEnd();
   };
-  
+
+  recognition.onend = () => {
+    onEnd();
+  };
+
+  recognition.onstart = () => {
+    console.log('Voice recognition started');
+  };
+
   return recognition;
 }

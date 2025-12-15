@@ -86,22 +86,56 @@ export function TemperatureConverter() {
       />
 
       {/* Hero Section */}
-      <section className="pt-16 pb-8 text-center">
+      {/* Hero Section */}
+      <section className="pt-16 pb-8 text-center bg-gradient-to-br from-orange-50 to-red-50">
         <div className="container mx-auto px-4">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4 font-display">
             Pretvarač Temperature
           </h1>
           <p className="text-xl text-gray-600 mb-6 max-w-3xl mx-auto">
-            Sveobuhvatni alat za pretvaranje temperature između Celzija, Fahrenheita, Kelvina i drugih jedinica.
-            Saznajte referentne točke temperature, koristite praktične alate za kuhanje i vremenske prognoze, i naučite o različitim temperaturnim ljestvicama.
+            <span>
+              Sveobuhvatni alat za pretvaranje temperature između Celzija, Fahrenheita, Kelvina i drugih jedinica.
+              Saznajte referentne točke temperature i koristite praktične alate.
+            </span>
           </p>
         </div>
       </section>
 
       {/* Calculator Section */}
-      <section className="py-12">
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4 max-w-4xl">
           <TemperatureTabs />
+        </div>
+      </section>
+
+      {/* How to Use Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Kako Koristiti Pretvarač Temperature?
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-orange-600 mb-2">1.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Ljestvica</h3>
+              <p className="text-gray-600 text-sm">Odaberite ulaznu jedinicu (npr. Celzij).</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-orange-600 mb-2">2.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Unos</h3>
+              <p className="text-gray-600 text-sm">Upišite temperaturu koju želite pretvoriti.</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-orange-600 mb-2">3.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Cilj</h3>
+              <p className="text-gray-600 text-sm">Odaberite u koju jedinicu pretvarate (npr. Fahrenheit).</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-orange-600 mb-2">4.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Rezultat</h3>
+              <p className="text-gray-600 text-sm">Dobijte točan iznos i formulu za izračun.</p>
+            </div>
+          </div>
         </div>
       </section>
 

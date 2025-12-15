@@ -1,9 +1,7 @@
+@import './styles/blog.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import blog-specific styles */
-@import './styles/blog.css';
 
 @layer base {
   html {
@@ -15,8 +13,7 @@
   }
 
   input[type="number"] {
-    @apply block w-full rounded-lg border-gray-300 shadow-sm
-           focus:border-blue-500 focus:ring-blue-500 font-normal;
+    @apply block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 font-normal;
   }
 }
 

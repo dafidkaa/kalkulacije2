@@ -22,7 +22,7 @@ export function TextCalculator({ isScientific }: TextCalculatorProps) {
   const [history, setHistory] = useState<CalculationHistory[]>([]);
   const [showHistory, setShowHistory] = useState(false);
   const [isCalculatingWithAI, setIsCalculatingWithAI] = useState(false);
-  
+
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -37,6 +37,9 @@ export function TextCalculator({ isScientific }: TextCalculatorProps) {
       },
       (error) => {
         setError(error);
+        setIsListening(false);
+      },
+      () => {
         setIsListening(false);
       }
     );
@@ -218,11 +221,10 @@ export function TextCalculator({ isScientific }: TextCalculatorProps) {
           <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex space-x-2">
             <button
               onClick={handleVoiceToggle}
-              className={`p-2 rounded-xl transition-colors duration-200 ${
-                isListening
+              className={`p-2 rounded-xl transition-colors duration-200 ${isListening
                   ? 'bg-red-500 text-white'
                   : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
-              }`}
+                }`}
               title={isListening ? 'Zaustaviti slušanje' : 'Počni govoriti'}
             >
               {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}

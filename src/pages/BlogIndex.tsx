@@ -173,7 +173,7 @@ const BlogIndex: React.FC = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error}</p>
-          <button 
+          <button
             onClick={loadBlogData}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
           >
@@ -205,7 +205,7 @@ const BlogIndex: React.FC = () => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={getPageTitle()} />
         <meta name="twitter:description" content={getPageDescription()} />
-        
+
         {/* Pagination meta tags */}
         {pagination?.hasPrevPage && (
           <link rel="prev" href={`/blog${pagination.currentPage - 1 > 1 ? `/page/${pagination.currentPage - 1}` : ''}`} />
@@ -297,7 +297,7 @@ const BlogIndex: React.FC = () => {
                             {post.readTime} min čitanja
                           </div>
                         </div>
-                        
+
                         <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
                           <a
                             href={`/blog/${post.slug}`}
@@ -312,11 +312,11 @@ const BlogIndex: React.FC = () => {
                             {post.title}
                           </a>
                         </h2>
-                        
+
                         <p className="text-gray-600 mb-4 line-clamp-3">
                           {post.excerpt}
                         </p>
-                        
+
                         <div className="flex items-center justify-between">
                           <div className="flex flex-wrap gap-2">
                             {post.tags.slice(0, 2).map((tag) => (
@@ -330,7 +330,7 @@ const BlogIndex: React.FC = () => {
                               </Link>
                             ))}
                           </div>
-                          
+
                           <a
                             href={`/blog/${post.slug}`}
                             className="text-blue-600 hover:text-blue-700 font-medium text-sm"
@@ -356,11 +356,11 @@ const BlogIndex: React.FC = () => {
                       Prethodna
                     </a>
                   )}
-                  
+
                   <span className="px-4 py-2 text-gray-600">
                     Stranica {pagination.currentPage} od {pagination.totalPages}
                   </span>
-                  
+
                   {pagination.hasNextPage && (
                     <a
                       href={`/blog/page/${pagination.currentPage + 1}`}

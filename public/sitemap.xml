@@ -1,87 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!-- Static Pages -->
   <url>
     <loc>https://kalkulacije.com/</loc>
-    <lastmod>2025-01-30</lastmod>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <priority>1</priority>
   </url>
-
-  <!-- Main Calculators (High Priority) -->
   <url>
     <loc>https://kalkulacije.com/kalkulator</loc>
-    <lastmod>2025-01-30</lastmod>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kalkulacije.com/kalkulator-place</loc>
-    <lastmod>2025-01-30</lastmod>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kalkulacije.com/kalkulator-datuma</loc>
-    <lastmod>2025-01-30</lastmod>
+    <loc>https://kalkulacije.com/kreditni-kalkulator</loc>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kalkulacije.com/kalkulator-povrsine</loc>
-    <lastmod>2025-01-05</lastmod>
+    <loc>https://kalkulacije.com/pdv-kalkulator</loc>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://kalkulacije.com/pretvarac-temperature</loc>
-    <lastmod>2025-01-05</lastmod>
+    <loc>https://kalkulacije.com/kalkulator-stednje</loc>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-  </url>
-
-  <!-- Secondary Calculators -->
-  <url>
-    <loc>https://kalkulacije.com/kalkulator-postotaka</loc>
-    <lastmod>2025-01-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kalkulacije.com/kalkulator-bmi</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-kalorija</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-vode</loc>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kalkulacije.com/kalkulator-postotaka</loc>
-    <lastmod>2025-01-30</lastmod>
+    <loc>https://kalkulacije.com/kalkulator-datuma</loc>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kalkulacije.com/kalkulator-vremena</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-goriva</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-popusta</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-prosjeka</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-priustivosti</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-budzeta</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-punjenja-ev</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-snage-vozila</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/usporedba-goriva</loc>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kalkulacije.com/pretvaranje-jedinica</loc>
-    <lastmod>2025-01-05</lastmod>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Blog Section (Prepared for future content) -->
-  <!-- Blog articles will be added here when blog system is implemented -->
-  <!-- Example:
+  <url>
+    <loc>https://kalkulacije.com/pretvarac-temperature</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-postotaka</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/kalkulator-povrsine</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://kalkulacije.com/blog</loc>
-    <lastmod>2025-01-30</lastmod>
+    <lastmod>2025-12-13</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+<!-- Blog Posts -->
+  <url>
+    <loc>https://kalkulacije.com/blog/kako-izracunati-bmi</loc>
+    <lastmod>2025-08-30</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  -->
-
+  <url>
+    <loc>https://kalkulacije.com/blog/kako-izracunati-koliko-imam-godina-tocno</loc>
+    <lastmod>2025-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/blog/kako-izracunati-postotak</loc>
+    <lastmod>2025-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/blog/kako-izracunati-razliku-izmedu-datuma</loc>
+    <lastmod>2025-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kalkulacije.com/blog/koliko-radnih-dana-izmedu-dva-datuma-hrvatska</loc>
+    <lastmod>2025-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

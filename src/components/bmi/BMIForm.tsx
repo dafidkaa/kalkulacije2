@@ -29,7 +29,7 @@ export function BMIForm() {
     const updatedFormData = {
       ...formData,
       [name]: name === 'height' || name === 'weight' || name === 'age'
-        ? Math.max(1, Number(value)) // Ensure positive values for numeric fields
+        ? Number(value)
         : value
     };
 
@@ -54,7 +54,7 @@ export function BMIForm() {
       calculatorAnalytics.trackCalculatorResult('bmi', {
         bmi: newResult.bmi,
         category: newResult.category,
-        idealWeight: newResult.idealWeight
+        idealWeight: `${newResult.idealWeightRange.min}-${newResult.idealWeightRange.max}`
       }, complexity);
     } catch (error) {
       console.error('Error calculating BMI:', error);

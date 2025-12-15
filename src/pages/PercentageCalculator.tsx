@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { ToolSchema } from '../components/SchemaMarkup';
+import { ToolSchema, BreadcrumbSchema, HowToSchema } from '../components/SchemaMarkup';
 import { PercentageForm } from '../components/percentage/PercentageForm';
 import { PercentageFeatures } from '../components/percentage/PercentageFeatures';
 import { PercentageBenefits } from '../components/percentage/PercentageBenefits';
@@ -41,23 +41,75 @@ export function PercentageCalculator() {
         ]}
       />
 
+      <BreadcrumbSchema
+        items={[
+          { name: 'Početna', url: 'https://kalkulacije.com/' },
+          { name: 'Kalkulator Postotaka', url: 'https://kalkulacije.com/kalkulator-postotaka' }
+        ]}
+      />
+
+      <HowToSchema
+        name="Kako izračunati postotak?"
+        description="Vodič za izračun postotaka, povećanja, smanjenja i PDV-a."
+        steps={[
+          { name: 'Što računate?', text: 'Odaberite želite li računati postotak od broja, udio, povećanje ili smanjenje.' },
+          { name: 'Unesite brojeve', text: 'Upišite poznate vrijednosti (npr. ukupnu cijenu i postotak popusta).' },
+          { name: 'Izračun', text: 'Kalkulator automatski prikazuje rezultat.' },
+          { name: 'Primjena', text: 'Koristite rezultat za izračun popusta, napojnica ili poreza.' }
+        ]}
+      />
+
       {/* Hero Section */}
-      <section className="pt-16 pb-8 text-center">
+      <section className="pt-16 pb-8 text-center bg-gradient-to-br from-yellow-50 to-orange-50">
         <div className="container mx-auto px-4">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Kalkulator Postotka (Formule i Primjeri)
+          <h1 className="text-5xl font-bold text-gray-900 mb-4 font-display">
+            Kalkulator Postotka
+            <span className="block text-2xl font-normal text-gray-600 mt-2">Formule i Primjeri</span>
           </h1>
           <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
-            Izračunajte postotak, postotno povećanje i smanjenje, popuste i PDV.
-            Jednostavan kalkulator s formulama i praktičnim primjerima.
+            <span>
+              Izračunajte postotak, postotno povećanje i smanjenje, popuste i PDV.
+              Jednostavan kalkulator s formulama i praktičnim primjerima.
+            </span>
           </p>
         </div>
       </section>
 
       {/* Calculator Section */}
-      <section className="py-12">
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4 max-w-4xl">
           <PercentageForm />
+        </div>
+      </section>
+
+      {/* How to Use Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Kako Koristiti Kalkulator Postotaka?
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-yellow-600 mb-2">1.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Odabir</h3>
+              <p className="text-gray-600 text-sm">Odaberite tip izračuna (npr. postotak od broja).</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-yellow-600 mb-2">2.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Vrijednosti</h3>
+              <p className="text-gray-600 text-sm">Unesite potrebne brojeve u polja.</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-yellow-600 mb-2">3.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Rezultat</h3>
+              <p className="text-gray-600 text-sm">Saznajte točan iznos odmah.</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-yellow-600 mb-2">4.</div>
+              <h3 className="font-semibold text-gray-900 mb-2">Formula</h3>
+              <p className="text-gray-600 text-sm">Pogledajte korištenu formulu za učenje.</p>
+            </div>
+          </div>
         </div>
       </section>
 

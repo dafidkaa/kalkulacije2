@@ -10,7 +10,15 @@ import {
   Percent,
   Ruler,
   Thermometer,
-  Calendar
+  Calendar,
+  Flame,
+  Droplets,
+  PiggyBank,
+  Fuel,
+  Tag,
+  GraduationCap,
+  Wallet,
+  Zap
 } from 'lucide-react';
 
 const calculators = [
@@ -21,6 +29,14 @@ const calculators = [
     description: 'Izračunajte neto plaću iz bruto iznosa ili obrnuto, uz sve poreze i doprinose.',
     icon: Calculator,
     color: 'text-blue-500'
+  },
+  {
+    id: 'budget',
+    path: '/kalkulator-budzeta',
+    title: 'Kalkulator Budžeta',
+    description: 'Provjerite možete li si priuštiti novi auto ili veću kupnju uz analizu budžeta.',
+    icon: Wallet,
+    color: 'text-teal-600'
   },
   {
     id: 'unit-converter',
@@ -79,12 +95,108 @@ const calculators = [
     color: 'text-purple-500'
   },
   {
+    id: 'credit',
+    path: '/kreditni-kalkulator',
+    title: 'Kreditni Kalkulator',
+    description: 'Izračunajte mjesečnu ratu, kamate i plan otplate kredita.',
+    icon: Calculator,
+    color: 'text-blue-700'
+  },
+  {
+    id: 'vat',
+    path: '/pdv-kalkulator',
+    title: 'PDV Kalkulator',
+    description: 'Brzi izračun PDV-a na iznos ili iz ukupnog iznosa. Bruto/neto.',
+    icon: Percent,
+    color: 'text-emerald-600'
+  },
+  {
+    id: 'calorie',
+    path: '/kalkulator-kalorija',
+    title: 'Kalkulator Kalorija',
+    description: 'Izračunajte BMR i TDEE za planiranje prehrane i mršavljenje.',
+    icon: Flame,
+    color: 'text-red-500'
+  },
+  {
+    id: 'water',
+    path: '/kalkulator-vode',
+    title: 'Kalkulator Vode',
+    description: 'Saznajte optimalan dnevni unos vode za vaše tijelo.',
+    icon: Droplets,
+    color: 'text-cyan-500'
+  },
+  {
+    id: 'savings',
+    path: '/kalkulator-stednje',
+    title: 'Kalkulator Štednje',
+    description: 'Planirajte budućnost uz izračun kamata na štednju.',
+    icon: PiggyBank,
+    color: 'text-green-600'
+  },
+  {
     id: 'calculator',
     path: '/kalkulator',
     title: 'Kalkulator',
     description: 'Napredni kalkulator s glasovnim unosom i znanstvenim funkcijama.',
     icon: Calculator,
     color: 'text-gray-700'
+  },
+  {
+    id: 'affordability',
+    path: '/kalkulator-priustivosti',
+    title: 'Mogu li si to priuštiti?',
+    description: 'Provjerite možete li si priuštiti novi auto ili veću kupnju uz analizu budžeta.',
+    icon: Wallet,
+    color: 'text-teal-600'
+  },
+  {
+    id: 'ev-charging',
+    path: '/kalkulator-punjenja-ev',
+    title: 'Cijena Punjenja EV',
+    description: 'Izračunajte cijenu punjenja električnog auta kod kuće (dnevna/noćna tarifa).',
+    icon: Zap,
+    color: 'text-yellow-500'
+  },
+  {
+    id: 'fuel-comparison',
+    path: '/usporedba-goriva',
+    title: 'Usporedba Goriva',
+    description: 'Benzin, Dizel, Struja ili Vodik? Usporedite troškove i isplativost.',
+    icon: Fuel,
+    color: 'text-blue-600'
+  },
+  {
+    id: 'power-converter',
+    path: '/kalkulator-snage-vozila',
+    title: 'Kalkulator Snage (kW/KS)',
+    description: 'Pretvorite kilovate u konjske snage. Usporedite snagu s popularnim autima.',
+    icon: Zap,
+    color: 'text-red-500'
+  },
+  {
+    id: 'fuel',
+    path: '/kalkulator-goriva',
+    title: 'Kalkulator Goriva',
+    description: 'Izračunajte potrošnju goriva i cijenu puta po osobi.',
+    icon: Fuel,
+    color: 'text-indigo-600'
+  },
+  {
+    id: 'discount',
+    path: '/kalkulator-popusta',
+    title: 'Kalkulator Popusta',
+    description: 'Brzo izračunajte cijenu s popustom i uštedu.',
+    icon: Tag,
+    color: 'text-rose-600'
+  },
+  {
+    id: 'gpa',
+    path: '/kalkulator-prosjeka',
+    title: 'Kalkulator Prosjeka',
+    description: 'Izračunajte školski prosjek ocjena i uspjeh.',
+    icon: GraduationCap,
+    color: 'text-violet-600'
   }
 ];
 
@@ -141,7 +253,7 @@ export function HomePage() {
                 {calc.comingSoon ? (
                   <div className="bg-white p-6">
                     <div className="flex items-start justify-between">
-                      <calc.icon className={`w-10 h-10 ${calc.color} mb-4`} />
+                      <calc.icon className={`w - 10 h - 10 ${calc.color} mb - 4`} />
                       <span className="inline-block px-3 py-1 text-sm font-medium text-white bg-blue-500 rounded-full">
                         Uskoro
                       </span>
@@ -156,7 +268,7 @@ export function HomePage() {
                     to={calc.path}
                     className="block bg-white p-6 h-full transition-colors hover:bg-gray-50"
                   >
-                    <calc.icon className={`w-10 h-10 ${calc.color} mb-4`} />
+                    <calc.icon className={`w - 10 h - 10 ${calc.color} mb - 4`} />
                     <h2 className="text-xl font-semibold text-gray-900 mb-2">
                       {calc.title}
                     </h2>

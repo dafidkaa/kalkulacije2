@@ -20,10 +20,51 @@ const PUBLIC_CONTENT_DIR = path.join(PUBLIC_DIR, 'content/blog');
 const BLOG_INDEX_FILE = path.join(PUBLIC_DIR, 'blog-index.json');
 const SEARCH_INDEX_FILE = path.join(PUBLIC_DIR, 'blog', 'search-index.json');
 const RSS_FILE = path.join(PUBLIC_DIR, 'blog', 'rss.xml');
-const SITEMAP_FILE = path.join(PUBLIC_DIR, 'sitemap-blog.xml');
+const SITEMAP_FILE = path.join(PUBLIC_DIR, 'sitemap.xml');
 
 const SITE_URL = 'https://kalkulacije.com';
 const BLOG_URL = `${SITE_URL}/blog`;
+
+// Define all static calculator routes
+const STATIC_ROUTES = [
+  // Core & Home
+  { path: '/', priority: 1.0, changefreq: 'weekly' },
+  { path: '/kalkulator', priority: 0.9, changefreq: 'monthly' }, // General/AI Calculator
+
+  // Finance
+  { path: '/kalkulator-place', priority: 0.9, changefreq: 'monthly' },
+  { path: '/kreditni-kalkulator', priority: 0.9, changefreq: 'monthly' },
+  { path: '/pdv-kalkulator', priority: 0.9, changefreq: 'monthly' },
+  { path: '/kalkulator-stednje', priority: 0.9, changefreq: 'monthly' },
+
+  // Health
+  { path: '/kalkulator-bmi', priority: 0.9, changefreq: 'monthly' },
+  { path: '/kalkulator-kalorija', priority: 0.9, changefreq: 'monthly' },
+  { path: '/kalkulator-vode', priority: 0.8, changefreq: 'monthly' },
+
+  // Time & Date
+  { path: '/kalkulator-datuma', priority: 0.9, changefreq: 'monthly' },
+  { path: '/kalkulator-vremena', priority: 0.8, changefreq: 'monthly' },
+
+  // Utility & Education (New)
+  { path: '/kalkulator-goriva', priority: 0.8, changefreq: 'monthly' },
+  { path: '/kalkulator-popusta', priority: 0.8, changefreq: 'monthly' },
+  { path: '/kalkulator-prosjeka', priority: 0.8, changefreq: 'monthly' },
+  { path: '/kalkulator-priustivosti', priority: 0.8, changefreq: 'monthly' },
+  { path: '/kalkulator-budzeta', priority: 0.8, changefreq: 'monthly' },
+  { path: '/kalkulator-punjenja-ev', priority: 0.8, changefreq: 'monthly' },
+  { path: '/kalkulator-snage-vozila', priority: 0.8, changefreq: 'monthly' },
+  { path: '/usporedba-goriva', priority: 0.8, changefreq: 'monthly' },
+
+  // Conversions & Math
+  { path: '/pretvaranje-jedinica', priority: 0.8, changefreq: 'monthly' },
+  { path: '/pretvarac-temperature', priority: 0.8, changefreq: 'monthly' },
+  { path: '/kalkulator-postotaka', priority: 0.8, changefreq: 'monthly' },
+  { path: '/kalkulator-povrsine', priority: 0.8, changefreq: 'monthly' },
+
+  // Blog Index
+  { path: '/blog', priority: 0.8, changefreq: 'weekly' }
+];
 
 /**
  * Calculate reading time (approximately 200 words per minute)
@@ -42,7 +83,7 @@ function generateExcerpt(content, description, maxLength = 160) {
   if (description && description.length <= maxLength) {
     return description;
   }
-  
+
   // Remove markdown syntax and get first paragraph
   const plainText = content
     .replace(/#{1,6}\s+/g, '') // Remove headings
@@ -53,19 +94,19 @@ function generateExcerpt(content, description, maxLength = 160) {
     .replace(/\n\s*\n/g, ' ') // Replace double newlines with space
     .replace(/\n/g, ' ') // Replace single newlines with space
     .trim();
-  
+
   if (plainText.length <= maxLength) {
     return plainText;
   }
-  
+
   // Truncate at word boundary
   const truncated = plainText.substring(0, maxLength);
   const lastSpace = truncated.lastIndexOf(' ');
-  
+
   if (lastSpace > maxLength * 0.8) {
     return truncated.substring(0, lastSpace) + '...';
   }
-  
+
   return truncated + '...';
 }
 
@@ -84,31 +125,31 @@ async function loadBlogPosts() {
 
     const files = await fs.readdir(CONTENT_DIR);
     const markdownFiles = files.filter(file => file.endsWith('.md'));
-    
+
     const posts = [];
-    
+
     for (const file of markdownFiles) {
       try {
         const filePath = path.join(CONTENT_DIR, file);
         const fileContent = await fs.readFile(filePath, 'utf-8');
         const { data: frontMatter, content } = matter(fileContent);
-        
+
         // Validate required fields
         if (!frontMatter.title || !frontMatter.description || !frontMatter.date || !frontMatter.status) {
           console.warn(`Skipping ${file}: Missing required front-matter fields`);
           continue;
         }
-        
+
         // Skip draft posts in production
         if (frontMatter.status === 'draft' && process.env.NODE_ENV === 'production') {
           console.log(`Skipping draft post: ${file}`);
           continue;
         }
-        
+
         const slug = path.basename(file, '.md');
         const excerpt = generateExcerpt(content, frontMatter.description);
         const readTime = calculateReadTime(content);
-        
+
         posts.push({
           slug,
           title: frontMatter.title,
@@ -125,16 +166,16 @@ async function loadBlogPosts() {
           readTime,
           content
         });
-        
+
         console.log(`Processed: ${file}`);
       } catch (error) {
         console.error(`Error processing ${file}:`, error.message);
       }
     }
-    
+
     // Sort by date (newest first)
     posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    
+
     return posts;
   } catch (error) {
     console.error('Error loading blog posts:', error);
@@ -159,7 +200,7 @@ async function generateBlogIndex(posts) {
       excerpt: post.excerpt,
       readTime: post.readTime
     }));
-  
+
   await fs.writeFile(BLOG_INDEX_FILE, JSON.stringify(index, null, 2));
   console.log(`Generated blog index: ${BLOG_INDEX_FILE}`);
 }
@@ -171,7 +212,7 @@ async function generateSearchIndex(posts) {
   // Ensure blog directory exists
   const blogDir = path.dirname(SEARCH_INDEX_FILE);
   await fs.mkdir(blogDir, { recursive: true });
-  
+
   const searchIndex = posts
     .filter(post => post.status === 'published')
     .map(post => ({
@@ -181,7 +222,7 @@ async function generateSearchIndex(posts) {
       tags: post.tags,
       content: post.content.substring(0, 1000) // Limit content for search index size
     }));
-  
+
   await fs.writeFile(SEARCH_INDEX_FILE, JSON.stringify(searchIndex, null, 2));
   console.log(`Generated search index: ${SEARCH_INDEX_FILE}`);
 }
@@ -193,11 +234,11 @@ async function generateRSSFeed(posts) {
   const publishedPosts = posts
     .filter(post => post.status === 'published')
     .slice(0, 20); // Latest 20 posts
-  
+
   const rssItems = publishedPosts.map(post => {
     const postUrl = `${BLOG_URL}/${post.slug}`;
     const pubDate = new Date(post.date).toUTCString();
-    
+
     return `    <item>
       <title><![CDATA[${post.title}]]></title>
       <link>${postUrl}</link>
@@ -207,7 +248,7 @@ async function generateRSSFeed(posts) {
       <category><![CDATA[${post.category}]]></category>
     </item>`;
   }).join('\n');
-  
+
   const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -220,25 +261,39 @@ async function generateRSSFeed(posts) {
 ${rssItems}
   </channel>
 </rss>`;
-  
+
   // Ensure blog directory exists
   const blogDir = path.dirname(RSS_FILE);
   await fs.mkdir(blogDir, { recursive: true });
-  
+
   await fs.writeFile(RSS_FILE, rssContent);
   console.log(`Generated RSS feed: ${RSS_FILE}`);
 }
 
 /**
- * Generate blog sitemap
+ * Generate comprehensive sitemap
  */
-async function generateBlogSitemap(posts) {
+async function generateMainSitemap(posts) {
+  const today = new Date().toISOString().split('T')[0];
+
+  // 1. Generate Static Route Entries
+  const staticEntries = STATIC_ROUTES.map(route => {
+    return `  <url>
+    <loc>${SITE_URL}${route.path}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${route.changefreq}</changefreq>
+    <priority>${route.priority}</priority>
+  </url>`;
+  }).join('\n');
+
+
+  // 2. Generate Blog Post Entries
   const publishedPosts = posts.filter(post => post.status === 'published');
-  
-  const urlEntries = publishedPosts.map(post => {
+
+  const blogEntries = publishedPosts.map(post => {
     const postUrl = `${BLOG_URL}/${post.slug}`;
     const lastmod = post.updatedAt || post.date;
-    
+
     return `  <url>
     <loc>${postUrl}</loc>
     <lastmod>${lastmod}</lastmod>
@@ -246,23 +301,18 @@ async function generateBlogSitemap(posts) {
     <priority>0.7</priority>
   </url>`;
   }).join('\n');
-  
-  // Add blog index page
-  const blogIndexEntry = `  <url>
-    <loc>${BLOG_URL}</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>`;
-  
+
   const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${blogIndexEntry}
-${urlEntries}
+<!-- Static Pages -->
+${staticEntries}
+
+<!-- Blog Posts -->
+${blogEntries}
 </urlset>`;
-  
+
   await fs.writeFile(SITEMAP_FILE, sitemapContent);
-  console.log(`Generated blog sitemap: ${SITEMAP_FILE}`);
+  console.log(`Generated main sitemap: ${SITEMAP_FILE}`);
 }
 
 /**
@@ -313,7 +363,7 @@ async function buildBlog() {
       generateBlogIndex(posts),
       generateSearchIndex(posts),
       generateRSSFeed(posts),
-      generateBlogSitemap(posts)
+      generateMainSitemap(posts)
     ]);
 
     console.log('Blog build completed successfully!');

@@ -26,6 +26,22 @@ export function Header() {
         return 'Pretvarač Temperature';
       case '/kalkulator-datuma':
         return 'Kalkulator Datuma';
+      case '/kreditni-kalkulator':
+        return 'Kreditni Kalkulator';
+      case '/pdv-kalkulator':
+        return 'PDV Kalkulator';
+      case '/kalkulator-kalorija':
+        return 'Kalkulator Kalorija';
+      case '/kalkulator-vode':
+        return 'Kalkulator Vode';
+      case '/kalkulator-stednje':
+        return 'Kalkulator Štednje';
+      case '/kalkulator-goriva':
+        return 'Kalkulator Goriva';
+      case '/kalkulator-popusta':
+        return 'Kalkulator Popusta';
+      case '/kalkulator-prosjeka':
+        return 'Kalkulator Prosjeka';
       case '/blog':
         return 'Kalkulacije Blog';
       default:
@@ -57,12 +73,11 @@ export function Header() {
               <Link
                 key={item.href}
                 to={item.href}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  location.pathname === item.href ||
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${location.pathname === item.href ||
                   (item.href === '/blog' && location.pathname.startsWith('/blog'))
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                }`}
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                  }`}
               >
                 <item.icon className="w-4 h-4" />
                 {item.label}
@@ -99,12 +114,11 @@ export function Header() {
                   key={item.href}
                   to={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    location.pathname === item.href ||
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors ${location.pathname === item.href ||
                     (item.href === '/blog' && location.pathname.startsWith('/blog'))
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                  }`}
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                    }`}
                 >
                   <item.icon className="w-5 h-5" />
                   {item.label}
