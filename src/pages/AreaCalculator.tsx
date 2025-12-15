@@ -6,6 +6,9 @@ import { AreaFeatures } from '../components/area/AreaFeatures';
 import { AreaBenefits } from '../components/area/AreaBenefits';
 import { AreaDetails } from '../components/area/AreaDetails';
 import { AreaFAQ } from '../components/area/AreaFAQ';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
+import { Square, Map, Home } from 'lucide-react';
 
 type TabType = 'shapes' | 'converter' | 'land' | 'room' | 'roof';
 
@@ -124,6 +127,102 @@ export function AreaCalculator() {
           <AreaTabs
             activeTab={activeTab}
             onTabChange={setActiveTab}
+          />
+        </div>
+      </section>
+
+      {/* AI Summary */}
+      <AISummary
+        summary="Kalkulator površine za brzi izračun kvadrature stana, površine zemljišta ili geometrijskih likova (kvadrat, pravokutnik, trokut). Pretvorite m2 u hektare ili rali."
+        keywords={['kalkulator površine', 'izračun kvadrature', 'površina trokuta formula', 'površina kruga', 'hektar u m2']}
+        useCases={[
+          'Izračun kvadrature stana prije krečenja',
+          'Provjera površine zemljišne parcele',
+          'Pomoć u učenju geometrije za školu'
+        ]}
+        statistics={[
+          { label: '1 Hektar (ha)', value: '10.000 m²', source: 'SI Sustav' },
+          { label: '1 Ral (jutro)', value: '5.755 m²', source: 'Stare mjere' },
+          { label: 'Površina nogometnog terena', value: '~7.140 m²', source: 'FIFA Standard' }
+        ]}
+      />
+
+      {/* Quick Answer */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <QuickAnswer
+            question="Kako se računa kvadratura sobe?"
+            answer="Jednostavno pomnožite duljinu i širinu sobe. Ako soba nije pravokutna, podijelite je na manje pravokutnike i zbrojite njihove površine."
+            highlight="Formula: Duljina x Širina = m²"
+            details="Ne zaboravite oduzeti površine koje nećete oblagati (npr. prozori, vrata) ako računate za pločice ili bojanje."
+          />
+
+          <div className="grid md:grid-cols-3 gap-6 my-12">
+            <StatisticCard
+              value="P = a²"
+              label="Površina Kvadrata"
+              source="Matematika"
+              color="blue"
+            />
+            <StatisticCard
+              value="P = a*b"
+              label="Površina Pravokutnika"
+              source="Matematika"
+              color="green"
+            />
+            <StatisticCard
+              value="P = r²π"
+              label="Površina Kruga"
+              source="Matematika"
+              color="purple"
+            />
+          </div>
+
+          <ComparisonTable
+            title="Jedinice za Površinu Zemljišta"
+            caption="Usporedba modernih i starih mjernih jedinica"
+            headers={['Jedinica', 'Vrijednost (m²)', 'Opis']}
+            rows={[
+              ['Četvorni metar (m²)', '1 m²', 'Osnovna jedinica'],
+              ['Hektar (ha)', '10.000 m²', '100 x 100 metara'],
+              ['Ral (Jutro)', '5.755 m²', 'Stara hrvatska mjera'],
+              ['Dulum', '1.000 m²', 'Regionalna mjera'],
+              ['Aker (Acre)', '4.047 m²', 'Anglosaksonska mjera']
+            ]}
+            highlightColumn={1}
+          />
+        </div>
+      </section>
+
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+          <UseCaseExample
+            title="Primjer 1: Bojanje Zidova"
+            scenario="Soba je 4x5 metara, visine 2.5m. Treba izračunati površinu zidova."
+            input="Dimenzije: 4m, 5m, 2.5m"
+            output="Površina zidova: 45 m²"
+            explanation="Opseg (18m) puta visina (2.5m) daje 45 m². Oduzmite prozore za točnu potrošnju boje."
+            icon={<Home className="w-6 h-6 text-blue-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 2: Površina Zemljišta"
+            scenario="Parcela je pravokutnog oblika, dimenzija 30x40 metara."
+            input="30m x 40m"
+            output="1.200 m² (0.12 hektara)"
+            explanation="Množenjem stranica dobivamo ukupnu površinu u m²."
+            icon={<Map className="w-6 h-6 text-green-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 3: Opločavanje Terase"
+            scenario="Terasa je kvadratna, stranice 6 metara."
+            input="Stranica: 6m"
+            output="36 m²"
+            explanation="Za terasu od 36 m² trebat će vam oko 38 m² pločica (uračunajte 5-10% otpada)."
+            icon={<Square className="w-6 h-6 text-purple-600" />}
           />
         </div>
       </section>

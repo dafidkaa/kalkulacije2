@@ -11,6 +11,9 @@ import {
     Info
 } from 'lucide-react';
 import { ToolSchema, BreadcrumbSchema, FAQSchema } from '../components/SchemaMarkup';
+import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 import { CAR_BRANDS, POPULAR_EVS, TARIFFS, EV_HINTS } from '../utils/evData';
 import { calculateChargingCost, formatCurrency, formatEnergy } from '../utils/evChargingCalculator';
 
@@ -427,6 +430,102 @@ export function EVChargingCalculator() {
                         </div>
 
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator cijene punjenja električnih automobila (EV). Izračunajte trošak punjenja kod kuće (HEP tarife) za Tesla, VW, Audi i druge modele."
+                keywords={['kalkulator punjenja auta', 'cijena struje za auto', 'punjenje tesla cijena', 'hep tarife struja', 'električna vozila']}
+                useCases={[
+                    'Izračun cijene punog "tanka" struje',
+                    'Usporedba punjenja po danu vs po noći',
+                    'Planiranje troškova za određeni model auta'
+                ]}
+                statistics={[
+                    { label: 'Cijena (Noć)', value: '~0.07 €/kWh', source: 'HEP (Zima - Niža)' },
+                    { label: 'Cijena (Dan)', value: '~0.14 €/kWh', source: 'HEP (Zima - Viša)' },
+                    { label: 'Prosječna potrošnja EV', value: '18 kWh/100km', source: 'EV Database' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Koliko košta 100 km na struju?"
+                        answer="Ako punite kod kuće po noći, oko 1.5€ do 2€. Po danu oko 3€. Na javnim punjačima cijena može biti 5-12€."
+                        highlight="Noćno punjenje = Najveća ušteda"
+                        details="Noćna tarifa je u pola jeftinija od dnevne. Iskoristite timer na autu ili punjaču."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="50%"
+                            label="Jeftinije po noći"
+                            source="HEP Tarife"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="3-5€"
+                            label="Pun spremnik (manji auto)"
+                            source="Noćna tarifa"
+                            color="green"
+                        />
+                        <StatisticCard
+                            value="0€"
+                            label="Emisija ispušnih plinova"
+                            source="Ekologija"
+                            color="green"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Cijena Punjenja (Baterija 60 kWh)"
+                        caption="Trošak punjenja od 0% do 100% po različitim tarifama"
+                        headers={['Tarifa', 'Cijena kWh', 'Trošak Punog Spremnika', 'Trošak 100km']}
+                        rows={[
+                            ['Kućno (Noć - Niža)', '0.07 €', '4.20 €', '1.26 €'],
+                            ['Kućno (Dan - Viša)', '0.14 €', '8.40 €', '2.52 €'],
+                            ['Kućno (Plavi - Jednotarifno)', '0.13 €', '7.80 €', '2.34 €'],
+                            ['Javno (AC 22kW)', '0.45 €', '27.00 €', '8.10 €'],
+                            ['Brzo (DC 150kW)', '0.85 €', '51.00 €', '15.30 €']
+                        ]}
+                        highlightColumn={2}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Tesla Model 3"
+                        scenario="Punjenje baterije (60 kWh) od 20% do 80% po noći."
+                        input="Kapacitet: 60 | 20-80% | Noćna"
+                        output="Cijena: ~2.50 €"
+                        explanation="Dodano je 36 kWh energije po cijeni nižoj od kave u kafiću."
+                        icon={<Zap className="w-6 h-6 text-yellow-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Dnevno Dopunjavanje"
+                        scenario="Dopunjavanje 20% baterije nakon posla (skupa tarifa)."
+                        input="Kapacitet: 50 | +20% | Dnevna"
+                        output="Cijena: ~1.40 €"
+                        explanation="Iako je dnevna tarifa skuplja, za kratka dopunjavanja trošak je i dalje zanemariv."
+                        icon={<Sun className="w-6 h-6 text-orange-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Veliki SUV (100 kWh)"
+                        scenario="Punjenje velikog SUV-a od 0 do 100% po noći."
+                        input="Kapacitet: 100 | 0-100% | Noćna"
+                        output="Cijena: ~7.00 €"
+                        explanation="Pun spremnik 'goriva' za 7 eura, koji može prijeći 400-500 km."
+                        icon={<BatteryCharging className="w-6 h-6 text-green-600" />}
+                    />
                 </div>
             </section>
 

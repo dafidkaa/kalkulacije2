@@ -6,6 +6,9 @@ import { PercentageFeatures } from '../components/percentage/PercentageFeatures'
 import { PercentageBenefits } from '../components/percentage/PercentageBenefits';
 import { PercentageFAQ } from '../components/percentage/PercentageFAQ';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
+import { Percent, TrendingUp, ShoppingCart } from 'lucide-react';
 
 export function PercentageCalculator() {
   return (
@@ -79,6 +82,102 @@ export function PercentageCalculator() {
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4 max-w-4xl">
           <PercentageForm />
+        </div>
+      </section>
+
+      {/* AI Summary */}
+      <AISummary
+        summary="Kalkulator postotaka izračunava postotak od broja, postotno povećanje/smanjenje, razliku u postocima i PDV. Formula: Postotak = (Dio / Cjelina) × 100. Korisno za popuste, PDV, napojnice, kamate. Besplatno."
+        keywords={['kalkulator postotka', 'izračun postotka', 'popust', 'PDV', 'povećanje postotka']}
+        useCases={[
+          'Izračun popusta u trgovini',
+          'Dodavanje PDV-a na cijenu',
+          'Izračun napojnice u restoranu',
+          'Postotna promjena cijene ili plaće'
+        ]}
+        statistics={[
+          { label: 'PDV stopa u Hrvatskoj', value: '25%', source: 'Porezna uprava' },
+          { label: 'Prosječan popust Black Friday', value: '30-50%', source: 'Procjena' }
+        ]}
+      />
+
+      {/* Quick Answer & Examples */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <QuickAnswer
+            question="Koliko je 20% od 500 EUR?"
+            answer="100 EUR"
+            highlight="Formula: 500 × 0.20 = 100"
+            details="Za izračun postotka od broja, pomnožite broj s postotkom podijeljenim sa 100 (ili pomnožite s decimalnom vrijednosti postotka)."
+          />
+
+          <div className="grid md:grid-cols-3 gap-6 my-12">
+            <StatisticCard
+              value="25%"
+              label="PDV stopa u Hrvatskoj"
+              source="Porezna uprava"
+              color="blue"
+            />
+            <StatisticCard
+              value="13%"
+              label="Snižena PDV stopa"
+              source="Porezna uprava"
+              color="green"
+            />
+            <StatisticCard
+              value="15-20%"
+              label="Uobičajena napojnica"
+              source="Bonton"
+              color="purple"
+            />
+          </div>
+
+          <ComparisonTable
+            title="Česti Izračuni Postotaka"
+            caption="Primjeri najkorištećih postotnih izračuna"
+            headers={['Izračun', 'Primjer', 'Rezultat']}
+            rows={[
+              ['10% od 100', '100 × 0.10', '10'],
+              ['20% popust na 500', '500 - (500 × 0.20)', '400'],
+              ['PDV 25% na 100', '100 × 1.25', '125'],
+              ['Povećanje 15%', '100 × 1.15', '115'],
+              ['Smanjenje 30%', '100 × 0.70', '70']
+            ]}
+            highlightColumn={2}
+          />
+        </div>
+      </section>
+
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+          <UseCaseExample
+            title="Primjer 1: Popust u Trgovini"
+            scenario="Jakna košta 800 EUR i ima 30% popusta. Kolika je konačna cijena?"
+            input="Originalna cijena: 800 EUR, Popust: 30%"
+            output="Konačna cijena: 560 EUR (ušteda: 240 EUR)"
+            explanation="Popust od 30% znači da platite 70% originalne cijene. 800 × 0.70 = 560 EUR."
+            icon={<ShoppingCart className="w-6 h-6 text-blue-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 2: Dodavanje PDV-a"
+            scenario="Usluga košta 200 EUR bez PDV-a. Kolika je cijena s PDV-om (25%)?"
+            input="Cijena bez PDV-a: 200 EUR, PDV: 25%"
+            output="Cijena s PDV-om: 250 EUR (PDV iznos: 50 EUR)"
+            explanation="Za dodavanje PDV-a, pomnožite cijenu s 1.25. 200 × 1.25 = 250 EUR."
+            icon={<Percent className="w-6 h-6 text-green-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 3: Povećanje Plaće"
+            scenario="Plaća je bila 1.000 EUR i povećana je za 12%. Kolika je nova plaća?"
+            input="Stara plaća: 1.000 EUR, Povećanje: 12%"
+            output="Nova plaća: 1.120 EUR (povećanje: 120 EUR)"
+            explanation="Povećanje od 12% znači da nova plaća iznosi 112% stare. 1.000 × 1.12 = 1.120 EUR."
+            icon={<TrendingUp className="w-6 h-6 text-purple-600" />}
+          />
         </div>
       </section>
 

@@ -17,6 +17,8 @@ import {
 import { calculateAffordability, type FinanceType, type AssetType, type Verdict } from '../utils/affordabilityCalculator';
 import { ToolSchema, BreadcrumbSchema, FAQSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 export function AffordabilityCalculator() {
     // State

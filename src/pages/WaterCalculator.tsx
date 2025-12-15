@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { GradientCard } from '../components/GradientCard';
-import { GlassWater, Droplets, Info, Scale } from 'lucide-react';
+import { GlassWater, Droplets, Info, Scale, Sun, Activity, User } from 'lucide-react';
 import { calculateWaterIntake, WaterResult } from '../utils/waterCalculator';
 import { ToolSchema, HowToSchema, FAQSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 export function WaterCalculator() {
     const [formData, setFormData] = useState({
@@ -169,6 +171,102 @@ export function WaterCalculator() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator unosa vode pomaže izračunati preporučeni dnevni unos vode na temelju tjelesne težine i razine aktivnosti. Sprječava dehidraciju i poboljšava zdravlje."
+                keywords={['kalkulator vode', 'dnevni unos vode', 'hidratacija', 'dehidracija', 'voda za piće']}
+                useCases={[
+                    'Izračun potrebnog unosa vode za aktivne sportaše',
+                    'Praćenje hidratacije tijekom vrućih ljetnih dana',
+                    'Određivanje bazičnog unosa vode prema težini'
+                ]}
+                statistics={[
+                    { label: 'Prosječan unos vode (muškarci)', value: '3.7 L', source: 'Institute of Medicine' },
+                    { label: 'Prosječan unos vode (žene)', value: '2.7 L', source: 'Institute of Medicine' },
+                    { label: 'Sadržaj vode u ljudskom tijelu', value: '60%', source: 'USGS' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Koliko vode trebam piti dnevno?"
+                        answer="Opća preporuka je piti oko 30-35 ml vode po kilogramu tjelesne težine dnevno, plus dodatno za fizičku aktivnost."
+                        highlight="Formula: Težina (kg) x 0.033 = Litre vode"
+                        details="Fizička aktivnost i vruće vrijeme povećavaju potrebu za vodom."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="30-35 ml"
+                            label="Preporučeno po kg težine"
+                            source="Nutricionisti"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="60%"
+                            label="Vode u ljudskom tijelu"
+                            source="Biologija"
+                            color="green"
+                        />
+                        <StatisticCard
+                            value="2% gubitka"
+                            label="Početak dehidracije"
+                            source="Medicina"
+                            color="orange"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Unos Vode Prema Težini"
+                        caption="Preporučeni dnevni unos vode (bez dodatne aktivnosti)"
+                        headers={['Težina', 'Unos (ml)', 'Unos (čaše od 250ml)']}
+                        rows={[
+                            ['50 kg', '1650 ml', '6-7 čaša'],
+                            ['60 kg', '1980 ml', '8 čaša'],
+                            ['70 kg', '2310 ml', '9 čaša'],
+                            ['80 kg', '2640 ml', '10-11 čaša'],
+                            ['90 kg', '2970 ml', '12 čaša']
+                        ]}
+                        highlightColumn={1}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Uredski Posao"
+                        scenario="Marko (80 kg) radi u uredu i nije fizički aktivan. Želi znati koliko vode treba piti."
+                        input="Težina: 80 kg | Aktivnost: 0 min"
+                        output="Preporuka: 2.6 litara vode dnevno"
+                        explanation="Bazična potreba za hidratacijom bez dodatnog znojenja."
+                        icon={<User className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Ljetni Trening"
+                        scenario="Ivana (60 kg) trči 45 minuta po vrućem vremenu."
+                        input="Težina: 60 kg | Aktivnost: 45 min"
+                        output="Preporuka: 2.5 litara vode dnevno"
+                        explanation="Zbog znojenja tijekom trčanja, preporuča se dodatnih 500-600 ml vode."
+                        icon={<Activity className="w-6 h-6 text-orange-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Cjelodnevni Obilazak"
+                        scenario="Turist (75 kg) hoda gradom cijeli dan (120 min lagane aktivnosti)."
+                        input="Težina: 75 kg | Aktivnost: 120 min"
+                        output="Preporuka: 3.5 litara vode dnevno"
+                        explanation="Dugotrajna niska aktivnost također zahtijeva povećan unos tekućine."
+                        icon={<Sun className="w-6 h-6 text-yellow-600" />}
+                    />
                 </div>
             </section>
 

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { GradientCard } from '../components/GradientCard';
-import { ArrowRightLeft, Percent } from 'lucide-react';
+import { ArrowRightLeft, Percent, Receipt } from 'lucide-react';
 import { calculateVat, VatResult, VatCalculationMode } from '../utils/vatCalculator';
 import { ToolSchema, BreadcrumbSchema, HowToSchema, FAQSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 export function VatCalculator() {
     const [formData, setFormData] = useState({
@@ -241,6 +243,103 @@ export function VatCalculator() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="PDV kalkulator izračunava porez na dodanu vrijednost. Dodajte PDV na neto iznos ili izvadite PDV iz bruto cijene. Stope: 25% (opća), 13% (snižena), 5% (posebna). Besplatno."
+                keywords={['pdv kalkulator', 'porez na dodanu vrijednost', 'pdv iz bruta', 'pdv na neto', 'stope pdv']}
+                useCases={[
+                    'Izračun PDV-a za račun - dodavanje PDV-a na cijenu',
+                    'Pretvarač bruto u neto - izvlačenje PDV-a',
+                    'Provjera ispravnosti računa',
+                    'Planiranje cijena s PDV-om'
+                ]}
+                statistics={[
+                    { label: 'Opća stopa PDV-a u Hrvatskoj', value: '25%', source: 'Porezna uprava' },
+                    { label: 'Snižena stopa PDV-a', value: '13%', source: 'Porezna uprava' },
+                    { label: 'Posebna stopa PDV-a', value: '5%', source: 'Porezna uprava' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Koliko je PDV na 100 EUR (stopa 25%)?"
+                        answer="25 EUR PDV, ukupno 125 EUR s PDV-om"
+                        highlight="Formula: Neto × 1.25 = Bruto"
+                        details="Za izračun PDV-a pomnožite neto iznos sa stopom PDV-a (npr. 100 × 0.25 = 25 EUR PDV-a)."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="25%"
+                            label="Opća stopa PDV-a"
+                            source="Porezna uprava"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="13%"
+                            label="Snižena stopa"
+                            source="Hrana, hoteli"
+                            color="green"
+                        />
+                        <StatisticCard
+                            value="5%"
+                            label="Posebna stopa"
+                            source="Kruh, mlijeko, lijekovi"
+                            color="purple"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Primjeri Izračuna PDV-a"
+                        caption="Različite stope PDV-a na 100 EUR neto"
+                        headers={['Neto Iznos', 'Stopa PDV-a', 'Iznos PDV-a', 'Bruto Iznos']}
+                        rows={[
+                            ['100 EUR', '25% (opća)', '25 EUR', '125 EUR'],
+                            ['100 EUR', '13% (snižena)', '13 EUR', '113 EUR'],
+                            ['100 EUR', '5% (posebna)', '5 EUR', '105 EUR'],
+                            ['500 EUR', '25%', '125 EUR', '625 EUR'],
+                            ['1.000 EUR', '25%', '250 EUR', '1.250 EUR']
+                        ]}
+                        highlightColumn={3}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Dodavanje PDV-a na Račun"
+                        scenario="Ana prodaje uslugu za 200 EUR bez PDV-a. Mora dodati PDV od 25% na račun."
+                        input="Neto cijena: 200 EUR, Stopa PDV-a: 25%"
+                        output="PDV: 50 EUR | Ukupno s PDV-om: 250 EUR"
+                        explanation="Ana će na računu iskazati 200 EUR osnovicu, 50 EUR PDV-a i ukupno 250 EUR za plaćanje."
+                        icon={<Receipt className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Izvlačenje PDV-a iz Bruto Cijene"
+                        scenario="Marko je platio 625 EUR s PDV-om. Želi znati koliko je neto cijena i PDV."
+                        input="Bruto cijena: 625 EUR, Stopa PDV-a: 25%"
+                        output="Neto: 500 EUR | PDV: 125 EUR"
+                        explanation="Od ukupnog iznosa, 500 EUR je osnovica a 125 EUR je PDV. Formula: 625 / 1.25 = 500 EUR neto."
+                        icon={<ArrowRightLeft className="w-6 h-6 text-green-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Snižena Stopa PDV-a"
+                        scenario="Restoran izdaje račun za hranu. Primjenjuje se snižena stopa od 13%."
+                        input="Neto iznos: 100 EUR, Stopa PDV-a: 13%"
+                        output="PDV: 13 EUR | Ukupno: 113 EUR"
+                        explanation="Na hranu u restoranima primjenjuje se snižena stopa od 13%, što je povoljnije od opće stope."
+                        icon={<Percent className="w-6 h-6 text-purple-600" />}
+                    />
                 </div>
             </section>
 

@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Fuel, Zap, Droplets, Timer, ArrowRight, TrendingDown } from 'lucide-react';
 import { ToolSchema, BreadcrumbSchema, FAQSchema } from '../components/SchemaMarkup';
+import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
+import { Info } from 'lucide-react';
 
 // Default Data (Avg 2024 Croatia/EU)
 const DEFAULTS = {
@@ -216,6 +220,102 @@ export function FuelComparisonCalculator() {
                         </p>
                     </div>
 
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator za usporedbu troškova goriva: Benzin vs Dizel vs Struja vs Vodik. Izračunajte uštedu na 100km i godišnjoj razini."
+                keywords={['usporedba goriva', 'električni auto ušteda', 'cijena benzina', 'dizel vs benzin', 'potrošnja goriva']}
+                useCases={[
+                    'Usporedba godišnjih troškova prije kupnje auta',
+                    'Izračun isplativosti električnog vozila',
+                    'Analiza uštede prelaskom na dizel'
+                ]}
+                statistics={[
+                    { label: 'Cijena vožnje na struju', value: '~2-3€/100km', source: 'HEP (Kućno punjenje)' },
+                    { label: 'Cijena vožnje na benzin', value: '~10-12€/100km', source: 'Trenutne cijene' },
+                    { label: 'Ušteda EV vs Benzin', value: '~1000€/god', source: 'Prosjek na 15k km' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Što je najisplativije voziti u 2024?"
+                        answer="Električni automobili punjeni kod kuće su uvjerljivo najjeftiniji (2-3€/100km). Dizelaši su i dalje isplativiji od benzinaca za veće kilometraže."
+                        highlight="Pobjednik: Električni auto (Kućno punjenje)"
+                        details="Javno punjenje može biti skupo i izjednačiti cijenu sa dizelom. Vodik je trenutno najskuplja opcija."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="80%"
+                            label="Jeftinije na struju (kući)"
+                            source="Usporedba"
+                            color="green"
+                        />
+                        <StatisticCard
+                            value="15-20%"
+                            label="Ušteda Dizel vs Benzin"
+                            source="Potrošnja"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="7x"
+                            label="Skuplji Vodik od Struje"
+                            source="Cijena kg"
+                            color="orange"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Trošak na 100km"
+                        caption="Prosječna cijena vožnje za različite vrste pogona"
+                        headers={['Pogon', 'Potrošnja', 'Cijena/jed.', 'Trošak (€/100km)']}
+                        rows={[
+                            ['Benzin (Eurosuper 95)', '7 L', '1.54 €', '10.78 €'],
+                            ['Dizel (Eurodizel)', '6 L', '1.48 €', '8.88 €'],
+                            ['Električni (Kućno)', '18 kWh', '0.15 €', '2.70 €'],
+                            ['Električni (Javno)', '18 kWh', '0.60 €', '10.80 €'],
+                            ['Vodik (H2)', '0.9 kg', '12.00 €', '10.80 €']
+                        ]}
+                        highlightColumn={3}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Gradski Auto"
+                        scenario="Godišnje 10.000 km, uglavnom gradska vožnja."
+                        input="Kilometraža: 10.000 km"
+                        output="Ušteda EV: ~800€/god"
+                        explanation="Električni auto je idealan za grad zbog regenerativnog kočenja i niske potrošnje."
+                        icon={<Zap className="w-6 h-6 text-yellow-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Putnik (Autocesta)"
+                        scenario="Godišnje 30.000 km, puno autoceste."
+                        input="Kilometraža: 30.000 km"
+                        output="Dizel je konkurentan"
+                        explanation="Na autocesti potrošnja EV-a raste, a dizel je efikasan. Ipak, EV je i dalje jeftiniji ako se puni kod kuće."
+                        icon={<Fuel className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Benzinac"
+                        scenario="Mala godišnja kilometraža (5.000 km)."
+                        input="Kilometraža: 5.000 km"
+                        output="Benzin je OK izbor"
+                        explanation="Za male kilometraže, niža nabavna cijena benzinca nadoknađuje skuplje gorivo."
+                        icon={<TrendingDown className="w-6 h-6 text-red-600" />}
+                    />
                 </div>
             </section>
 

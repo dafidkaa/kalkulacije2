@@ -6,6 +6,9 @@ import { SalaryFeatures } from '../components/salary/SalaryFeatures';
 import { SalaryBenefits } from '../components/salary/SalaryBenefits';
 import { SalaryFAQ } from '../components/salary/SalaryFAQ';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
+import { Calculator as CalcIcon, TrendingUp, Users } from 'lucide-react';
 
 export function SalaryCalculator() {
   return (
@@ -70,6 +73,117 @@ export function SalaryCalculator() {
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4 max-w-4xl">
           <Calculator />
+        </div>
+      </section>
+
+      {/* AI-Friendly Summary (Hidden from users, visible to AI) */}
+      <AISummary
+        summary="Kalkulator plaće za Hrvatsku izračunava neto plaću iz bruto iznosa. Uključuje porez na dohodak (20-30%), prirez (0-18% ovisno o gradu), mirovinsko osiguranje (20%), i zdravstveno osiguranje (16.5%). Potpuno besplatno, bez registracije. Ažurirano za 2024/2025 godinu."
+        keywords={[
+          'bruto neto kalkulator',
+          'izračun plaće hrvatska',
+          'porez na dohodak',
+          'prirez zagreb',
+          'osobni odbitak',
+          'trošak poslodavca'
+        ]}
+        useCases={[
+          'Pregovaranje o novoj plaći - izračunajte koliko ćete stvarno dobiti',
+          'Usporedba ponuda poslodavaca - koja plaća je stvarno bolja',
+          'Planiranje budžeta - znate točan iznos koji stiže na račun',
+          'Provjera ispravnosti obračuna - usporedite s isplatnicom'
+        ]}
+        statistics={[
+          { label: 'Prosječna neto plaća u Hrvatskoj', value: '1.350 EUR', source: 'DZS, 2024' },
+          { label: 'Minimalna neto plaća', value: '700 EUR', source: 'Vlada RH, 2024' },
+          { label: 'Prosječna plaća IT sektor', value: '2.500 EUR neto', source: 'Procjena, 2024' }
+        ]}
+      />
+
+      {/* Quick Answer Box for Featured Snippets */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <QuickAnswer
+            question="Koliko je neto plaća od 1.000 EUR bruto u Hrvatskoj?"
+            answer="Približno 730 EUR neto"
+            highlight="Za Zagreb s 18% prireza: 715 EUR neto"
+            details="Točan iznos ovisi o gradu stanovanja (prirez 0-18%), broju djece i uzdržavanih članova obitelji. Koristite kalkulator iznad za precizan izračun."
+          />
+
+          {/* Statistics Cards */}
+          <div className="grid md:grid-cols-3 gap-6 my-12">
+            <StatisticCard
+              value="1.350 EUR"
+              label="Prosječna neto plaća u Hrvatskoj"
+              source="DZS, 2024"
+              trend="up"
+              color="blue"
+            />
+            <StatisticCard
+              value="27%"
+              label="Prosječan porezni teret"
+              source="Porezna uprava"
+              trend="neutral"
+              color="orange"
+            />
+            <StatisticCard
+              value="700 EUR"
+              label="Minimalna neto plaća"
+              source="Vlada RH, 2024"
+              trend="up"
+              color="green"
+            />
+          </div>
+
+          {/* Comparison Table */}
+          <ComparisonTable
+            title="Usporedba Neto Plaća po Bruto Iznosima"
+            caption="Izračuni za Zagreb (18% prirez), bez dodatnih odbitaka"
+            headers={['Bruto Plaća', 'Neto Plaća', 'Trošak Poslodavca', 'Razlika (%)']}
+            rows={[
+              ['700 EUR', '511 EUR', '833 EUR', '27%'],
+              ['1.000 EUR', '715 EUR', '1.190 EUR', '28.5%'],
+              ['1.500 EUR', '1.051 EUR', '1.785 EUR', '29.9%'],
+              ['2.000 EUR', '1.366 EUR', '2.380 EUR', '31.7%'],
+              ['3.000 EUR', '1.966 EUR', '3.570 EUR', '34.5%'],
+              ['5.000 EUR', '3.166 EUR', '5.950 EUR', '36.7%']
+            ]}
+            highlightColumn={1}
+          />
+        </div>
+      </section>
+
+      {/* Use Case Examples */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+          <UseCaseExample
+            title="Primjer 1: Pregovaranje o Novoj Plaći"
+            scenario="Ana pregovara o novoj poziciji. Poslodavac nudi 1.500 EUR bruto. Ana živi u Zagrebu i nema djece."
+            input="Bruto plaća: 1.500 EUR, Grad: Zagreb (18% prirez)"
+            output="Neto plaća: 1.051 EUR"
+            explanation="Ana će stvarno primiti 1.051 EUR na račun. To je 449 EUR (29.9%) manje od bruto iznosa zbog poreza, doprinosa i prireza."
+            icon={<CalcIcon className="w-6 h-6 text-blue-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 2: Usporedba Dvije Ponude"
+            scenario="Marko ima dvije ponude: Tvrtka A nudi 1.800 EUR bruto u Zagrebu, Tvrtka B nudi 1.700 EUR bruto u Splitu (10% prirez)."
+            input="Ponuda A: 1.800 EUR (Zagreb) vs Ponuda B: 1.700 EUR (Split)"
+            output="Ponuda A: 1.258 EUR neto | Ponuda B: 1.213 EUR neto"
+            explanation="Iako je bruto razlika 100 EUR, neto razlika je samo 45 EUR zbog nižeg prireza u Splitu. Marko može uzeti u obzir i druge faktore poput troškova života."
+            icon={<TrendingUp className="w-6 h-6 text-green-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 3: Utjecaj Djece na Plaću"
+            scenario="Ivana ima bruto plaću 2.000 EUR i dvoje djece. Koliko dodatno dobiva zbog osobnog odbitka?"
+            input="Bruto: 2.000 EUR, Djeca: 2"
+            output="Dodatno ~50 EUR neto mjesečno"
+            explanation="Osobni odbitak za dvoje djece smanjuje poreznu osnovicu, što rezultira većom neto plaćom. Točan iznos ovisi o ukupnoj plaći."
+            icon={<Users className="w-6 h-6 text-purple-600" />}
+          />
         </div>
       </section>
 

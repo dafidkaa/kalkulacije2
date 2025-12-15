@@ -5,6 +5,9 @@ import { Activity, Flame, Scale } from 'lucide-react';
 import { calculateCalories, CalorieResult } from '../utils/calorieCalculator';
 import { ToolSchema, HowToSchema, FAQSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
+import { TrendingUp, Utensils } from 'lucide-react';
 
 export function CalorieCalculator() {
     const [formData, setFormData] = useState<{
@@ -90,6 +93,103 @@ export function CalorieCalculator() {
                     }
                 ]}
             />
+
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator kalorija koristi Mifflin-St Jeor formulu za izračun BMR-a i TDEE-a. Pomaže u planiranju prehrane za mršavljenje, održavanje ili dobivanje na težini."
+                keywords={['kalkulator kalorija', 'BMR', 'TDEE', 'mršavljenje', 'dnevni unos kalorija']}
+                useCases={[
+                    'Izračun potrebnih kalorija za mršavljenje (deficit)',
+                    'Planiranje prehrane za dobivanje mišićne mase (suficit)',
+                    'Održavanje trenutne tjelesne težine'
+                ]}
+                statistics={[
+                    { label: 'Prosječan BMR (muškarci)', value: '1600-2000 kcal', source: 'Healthline' },
+                    { label: 'Prosječan BMR (žene)', value: '1300-1500 kcal', source: 'Healthline' },
+                    { label: 'Potrošnja kalorija pri sjedenju', value: '~1.2 x BMR', source: 'Mifflin-St Jeor' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Koliko kalorija trebam unijeti za mršavljenje?"
+                        answer="Za gubitak 0.5 kg tjedno, preporučuje se unos 500 kalorija manje od vašeg TDEE-a (ukupne dnevne potrošnje)."
+                        highlight="Formula: TDEE - 500 kcal"
+                        details="Nikada ne unosite manje od svog BMR-a (bazalnog metabolizma) bez nadzora liječnika."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="3500 kcal"
+                            label="Kalorija u 0.5 kg masti"
+                            source="Mayo Clinic"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="10-15%"
+                            label="Termički efekt hrane"
+                            source="Nutricionizam"
+                            color="orange"
+                        />
+                        <StatisticCard
+                            value="500 kcal"
+                            label="Preporučen dnevni deficit"
+                            source="Zdravstvene smjernice"
+                            color="green"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Potrošnja Kalorija i Aktivnost"
+                        caption="Multiplikatori za TDEE prema razini aktivnosti"
+                        headers={['Razina Aktivnosti', 'Opis', 'Faktor']}
+                        rows={[
+                            ['Sjedilački način', 'Malo ili nimalo vježbanja', 'BMR x 1.2'],
+                            ['Lagana aktivnost', 'Vježbanje 1-3 puta tjedno', 'BMR x 1.375'],
+                            ['Umjerena aktivnost', 'Vježbanje 3-5 puta tjedno', 'BMR x 1.55'],
+                            ['Visoka aktivnost', 'Vježbanje 6-7 puta tjedno', 'BMR x 1.725'],
+                            ['Ekstremna aktivnost', 'Fizički posao + trening', 'BMR x 1.9']
+                        ]}
+                        highlightColumn={2}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Mršavljenje"
+                        scenario="Marija (35 god, 165 cm, 75 kg) želi smršaviti. Radi u uredu i vježba 2 puta tjedno."
+                        input="BMR: 1450 kcal | TDEE: 2000 kcal"
+                        output="Cilj za mršavljenje: 1500 kcal dnevno"
+                        explanation="Uz deficit od 500 kcal dnevno, Marija može očekivati gubitak od oko 0.5 kg tjedno."
+                        icon={<Scale className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Dobivanje Mišićne Mase"
+                        scenario="Ivan (25 god, 180 cm, 75 kg) želi dobiti mišiće. Trenira 5 puta tjedno."
+                        input="BMR: 1800 kcal | TDEE: 2800 kcal"
+                        output="Cilj za masu: 3050 - 3300 kcal dnevno"
+                        explanation="Za rast mišića potreban je suficit od 250-500 kcal uz trening snage."
+                        icon={<TrendingUp className="w-6 h-6 text-green-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Održavanje Težine"
+                        scenario="Ana je postigla željenu težinu i želi je održati. Aktivna je (trči 3 puta tjedno)."
+                        input="TDEE izračun: 2200 kcal"
+                        output="Unos: 2200 kcal dnevno"
+                        explanation="Jedenjem u skladu sa svojim TDEE-om, Ana će održavati svoju trenutnu težinu."
+                        icon={<Utensils className="w-6 h-6 text-purple-600" />}
+                    />
+                </div>
+            </section>
 
             {/* Hero Section */}
             <section className="pt-16 pb-8 text-center">
@@ -220,6 +320,102 @@ export function CalorieCalculator() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator kalorija koristi Mifflin-St Jeor formulu za izračun BMR-a i TDEE-a. Pomaže u planiranju prehrane za mršavljenje, održavanje ili dobivanje na težini."
+                keywords={['kalkulator kalorija', 'BMR', 'TDEE', 'mršavljenje', 'dnevni unos kalorija']}
+                useCases={[
+                    'Izračun potrebnih kalorija za mršavljenje (deficit)',
+                    'Planiranje prehrane za dobivanje mišićne mase (suficit)',
+                    'Održavanje trenutne tjelesne težine'
+                ]}
+                statistics={[
+                    { label: 'Prosječan BMR (muškarci)', value: '1600-2000 kcal', source: 'Healthline' },
+                    { label: 'Prosječan BMR (žene)', value: '1300-1500 kcal', source: 'Healthline' },
+                    { label: 'Potrošnja kalorija pri sjedenju', value: '~1.2 x BMR', source: 'Mifflin-St Jeor' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Koliko kalorija trebam unijeti za mršavljenje?"
+                        answer="Za gubitak 0.5 kg tjedno, preporučuje se unos 500 kalorija manje od vašeg TDEE-a (ukupne dnevne potrošnje)."
+                        highlight="Formula: TDEE - 500 kcal"
+                        details="Nikada ne unosite manje od svog BMR-a (bazalnog metabolizma) bez nadzora liječnika."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="3500 kcal"
+                            label="Kalorija u 0.5 kg masti"
+                            source="Mayo Clinic"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="10-15%"
+                            label="Termički efekt hrane"
+                            source="Nutricionizam"
+                            color="orange"
+                        />
+                        <StatisticCard
+                            value="500 kcal"
+                            label="Preporučen dnevni deficit"
+                            source="Zdravstvene smjernice"
+                            color="green"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Potrošnja Kalorija i Aktivnost"
+                        caption="Multiplikatori za TDEE prema razini aktivnosti"
+                        headers={['Razina Aktivnosti', 'Opis', 'Faktor']}
+                        rows={[
+                            ['Sjedilački način', 'Malo ili nimalo vježbanja', 'BMR x 1.2'],
+                            ['Lagana aktivnost', 'Vježbanje 1-3 puta tjedno', 'BMR x 1.375'],
+                            ['Umjerena aktivnost', 'Vježbanje 3-5 puta tjedno', 'BMR x 1.55'],
+                            ['Visoka aktivnost', 'Vježbanje 6-7 puta tjedno', 'BMR x 1.725'],
+                            ['Ekstremna aktivnost', 'Fizički posao + trening', 'BMR x 1.9']
+                        ]}
+                        highlightColumn={2}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Mršavljenje"
+                        scenario="Marija (35 god, 165 cm, 75 kg) želi smršaviti. Radi u uredu i vježba 2 puta tjedno."
+                        input="BMR: 1450 kcal | TDEE: 2000 kcal"
+                        output="Cilj za mršavljenje: 1500 kcal dnevno"
+                        explanation="Uz deficit od 500 kcal dnevno, Marija može očekivati gubitak od oko 0.5 kg tjedno."
+                        icon={<Scale className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Dobivanje Mišićne Mase"
+                        scenario="Ivan (25 god, 180 cm, 75 kg) želi dobiti mišiće. Trenira 5 puta tjedno."
+                        input="BMR: 1800 kcal | TDEE: 2800 kcal"
+                        output="Cilj za masu: 3050 - 3300 kcal dnevno"
+                        explanation="Za rast mišića potreban je suficit od 250-500 kcal uz trening snage."
+                        icon={<TrendingUp className="w-6 h-6 text-green-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Održavanje Težine"
+                        scenario="Ana je postigla željenu težinu i želi je održati. Aktivna je (trči 3 puta tjedno)."
+                        input="TDEE izračun: 2200 kcal"
+                        output="Unos: 2200 kcal dnevno"
+                        explanation="Jedenjem u skladu sa svojim TDEE-om, Ana će održavati svoju trenutnu težinu."
+                        icon={<Utensils className="w-6 h-6 text-purple-600" />}
+                    />
                 </div>
             </section>
 

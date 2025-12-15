@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Wallet, PieChart, PiggyBank, ShoppingBag, Home } from 'lucide-react';
 import { ToolSchema, BreadcrumbSchema, FAQSchema } from '../components/SchemaMarkup';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 export function BudgetCalculator() {
     const [income, setIncome] = useState<number>(1000);
@@ -147,7 +149,101 @@ export function BudgetCalculator() {
                 </div>
             </section>
 
-            {/* SEO CONTENT */}
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator budžeta 50/30/20 pomaže vam raspodijeliti prihod na potrebe (50%), želje (30%) i štednju (20%). Jednostavna metoda za kontrolu financija."
+                keywords={['kalkulator budžeta', '50 30 20 pravilo', 'planiranje budžeta', 'osobne financije', 'štednja']}
+                useCases={[
+                    'Izrada mjesečnog plana potrošnje',
+                    'Određivanje limita za stanarinu i režije',
+                    'Planiranje iznosa za štednju i otplatu dugova'
+                ]}
+                statistics={[
+                    { label: 'Potrebe (Max)', value: '50%', source: 'Pravilo 50/30/20' },
+                    { label: 'Želje (Max)', value: '30%', source: 'Pravilo 50/30/20' },
+                    { label: 'Štednja (Min)', value: '20%', source: 'Pravilo 50/30/20' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Kako podijeliti plaću od 1000€ po 50/30/20 pravilu?"
+                        answer="500€ za potrebe (stan, hrana), 300€ za želje (zabava, shopping) i 200€ za štednju."
+                        highlight="Formula: Prihod x 0.5 / 0.3 / 0.2"
+                        details="Ako su vam potrebe veće od 50%, smanjite budžet za želje dok se ne uskladite."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="50%"
+                            label="Za nuzne troskove"
+                            source="Stan, hrana, rezije"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="30%"
+                            label="Za fleksibilne troskove"
+                            source="Zabava, odjeca"
+                            color="purple"
+                        />
+                        <StatisticCard
+                            value="20%"
+                            label="Za buducnost"
+                            source="Stednja, dugovi"
+                            color="green"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Primjeri Raspodjele Budžeta"
+                        caption="Iznosi za različite plaće prema 50/30/20 pravilu"
+                        headers={['Neto Plaća', 'Potrebe (50%)', 'Želje (30%)', 'Štednja (20%)']}
+                        rows={[
+                            ['800€', '400€', '240€', '160€'],
+                            ['1.000€', '500€', '300€', '200€'],
+                            ['1.500€', '750€', '450€', '300€'],
+                            ['2.000€', '1.000€', '600€', '400€'],
+                            ['3.000€', '1.500€', '900€', '600€']
+                        ]}
+                        highlightColumn={3}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Studentski Budžet"
+                        scenario="Student s budžetom od 600€."
+                        input="Prihod: 600€"
+                        output="Potrebe: 300€ | Želje: 180€ | Štednja: 120€"
+                        explanation="Fokus na pokrivanje osnovnih troškova, a štednja za hitne slučajeve."
+                        icon={<Wallet className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Obiteljski Budžet"
+                        scenario="Obitelj s ukupnim prihodima od 2000€."
+                        input="Prihod: 2000€"
+                        output="Potrebe: 1000€ | Želje: 600€ | Štednja: 400€"
+                        explanation="Ključno je držati fiksne troškove unutar 1000€ kako bi se moglo štedjeti."
+                        icon={<Home className="w-6 h-6 text-indigo-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Otplata Dugova"
+                        scenario="Osoba s 1000€ plaće ima 150€ rata kredita."
+                        input="Prihod: 1000€"
+                        output="Štednja (Dugovi): 200€"
+                        explanation="Dio od 20% (200€) koristi se prvenstveno za otplatu duga (150€), ostaje 50€ za štednju."
+                        icon={<PiggyBank className="w-6 h-6 text-green-600" />}
+                    />
+                </div>
+            </section>
             <section className="py-12 bg-gray-50">
                 <div className="container mx-auto px-4 max-w-3xl">
                     <article className="prose prose-indigo max-w-none">

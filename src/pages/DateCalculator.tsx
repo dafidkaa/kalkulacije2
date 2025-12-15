@@ -5,6 +5,9 @@ import { DateTabs } from '../components/date/DateTabs';
 import { DateFeatures } from '../components/date/DateFeatures';
 import { DateDetails } from '../components/date/DateDetails';
 import { DateFAQ } from '../components/date/DateFAQ';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
+import { Calendar, Clock, Briefcase } from 'lucide-react';
 
 type TabType = 'difference' | 'addSubtract' | 'workingDays' | 'age' | 'countdown';
 
@@ -138,6 +141,102 @@ export function DateCalculator() {
           <DateTabs
             activeTab={activeTab}
             onTabChange={setActiveTab}
+          />
+        </div>
+      </section>
+
+      {/* AI Summary */}
+      <AISummary
+        summary="Kalkulator datuma izračunava razliku između dva datuma, broj dana, radne dane, starost i odbrojavanje. Podržava hrvatske praznike. Besplatno, precizno."
+        keywords={['kalkulator datuma', 'razlika datuma', 'radni dani', 'broj dana', 'odbrojavanje']}
+        useCases={[
+          'Izračun radnih dana između dva datuma',
+          'Odbrojavanje do važnog događaja (vjenčanje, rođendan)',
+          'Izračun točne starosti u godinama, mjesecima i danima',
+          'Planiranje projekta - koliko radnih dana do roka'
+        ]}
+        statistics={[
+          { label: 'Radnih dana godišnje u Hrvatskoj', value: '~252', source: 'Prosjek' },
+          { label: 'Državnih praznika', value: '13', source: 'Vlada RH' }
+        ]}
+      />
+
+      {/* Quick Answer */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <QuickAnswer
+            question="Koliko je dana između 1. siječnja i 31. prosinca 2024?"
+            answer="366 dana (prijestupna godina)"
+            highlight="Radnih dana: ~252 (bez vikenda i praznika)"
+            details="Kalkulator automatski uzima u obzir prijestupne godine, vikende i hrvatske državne praznike."
+          />
+
+          <div className="grid md:grid-cols-3 gap-6 my-12">
+            <StatisticCard
+              value="365/366"
+              label="Dana u godini"
+              source="Kalendar"
+              color="blue"
+            />
+            <StatisticCard
+              value="~252"
+              label="Radnih dana godišnje"
+              source="Prosjek HR"
+              color="green"
+            />
+            <StatisticCard
+              value="13"
+              label="Državnih praznika"
+              source="Vlada RH"
+              color="purple"
+            />
+          </div>
+
+          <ComparisonTable
+            title="Primjeri Razlike Datuma"
+            caption="Česti izračuni između datuma"
+            headers={['Period', 'Ukupno Dana', 'Radnih Dana', 'Tjedana']}
+            rows={[
+              ['1 mjesec (30 dana)', '30', '~22', '~4.3'],
+              ['1 kvartal (3 mjeseca)', '~90', '~63', '~13'],
+              ['Pola godine (6 mjeseci)', '~183', '~126', '~26'],
+              ['1 godina', '365', '~252', '~52'],
+              ['Trudnoća (40 tjedana)', '280', '~196', '40']
+            ]}
+            highlightColumn={1}
+          />
+        </div>
+      </section>
+
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+          <UseCaseExample
+            title="Primjer 1: Planiranje Projekta"
+            scenario="Ana mora završiti projekt do 31. prosinca. Danas je 15. studenog. Koliko radnih dana ima?"
+            input="Od: 15. studenog 2024, Do: 31. prosinca 2024"
+            output="Ukupno: 47 dana | Radnih dana: ~33 (bez vikenda i praznika)"
+            explanation="Ana ima 33 radna dana za završetak projekta, što je oko 6.5 radnih tjedana."
+            icon={<Briefcase className="w-6 h-6 text-blue-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 2: Odbrojavanje do Vjenčanja"
+            scenario="Marko se ženi 15. lipnja 2025. Koliko dana još ima do vjenčanja?"
+            input="Od: Danas, Do: 15. lipanj 2025"
+            output="Preostalo: 182 dana (26 tjedana, 6 mjeseci)"
+            explanation="Marko može pratiti odbrojavanje i planirati pripreme prema preostalom vremenu."
+            icon={<Calendar className="w-6 h-6 text-green-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 3: Izračun Točne Starosti"
+            scenario="Ivana je rođena 5. ožujka 1990. Koliko točno ima godina?"
+            input="Datum rođenja: 5. ožujak 1990, Danas: 15. prosinac 2024"
+            output="Starost: 34 godine, 9 mjeseci, 10 dana"
+            explanation="Precizan izračun starosti u godinama, mjesecima i danima, koristan za službene dokumente."
+            icon={<Clock className="w-6 h-6 text-purple-600" />}
           />
         </div>
       </section>

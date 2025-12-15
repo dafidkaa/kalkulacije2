@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { GradientCard } from '../components/GradientCard';
-import { TrendingUp, Wallet } from 'lucide-react';
+
 import { calculateSavings, SavingsResult } from '../utils/savingsCalculator';
 import { ToolSchema, BreadcrumbSchema, HowToSchema, FAQSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
+import { TrendingUp, Wallet, PiggyBank, Target } from 'lucide-react';
 
 export function SavingsCalculator() {
     const [formData, setFormData] = useState({
@@ -209,6 +212,102 @@ export function SavingsCalculator() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator štednje s složenom kamatom. Izračunajte rast vaše ušteđevine kroz vrijeme uz mjesečne uplate i kamatnu stopu. Planirajte financijsku budućnost."
+                keywords={['kalkulator štednje', 'složena kamata', 'oročena štednja', 'financijski plan', 'investiranje']}
+                useCases={[
+                    'Planiranje štednje za mirovinu (dugoročno)',
+                    'Štednja za učešće za stan ili auto (srednjoročno)',
+                    'Izračun prinosa na investiciju (ETF/Dionice)'
+                ]}
+                statistics={[
+                    { label: 'Prosječni povrat S&P 500', value: '~10%', source: 'Povijesni podaci' },
+                    { label: 'Prosječna inflacija', value: '2-3%', source: 'DZS' },
+                    { label: 'Preporučena stopa štednje', value: '20%', source: 'Financijski savjetnici' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Koliko će narasti 100€ mjesečno za 20 godina (7%)?"
+                        answer="Ukupno oko 52.000€ (Uplate: 24.000€, Kamata: 28.000€)"
+                        highlight="Kamata na kamatu udvostručuje ulog!"
+                        details="Snaga složene kamate najbolje se vidi na dugi rok. Većinu dobitka čini kamata u kasnijim godinama."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="72 / Kamata"
+                            label="Pravilo 72 (godine za duplanje)"
+                            source="Financijska teorija"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="1-3%"
+                            label="Kamata u banci (štednja)"
+                            source="HNB"
+                            color="orange"
+                        />
+                        <StatisticCard
+                            value="7-10%"
+                            label="Povrat na dionice (ETF)"
+                            source="Povijesni prosjek"
+                            color="green"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Rast Štednje (Mjesečna uplata 100€)"
+                        caption="Usporedba rasta kroz godine uz različite kamatne stope"
+                        headers={['Godine', 'Uplaćeno', 'Kamata 2%', 'Kamata 5%', 'Kamata 8%']}
+                        rows={[
+                            ['5 godina', '6.000€', '6.300€', '6.800€', '7.300€'],
+                            ['10 godina', '12.000€', '13.200€', '15.500€', '18.300€'],
+                            ['20 godina', '24.000€', '29.500€', '41.100€', '59.300€'],
+                            ['30 godina', '36.000€', '49.000€', '83.200€', '150.000€'],
+                            ['40 godina', '48.000€', '73.000€', '152.000€', '350.000€']
+                        ]}
+                        highlightColumn={4}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Štednja za Mirovinu"
+                        scenario="Ivan (30) odvaja 200€ mjesečno u ETF fond s prosječnim prinosom od 7%. Planira štedjeti 35 godina."
+                        input="Uplata: 200€ | Kamata: 7% | Vrijeme: 35 god"
+                        output="Ukupno: ~340.000€ (Uplaćeno: 84.000€)"
+                        explanation="Ivan će u mirovinu otići sa značajnim iznosom zahvaljujući ranom početku i složenoj kamati."
+                        icon={<TrendingUp className="w-6 h-6 text-green-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Fond za Djecu"
+                        scenario="Ana je dobila dijete i želi mu osigurati novac za studij/stan. Uplaćuje 50€ mjesečno na 18 godina (4%)."
+                        input="Uplata: 50€ | Kamata: 4% | Vrijeme: 18 god"
+                        output="Ukupno: ~15.500€"
+                        explanation="Mali mjesečni iznos kroz dugi period stvara solidnu financijsku osnovu za dijete."
+                        icon={<PiggyBank className="w-6 h-6 text-pink-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Kratkoročni Cilj (Auto)"
+                        scenario="Marko štedi za novi auto. Treba mu 15.000€. Može odvojiti 300€ mjesečno (2% kamata)."
+                        input="Cilj: 15.000€ | Uplata: 300€ | Kamata: 2%"
+                        output="Vrijeme: ~4 godine"
+                        explanation="Za kratkoročne ciljeve kamata ima manji utjecaj, važnija je visina mjesečne uplate."
+                        icon={<Target className="w-6 h-6 text-blue-600" />}
+                    />
                 </div>
             </section>
 

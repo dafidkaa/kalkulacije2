@@ -4,6 +4,8 @@ import { Calculator, Plus, Trash2, GraduationCap, School, BookOpen } from 'lucid
 import { calculateGPA, getGPARating, GradeItem } from '../utils/gpaCalculator';
 import { ToolSchema, BreadcrumbSchema, FAQSchema, HowToSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 export function GPACalculator() {
     const [grades, setGrades] = useState<GradeItem[]>([
@@ -206,6 +208,102 @@ export function GPACalculator() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator prosjeka ocjena za osnovnu školu, srednju školu i fakultet. Jednostavno izračunajte aritmetičku sredinu i zaključnu ocjenu."
+                keywords={['kalkulator prosjeka', 'izračun ocjena', 'prosjek 5.0', 'kalkulator fakultet', 'kako izračunati prosjek']}
+                useCases={[
+                    'Izračun općeg uspjeha na kraju školske godine',
+                    'Provjera potrebnih ocjena za željeni prosjek',
+                    'Računanje težinskog prosjeka (uskoro)'
+                ]}
+                statistics={[
+                    { label: 'Odličan (5)', value: '> 4.50', source: 'Pravilnik' },
+                    { label: 'Vrlo dobar (4)', value: '3.50 - 4.49', source: 'Pravilnik' },
+                    { label: 'Dobar (3)', value: '2.50 - 3.49', source: 'Pravilnik' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Kako se računa prosjek ocjena?"
+                        answer="Zbrojite sve ocjene i podijelite ih s brojem predmeta. Npr. ako imate ocjene 5, 4, 5, zbroj je 14, a prosjek 14 / 3 = 4.66."
+                        highlight="Formula: Zbroj ocjena / Broj predmeta"
+                        details="Za opći uspjeh u školi gledaju se zaključne ocjene svih predmeta (uključujući vladanje u nekim sustavima)."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="4.50"
+                            label="Prag za Odličan"
+                            source="Pravilnik"
+                            color="green"
+                        />
+                        <StatisticCard
+                            value="3.50"
+                            label="Prag za Vrlo dobar"
+                            source="Pravilnik"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="5.00"
+                            label="Savršen prosjek"
+                            source="Cilj"
+                            color="purple"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Tablica Uspjeha"
+                        caption="Rasponi prosjeka i pripadajuće opisne ocjene"
+                        headers={['Raspon Prosjeka', 'Opisani Uspjeh', 'Ocjena']}
+                        rows={[
+                            ['4.50 - 5.00', 'Odličan', '5'],
+                            ['3.50 - 4.49', 'Vrlo dobar', '4'],
+                            ['2.50 - 3.49', 'Dobar', '3'],
+                            ['1.50 - 2.49', 'Dovoljan', '2'],
+                            ['1.00 - 1.49', 'Nedovoljan', '1']
+                        ]}
+                        highlightColumn={0}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Super Odlikaš"
+                        scenario="Učenik ima sve petice osim jedne četvorke iz matematike (15 predmeta)."
+                        input="14 petica, 1 četvorka"
+                        output="Prosjek: 4.93"
+                        explanation="Ukupan zbroj je 74. Dijeljenjem s 15 dobivamo 4.93."
+                        icon={<GraduationCap className="w-6 h-6 text-purple-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Borba za Prolaz"
+                        scenario="Učenik ima tri jedinice koje mora ispraviti."
+                        input="3 jedinice"
+                        output="Nedovoljan (1)"
+                        explanation="Čim postoji jedna zaključena jedinica, opći uspjeh je nedovoljan, bez obzira na prosjek ostalih ocjena."
+                        icon={<Trash2 className="w-6 h-6 text-red-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: 'Navučena' Četvorka"
+                        scenario="Prosjek je točno 3.50."
+                        input="Prosjek: 3.50"
+                        output="Vrlo dobar (4)"
+                        explanation="U većini škola, 3.50 je donji prag za vrlo dobar uspjeh."
+                        icon={<BookOpen className="w-6 h-6 text-blue-600" />}
+                    />
                 </div>
             </section>
 

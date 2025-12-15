@@ -6,6 +6,9 @@ import { UnitFeatures } from '../components/unit/UnitFeatures';
 import { UnitBenefits } from '../components/unit/UnitBenefits';
 import { UnitFAQ } from '../components/unit/UnitFAQ';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
+import { Ruler, Scale, Thermometer } from 'lucide-react';
 
 export function UnitConverter() {
   return (
@@ -64,6 +67,102 @@ export function UnitConverter() {
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <Converter />
+        </div>
+      </section>
+
+      {/* AI Summary */}
+      <AISummary
+        summary="Univerzalni pretvarač mjernih jedinica. Brza konverzija duljine (inči, stope), mase (lbs, kg), temperature i volumena. Precizni rezultati za školu i posao."
+        keywords={['pretvarač jedinica', 'konverter mjera', 'inči u cm', 'funte u kg', 'tečajna lista']}
+        useCases={[
+          'Pretvaranje inča u centimetre za kupnju TV-a',
+          'Kuhinjske mjere (šalice u mililitre)',
+          'Pretvorba američkih jedinica (milje, galoni) u europske'
+        ]}
+        statistics={[
+          { label: '1 Inč (inch)', value: '2.54 cm', source: 'Međunarodni standard' },
+          { label: '1 Milja (mile)', value: '1.609 km', source: 'Međunarodni standard' },
+          { label: '1 Funta (lb)', value: '0.453 kg', source: 'Međunarodni standard' }
+        ]}
+      />
+
+      {/* Quick Answer */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <QuickAnswer
+            question="Koliko je 1 inč centimetara?"
+            answer="Točno 2.54 centimetra."
+            highlight="1 inch = 2.54 cm"
+            details="Inč je carska mjerna jedinica koja se danas najčešće koristi za dijagonale ekrana (TV, mobiteli)."
+          />
+
+          <div className="grid md:grid-cols-3 gap-6 my-12">
+            <StatisticCard
+              value="1000 m"
+              label="1 Kilometar"
+              source="Metrički sustav"
+              color="blue"
+            />
+            <StatisticCard
+              value="0.62 mi"
+              label="1 Kilometar"
+              source="Imperijalni sustav"
+              color="green"
+            />
+            <StatisticCard
+              value="3 ft 3 in"
+              label="1 Metar"
+              source="Kombinirano"
+              color="purple"
+            />
+          </div>
+
+          <ComparisonTable
+            title="Najčešće Pretvorbe"
+            caption="Tablica konverzije popularnih mjernih jedinica"
+            headers={['Veličina', 'Imperijalno (SAD/UK)', 'Metričko (EU)', 'Omjer']}
+            rows={[
+              ['Duljina', '1 inch', '2.54 cm', 'x 2.54'],
+              ['Duljina', '1 foot (stopa)', '30.48 cm', 'x 30.48'],
+              ['Udaljenost', '1 mile (milja)', '1.61 km', 'x 1.61'],
+              ['Masa', '1 pound (lb)', '0.45 kg', '/ 2.204'],
+              ['Volumen', '1 gallon (US)', '3.785 L', 'x 3.785']
+            ]}
+            highlightColumn={2}
+          />
+        </div>
+      </section>
+
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+          <UseCaseExample
+            title="Primjer 1: Dijagonala Ekrana"
+            scenario="Kupujete TV od 55 inča. Koliko je to u centimetrima?"
+            input="55 inch"
+            output="139.7 cm"
+            explanation="Zaslon širine 55 inča ima dijagonalu od gotovo 140 cm."
+            icon={<Ruler className="w-6 h-6 text-blue-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 2: Tjelesna Težina"
+            scenario="Aplikacija traži težinu u lbs (funtama). Imate 80 kg."
+            input="80 kg"
+            output="176.4 lbs"
+            explanation="Kilograme množimo s 2.204 da dobijemo funte."
+            icon={<Scale className="w-6 h-6 text-green-600" />}
+          />
+
+          <UseCaseExample
+            title="Primjer 3: Putovanje u SAD"
+            scenario="Ograničenje brzine je 65 mph. Koliko je to km/h?"
+            input="65 mph"
+            output="105 km/h"
+            explanation="Milje množimo s 1.61 da dobijemo kilometre. 65 mph je standardna brzina na autocestama."
+            icon={<Thermometer className="w-6 h-6 text-red-600" />}
+          />
         </div>
       </section>
 

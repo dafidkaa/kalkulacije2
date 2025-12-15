@@ -1,43 +1,71 @@
 <!DOCTYPE html>
 <html lang="hr">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./calculator.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="pushsdk" content="8af5fa699834debc6651779fa7ce1f08">
-    <title>Kalkulacije.com | Besplatni Online Kalkulatori</title>
-    <meta name="description" content="Besplatni online kalkulatori za svakodnevne potrebe. Izračunajte plaće, pretvarajte jedinice, računajte vrijeme, površinu i više." />
-    <meta name="keywords" content="kalkulator, pretvarač jedinica, kalkulator plaće, bmi kalkulator, kalkulator datuma, kalkulator površine" />
 
-    <!-- Preconnect for faster font loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./calculator.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="pushsdk" content="8af5fa699834debc6651779fa7ce1f08">
+  <title>Kalkulacije.com | Besplatni Online Kalkulatori</title>
+  <meta name="description"
+    content="Besplatni online kalkulatori za svakodnevne potrebe. Izračunajte plaće, pretvarajte jedinice, računajte vrijeme, površinu i više." />
+  <meta name="keywords"
+    content="kalkulator, pretvarač jedinica, kalkulator plaće, bmi kalkulator, kalkulator datuma, kalkulator površine" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Kalkulacije.com | Besplatni Online Kalkulatori" />
-    <meta property="og:description" content="Besplatni online kalkulatori za svakodnevne potrebe. Izračunajte plaće, pretvarajte jedinice, računajte vrijeme, površinu i više." />
-    <meta property="og:image" content="https://kalkulacije.com/og-image.svg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://kalkulacije.com/" />
+  <!-- Preconnect for faster font loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Kalkulacije.com | Besplatni Online Kalkulatori" />
-    <meta name="twitter:description" content="Besplatni online kalkulatori za svakodnevne potrebe. Izračunajte plaće, pretvarajte jedinice, računajte vrijeme, površinu i više." />
-    <meta name="twitter:image" content="https://kalkulacije.com/og-image.svg" />
+  <!-- Preload critical font -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    as="style">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    media="print" onload="this.media='all'">
 
-    <!-- Google Ads -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3204995906551138"
-     crossorigin="anonymous"></script>
+  <!-- Fallback for no-JS -->
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  </noscript>
 
-    <!-- Analytics scripts are now loaded conditionally based on cookie consent -->
-    <!-- See src/utils/analytics.ts for consent-based loading -->
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
-  </body>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Kalkulacije.com | Besplatni Online Kalkulatori" />
+  <meta property="og:description"
+    content="Besplatni online kalkulatori za svakodnevne potrebe. Izračunajte plaće, pretvarajte jedinice, računajte vrijeme, površinu i više." />
+  <meta property="og:image" content="https://kalkulacije.com/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://kalkulacije.com/" />
+
+  <!-- Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Kalkulacije.com | Besplatni Online Kalkulatori" />
+  <meta property="og:description"
+    content="Besplatni online kalkulatori za svakodnevne potrebe. Izračunajte plaće, pretvarajte jedinice, računajte vrijeme, površinu i više." />
+  <meta property="og:image" content="https://kalkulacije.com/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://kalkulacije.com/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kalkulacije.com | Besplatni Online Kalkulatori" />
+  <meta name="twitter:description"
+    content="Besplatni online kalkulatori za svakodnevne potrebe. Izračunajte plaće, pretvarajte jedinice, računajte vrijeme, površinu i više." />
+  <meta name="twitter:image" content="https://kalkulacije.com/og-image.svg" />
+
+  <!-- Google Ads -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3204995906551138"
+    crossorigin="anonymous"></script>
+
+  <!-- Analytics scripts are now loaded conditionally based on cookie consent -->
+  <!-- See src/utils/analytics.ts for consent-based loading -->
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="./src/main.tsx"></script>
+</body>
+
 </html>

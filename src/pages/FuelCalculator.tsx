@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Calculator, Fuel, Banknote, Users, Info } from 'lucide-react';
+import { Calculator, Fuel, Banknote, Users, Info, MapPin, TrendingUp } from 'lucide-react';
 import { calculateFuelCost } from '../utils/fuelCalculator';
 import { ToolSchema, BreadcrumbSchema, FAQSchema, HowToSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 export function FuelCalculator() {
     const [distance, setDistance] = useState<string>('');
@@ -198,6 +200,103 @@ export function FuelCalculator() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator goriva izračunava trošak puta na temelju udaljenosti, potrošnje i cijene goriva. Podijeli troškove po putniku. Besplatno, precizno."
+                keywords={['kalkulator goriva', 'potrošnja goriva', 'cijena puta', 'trošak goriva', 'dijeljenje troškova']}
+                useCases={[
+                    'Planiranje puta - koliko će koštati putovanje',
+                    'Usporedba vozila - koje auto je ekonomičniji',
+                    'Dijeljenje troškova s putnicima (carpooling)',
+                    'Mjesečni troškovi vožnje na posao'
+                ]}
+                statistics={[
+                    { label: 'Prosječna potrošnja benzinac', value: '6-8 L/100km', source: 'Procjena' },
+                    { label: 'Prosječna potrošnja dizelac', value: '5-7 L/100km', source: 'Procjena' },
+                    { label: 'Cijena goriva u Hrvatskoj', value: '~1.50 EUR/L', source: 'Prosjek 2024' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Koliko košta put od 300 km s potrošnjom 6 L/100km?"
+                        answer="Približno 27 EUR (cijena goriva 1.50 EUR/L)"
+                        highlight="Formula: (300 km × 6 L/100km) × 1.50 EUR/L = 27 EUR"
+                        details="Točan trošak ovisi o vašoj potrošnji i trenutnoj cijeni goriva. S 4 putnika, trošak po osobi je 6.75 EUR."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="6-8 L"
+                            label="Prosječna potrošnja benzinac"
+                            source="/100km"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="1.50 EUR"
+                            label="Prosječna cijena goriva"
+                            source="Hrvatska, 2024"
+                            color="green"
+                        />
+                        <StatisticCard
+                            value="15.000 km"
+                            label="Prosječno godišnje"
+                            source="Prijeđeni put"
+                            color="purple"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Trošak Puta po Udaljenosti"
+                        caption="Potrošnja 7 L/100km, cijena goriva 1.50 EUR/L"
+                        headers={['Udaljenost', 'Potrebno Goriva', 'Trošak', 'Po Osobi (4 putnika)']}
+                        rows={[
+                            ['50 km', '3.5 L', '5.25 EUR', '1.31 EUR'],
+                            ['100 km', '7 L', '10.50 EUR', '2.63 EUR'],
+                            ['200 km', '14 L', '21 EUR', '5.25 EUR'],
+                            ['300 km', '21 L', '31.50 EUR', '7.88 EUR'],
+                            ['500 km', '35 L', '52.50 EUR', '13.13 EUR']
+                        ]}
+                        highlightColumn={2}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Planiranje Putovanja"
+                        scenario="Ana planira put od Zagreba do Splita (400 km). Auto troši 6.5 L/100km, gorivo košta 1.48 EUR/L."
+                        input="Udaljenost: 400 km, Potrošnja: 6.5 L/100km, Cijena: 1.48 EUR/L"
+                        output="Trošak: 38.48 EUR | Potrebno goriva: 26 L"
+                        explanation="Ana treba napuniti rezervoar prije puta. Ako putuje s 3 prijatelja, trošak po osobi je 9.62 EUR."
+                        icon={<MapPin className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Usporedba Dva Automobila"
+                        scenario="Marko bira između dva auta: benzinac (7.5 L/100km) i dizelac (5.5 L/100km). Voži 20.000 km godišnje."
+                        input="Benzinac: 7.5 L/100km × 1.50 EUR | Dizelac: 5.5 L/100km × 1.45 EUR"
+                        output="Benzinac: 2.250 EUR/god | Dizelac: 1.595 EUR/god | Ušteda: 655 EUR"
+                        explanation="Dizelac je ekonomičniji za 655 EUR godišnje, što se isplati ako Marko puno voži."
+                        icon={<TrendingUp className="w-6 h-6 text-green-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Carpooling (Dijeljenje Troškova)"
+                        scenario="Ivana svaki dan voži na posao (50 km tamo-natrag). Želi podijeliti troškove s 2 kolege."
+                        input="Dnevno: 50 km, Mjesečno: ~1.000 km, Potrošnja: 6 L/100km, 3 osobe"
+                        output="Trošak mjesečno: 90 EUR | Po osobi: 30 EUR"
+                        explanation="Dijeljenje troškova smanjuje individualni trošak za 67%. Ivana uštedi 60 EUR mjesečno."
+                        icon={<Users className="w-6 h-6 text-purple-600" />}
+                    />
                 </div>
             </section>
 

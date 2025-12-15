@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { GradientCard } from '../components/GradientCard';
-import { Calculator } from 'lucide-react';
+import { Calculator, TrendingDown, Home } from 'lucide-react';
 import { calculateCredit, CreditCalculationResult } from '../utils/creditCalculator';
 import { ToolSchema, BreadcrumbSchema, HowToSchema, FAQSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 export function CreditCalculator() {
     const [formData, setFormData] = useState({
@@ -197,6 +199,103 @@ export function CreditCalculator() {
                             )}
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kreditni kalkulator izračunava mjesečnu ratu, ukupnu kamatu i trošak kredita. Koristi anuitetnu formulu. Unesite iznos kredita, kamatnu stopu i rok otplate. Besplatno, bez registracije."
+                keywords={['kreditni kalkulator', 'rata kredita', 'kamatna stopa', 'anuitet', 'stambeni kredit']}
+                useCases={[
+                    'Planiranje kupnje nekretnine - kolika je rata stambenog kredita',
+                    'Usporedba ponuda banaka - koja banka ima najbolje uvjete',
+                    'Provjera priuštivosti - mogu li si priuštiti kredit',
+                    'Planiranje refinanciranja - isplati li se promijeniti kredit'
+                ]}
+                statistics={[
+                    { label: 'Prosječna kamatna stopa stambeni kredit', value: '3.5-5%', source: 'HNB, 2024' },
+                    { label: 'Prosječna kamatna stopa gotovinski', value: '6-10%', source: 'HNB, 2024' },
+                    { label: 'Maksimalan rok stambeni kredit', value: '30 godina', source: 'Banke' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Kolika je rata za kredit od 100.000 EUR na 20 godina s kamatom 4%?"
+                        answer="Približno 606 EUR mjesečno"
+                        highlight="Ukupno ćete platiti: 145.440 EUR (kamata: 45.440 EUR)"
+                        details="Točan iznos ovisi o vrsti kredita, banci i dodatnim naknadama. Koristite kalkulator iznad za precizan izračun."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="3.5-5%"
+                            label="Kamatna stopa stambeni kredit"
+                            source="HNB, 2024"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="30 god."
+                            label="Maksimalan rok otplate"
+                            source="Banke"
+                            color="green"
+                        />
+                        <StatisticCard
+                            value="20-30%"
+                            label="Potreban vlastiti udio"
+                            source="Banke"
+                            color="orange"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Usporedba Rata po Rokovima Otplate"
+                        caption="Kredit 100.000 EUR, kamatna stopa 4%"
+                        headers={['Rok Otplate', 'Mjesečna Rata', 'Ukupna Kamata', 'Ukupno Plaćeno']}
+                        rows={[
+                            ['10 godina', '1.012 EUR', '21.440 EUR', '121.440 EUR'],
+                            ['15 godina', '740 EUR', '33.200 EUR', '133.200 EUR'],
+                            ['20 godina', '606 EUR', '45.440 EUR', '145.440 EUR'],
+                            ['25 godina', '528 EUR', '58.400 EUR', '158.400 EUR'],
+                            ['30 godina', '477 EUR', '71.680 EUR', '171.680 EUR']
+                        ]}
+                        highlightColumn={1}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Stambeni Kredit"
+                        scenario="Ana planira kupiti stan od 150.000 EUR. Ima ušteđevinu od 30.000 EUR i treba kredit od 120.000 EUR."
+                        input="Kredit: 120.000 EUR, Kamata: 4%, Rok: 25 godina"
+                        output="Mjesečna rata: 634 EUR | Ukupno: 190.200 EUR"
+                        explanation="Ana će platiti 634 EUR mjesečno kroz 25 godina. Ukupna kamata će biti 70.200 EUR."
+                        icon={<Home className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Usporedba Ponuda"
+                        scenario="Marko uspoređuje dvije banke: Banka A nudi 3.8% na 20 godina, Banka B nudi 4.2% na 20 godina."
+                        input="Kredit: 80.000 EUR | Banka A: 3.8% | Banka B: 4.2%"
+                        output="Banka A: 481 EUR/mj | Banka B: 492 EUR/mj | Razlika: 11 EUR/mj"
+                        explanation="Banka A je povoljnija za 11 EUR mjesečno, što je 2.640 EUR kroz 20 godina."
+                        icon={<Calculator className="w-6 h-6 text-green-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Kraći vs Duži Rok"
+                        scenario="Ivana može birati između 15 i 25 godina roka otplate za kredit od 100.000 EUR (4% kamata)."
+                        input="15 godina: 740 EUR/mj | 25 godina: 528 EUR/mj"
+                        output="Razlika u rati: 212 EUR/mj | Razlika u kamati: 25.200 EUR"
+                        explanation="Kraći rok znači veću ratu ali 25.200 EUR manje kamate. Ivana mora odlučiti što joj više odgovara."
+                        icon={<TrendingDown className="w-6 h-6 text-purple-600" />}
+                    />
                 </div>
             </section>
 

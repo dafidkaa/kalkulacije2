@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Zap, Gauge, Car, Info } from 'lucide-react';
 import { ToolSchema, BreadcrumbSchema, FAQSchema } from '../components/SchemaMarkup';
+import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 // Conversion constant: 1 kW = 1.35962 KS
 const KW_TO_KS = 1.35962;
@@ -159,6 +162,102 @@ export function VehiclePowerCalculator() {
                         )}
 
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator za pretvaranje snage motora iz kilovata (kW) u konjske snage (KS). Usporedite snagu svog automobila s popularnim modelima."
+                keywords={['kalkulator kw u ks', 'pretvarač snage', 'konjske snage kalkulator', 'kw to hp', 'snaga motora']}
+                useCases={[
+                    'Pretvaranje podataka iz prometne dozvole (kW) u KS',
+                    'Usporedba snage kod kupnje automobila',
+                    'Provjera tehničkih karakteristika vozila'
+                ]}
+                statistics={[
+                    { label: 'Faktor konverzije', value: '1.36', source: 'Standard' },
+                    { label: 'Snaga gradskog auta', value: '50-70 kW', source: 'Prosjek' },
+                    { label: 'Snaga sportskog auta', value: '>200 kW', source: 'Prosjek' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Kako pretvoriti kW u KS?"
+                        answer="Jednostavno pomnožite kilovate s 1.35962 (približno 1.36). Npr. 100 kW je 136 KS."
+                        highlight="Formula: kW * 1.36 = KS"
+                        details="Za pretvorbu iz KS u kW, dijelite s 1.36. Konjska snaga (KS) nije SI jedinica, ali se često koristi."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="1.36"
+                            label="KS u 1 kW"
+                            source="Fizika"
+                            color="blue"
+                        />
+                        <StatisticCard
+                            value="0.74"
+                            label="kW u 1 KS"
+                            source="Fizika"
+                            color="orange"
+                        />
+                        <StatisticCard
+                            value="HP vs KS"
+                            label="Mala razlika (0.98)"
+                            source="Standardi"
+                            color="purple"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Tablica Snage (kW u KS)"
+                        caption="Popularne vrijednosti snage motora"
+                        headers={['kW (Kilovati)', 'KS (Konjske snage)', 'Primjer vozila']}
+                        rows={[
+                            ['44 kW', '60 KS', 'Osnovni gradski auto'],
+                            ['66 kW', '90 KS', 'Standardni kompakt (Clio, Polo)'],
+                            ['81 kW', '110 KS', 'Srednja klasa (Golf, Octavia)'],
+                            ['110 kW', '150 KS', 'Snažniji dizel/benzinac'],
+                            ['200 kW', '272 KS', 'Sportski model (GTI, RS)']
+                        ]}
+                        highlightColumn={1}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Kupnja Auta"
+                        scenario="Oglas kaže da auto ima 85 kW. Vas zanima koliko je to 'konja'."
+                        input="Snaga: 85 kW"
+                        output="Rezultat: 115 KS"
+                        explanation="Solidna snaga za pretjecanja i ugodnu vožnju."
+                        icon={<Car className="w-6 h-6 text-blue-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Prometna Dozvola"
+                        scenario="U prometnoj piše 110 kW. Prijatelj pita koliko auto ima konja."
+                        input="Snaga: 110 kW"
+                        output="Rezultat: 150 KS"
+                        explanation="Standardna snaga za moderne 2.0 dizel motore (npr. Audi, BMW, VW)."
+                        icon={<Gauge className="w-6 h-6 text-red-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: Električni Auto"
+                        scenario="Tesla Model 3 ima 208 kW."
+                        input="Snaga: 208 kW"
+                        output="Rezultat: 283 KS"
+                        explanation="Električni motori često imaju veliku snagu i moment."
+                        icon={<Zap className="w-6 h-6 text-yellow-600" />}
+                    />
                 </div>
             </section>
 

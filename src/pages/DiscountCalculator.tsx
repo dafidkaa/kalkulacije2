@@ -4,6 +4,8 @@ import { Calculator, Tag, Percent, Wallet, Info, ArrowDown } from 'lucide-react'
 import { calculateDiscount } from '../utils/discountCalculator';
 import { ToolSchema, BreadcrumbSchema, FAQSchema as FeaturedFAQ, HowToSchema } from '../components/SchemaMarkup';
 import { RelatedCalculators } from '../components/RelatedCalculators';
+import { QuickAnswer, ComparisonTable, StatisticCard } from '../components/FeaturedSnippets';
+import { AISummary, UseCaseExample } from '../components/GEOComponents';
 
 export function DiscountCalculator() {
     const [price, setPrice] = useState<string>('');
@@ -184,6 +186,102 @@ export function DiscountCalculator() {
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* AI Summary */}
+            <AISummary
+                summary="Kalkulator popusta i sniženja. Izračunajte konačnu cijenu nakon jednog ili više popusta (npr. 50% + 20%). Idealno za Black Friday i sezonska sniženja."
+                keywords={['kalkulator popusta', 'izračun sniženja', 'kako izračunati popust', 'postotak formule', 'shopping kalkulator']}
+                useCases={[
+                    'Provjera cijene majice na sniženju od 30%',
+                    'Izračun dvostrukog popusta (npr. 20% na već sniženo)',
+                    'Planiranje budžeta za vrijeme rasprodaja'
+                ]}
+                statistics={[
+                    { label: 'Prosječan popust (Black Friday)', value: '30-50%', source: 'Statistika' },
+                    { label: 'Dodatni kodovi', value: '10-20%', source: 'Kuponi' },
+                    { label: 'PDV u RH', value: '25%', source: 'Porezna uprava' }
+                ]}
+            />
+
+            {/* Quick Answer */}
+            <section className="py-12 bg-white">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <QuickAnswer
+                        question="Kako izračunati 20% popusta?"
+                        answer="Pomnožite cijenu s 0.80 (80% cijene ostaje) ili pomnožite s 0.20 i oduzmite dobiveni iznos od originalne cijene."
+                        highlight="Formula: Cijena x (1 - Popust/100)"
+                        details="Ako imate dodatni popust, primijenite ga na već sniženu cijenu (ne zbrajajte postotke)."
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 my-12">
+                        <StatisticCard
+                            value="-50%"
+                            label="Pola cijene"
+                            source="Sniženje"
+                            color="green"
+                        />
+                        <StatisticCard
+                            value="-75%"
+                            label="Zadnji komadi"
+                            source="Outlet"
+                            color="purple"
+                        />
+                        <StatisticCard
+                            value="3 za 2"
+                            label="Gratis akcija"
+                            source="Promocija"
+                            color="blue"
+                        />
+                    </div>
+
+                    <ComparisonTable
+                        title="Tablica Popusta"
+                        caption="Brzi pregled ušteda za cijenu od 100€"
+                        headers={['Popust', 'Ušteda', 'Nova Cijena']}
+                        rows={[
+                            ['10%', '10 €', '90 €'],
+                            ['20%', '20 €', '80 €'],
+                            ['30%', '30 €', '70 €'],
+                            ['50%', '50 €', '50 €'],
+                            ['70%', '70 €', '30 €']
+                        ]}
+                        highlightColumn={2}
+                    />
+                </div>
+            </section>
+
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Primjeri Korištenja</h2>
+
+                    <UseCaseExample
+                        title="Primjer 1: Cipele na Sniženju"
+                        scenario="Cipele koštaju 80€, a popust je 30%."
+                        input="80€ - 30%"
+                        output="56€ (Ušteda: 24€)"
+                        explanation="30% od 80€ je 24€. 80€ - 24€ = 56€."
+                        icon={<Tag className="w-6 h-6 text-red-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 2: Dvostruki Popust"
+                        scenario="Jakna (100€) je snižena 50%, ali imate kupon za još 20%."
+                        input="100€ - 50% - 20%"
+                        output="40€ (Ukupan popust: 60%)"
+                        explanation="Prvo snizimo na 50€ (-50%). Zatim od 50€ oduzmemo 20% (10€). Konačna cijena 40€."
+                        icon={<Percent className="w-6 h-6 text-purple-600" />}
+                    />
+
+                    <UseCaseExample
+                        title="Primjer 3: PDV Popust"
+                        scenario="Akcija 'bez PDV-a' (zapravo popust 20% ili točnije 20%)."
+                        input="Cijena s PDV: 125€"
+                        output="Cijena bez PDV: 100€"
+                        explanation="PDV je 25% na osnovicu. Da bi se izbila 25% dodana vrijednost, popust je 20% na krajnju cijenu."
+                        icon={<Wallet className="w-6 h-6 text-green-600" />}
+                    />
                 </div>
             </section>
 
